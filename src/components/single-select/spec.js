@@ -27,6 +27,16 @@ export default () => {
 
     const inputDebounceWait = 200;
     const trivialItems = ['a', 'b', 'c'];
+    const nestedItems = [
+      {
+        text: 'Parent',
+        children: [
+          'Child',
+          { value: 'Object Child', otherProp: 'bob' },
+        ],
+      },
+    ];
+
     const trivialAsyncWait = 1000;
 
     function trivialAsyncItems(term, callback) {
@@ -93,15 +103,16 @@ export default () => {
 
     it('should have the correct default options defined', () => {
       testClosedSingleSelect(trivialItems, undefined, (ss) => {
+        const { valueLookup, renderer } = ss._.options;
         ss._.options.should.eql({
+          renderer,
+          valueLookup,
           filter: undefined,
           filterOptions: undefined,
           matchType: undefined,
           useCache: undefined,
           trimTrailingSpaces: undefined,
-          valueLookup: undefined,
           disabled: false,
-          renderer: undefined,
           value: undefined,
           showSearch: false,
           required: false,
@@ -122,8 +133,21 @@ export default () => {
     });
 
     it('should use the default renderer function if a valueLookup is defined', () => {
-      function valueLookup(val) {
-        return `dave:${val}`;
+      testClosedSingleSelect(trivialItems, undefined, (ss) => {
+        should.exist(ss._.renderer);
+        // XXX Breaking: Renderer
+        // ss._.renderer('bob').text().should.equal('dave:bob')
+        const testValueLookupDiv = div();
+        ss._.renderer(testValueLookupDiv.node(), 'bob');
+        testValueLookupDiv.text().should.equal('bob');
+        ss._.renderer(testValueLookupDiv.node(), { value: 'Steve' });
+        testValueLookupDiv.text().should.equal('Steve');
+      });
+    });
+
+    it('should use the default renderer function if a valueLookup is defined', () => {
+      function valueLookup(item) {
+        return `dave:${item}`;
       }
       testClosedSingleSelect(trivialItems, {
         valueLookup,
@@ -504,7 +528,50 @@ export default () => {
       });
 
       it('value: should set the value when it is nested inside a group', () => {
-        true.should.equal(false);
+        testClosedSingleSelect(nestedItems, undefined, (ss) => {
+          should.not.exist(ss.value());
+          ss.value('Parent');
+          should.not.exist(ss.value());
+          ss.value('Child');
+          ss.value().should.equal('Child');
+          ss.value('Object Child');
+          ss.value().should.eql({ value: 'Object Child', otherProp: 'bob' });
+          logger.warn.should.not.have.been.called();
+        });
+      });
+
+      it('value: should be circular by default', () => {
+        testClosedSingleSelect(nestedItems, undefined, (ss) => {
+          should.not.exist(ss.value());
+          ss.value('Object Child');
+          const valueObj = ss.value();
+          valueObj.should.eql({ value: 'Object Child', otherProp: 'bob' });
+          ss.value(undefined);
+          should.not.exist(ss.value());
+          ss.value(valueObj);
+          ss.value().should.eql(valueObj);
+          logger.warn.should.not.have.been.called();
+        });
+      });
+
+      it('accepts custom items', () => {
+        function valueLookup(item) {
+          return item.steve;
+        }
+        const customItems = [
+          { steve: '123' },
+          { steve: '234' },
+        ];
+
+        testClosedSingleSelect(customItems, { valueLookup }, (ss) => {
+          const input = ss._.valueInput;
+          should.not.exist(ss.value());
+          input.value().should.eql('');
+          ss.value({ steve: '123' });
+          ss.value().should.eql({ steve: '123' });
+          input.value().should.eql('123');
+          logger.warn.should.not.have.been.called();
+        });
       });
 
       it('items: should set and get the items', () => {

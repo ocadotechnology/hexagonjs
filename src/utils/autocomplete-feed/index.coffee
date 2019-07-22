@@ -9,8 +9,7 @@ import {
 } from 'utils/utils'
 import { Map as HMap } from 'utils/map'
 
-sortItems = (valueLookup) ->
-  valueLookup ?= identity
+sortItems = (valueLookup = identity) ->
   (a, b) -> compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->

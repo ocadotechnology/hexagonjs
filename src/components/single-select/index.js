@@ -40,15 +40,18 @@ function validateItems(feed, items) {
   return true;
 }
 
-function setValue(ss, results, cause) {
+function setValue(ss, value, cause) {
   const { _ } = ss;
   _.valueInput.value('');
   _.current = undefined;
-  if (results.length) {
-    const [value] = results;
-    _.current = value;
-    _.valueInput.value(_.valueLookup(value));
+  if (value) {
+    if (value.children) {
+      [_.current] = value.children;
+    } else {
+      _.current = value;
+    }
   }
+  _.valueInput.value(_.current ? _.valueLookup(_.current) : '');
   ss.emit('change', { cause, value: _.current });
 }
 
@@ -62,11 +65,11 @@ class SingleSelect extends EventEmitter {
       matchType: undefined,
       useCache: undefined,
       trimTrailingSpaces: undefined,
-      valueLookup: undefined, // Used by the feed and by the `value` method
+      valueLookup: item => (item ? (item.value || item) : undefined),
 
       // Options used by the ss
       disabled: false,
-      renderer: undefined,
+      renderer: (element, item) => select(element).text(this._.options.valueLookup(item)),
       value: undefined,
       showSearch: false,
       required: false,
@@ -77,9 +80,6 @@ class SingleSelect extends EventEmitter {
       pleaseSelectAValueText: userFacingText('singleSelect', 'pleaseSelectAValueText'),
     };
 
-    if (options.valueLookup) {
-      defaultOptions.renderer = (element, item) => select(element).text(options.valueLookup(item));
-    }
     const resolvedOptions = merge({}, defaultOptions, options);
 
     const selection = select(selector).classed('hx-single-select', true);
@@ -104,16 +104,25 @@ class SingleSelect extends EventEmitter {
       .add(valueInput)
       .add(span('hx-single-select-icon').add(i('hx-icon hx-icon-caret-down')));
 
-    const feedOptions = {
-      filter: resolvedOptions.filter,
-      filterOptions: resolvedOptions.filterOptions,
-      matchType: resolvedOptions.matchType,
-      showOtherResults: resolvedOptions.showOtherResults,
-      trimTrailingSpaces: resolvedOptions.trimTrailingSpaces,
-      valueLookup: resolvedOptions.valueLookup,
-      useCache: resolvedOptions.useCache,
-    };
-    const feed = new AutocompleteFeed(feedOptions);
+    const {
+      filter,
+      filterOptions,
+      matchType,
+      showOtherResults,
+      trimTrailingSpaces,
+      valueLookup,
+      useCache,
+    } = resolvedOptions;
+
+    const feed = new AutocompleteFeed({
+      filter,
+      filterOptions,
+      matchType,
+      showOtherResults,
+      trimTrailingSpaces,
+      valueLookup,
+      useCache,
+    });
 
     const noResultsItem = {
       text: resolvedOptions.noResultsText,
@@ -178,7 +187,7 @@ class SingleSelect extends EventEmitter {
     const debouncedPopulate = debounce(debounceDuration, populateMenu);
 
     const setValueAndHide = (item) => {
-      setValue(this, [item], 'user');
+      setValue(this, item, 'user');
       menu.hide();
     };
 
@@ -268,11 +277,16 @@ class SingleSelect extends EventEmitter {
   value(value, callback) {
     const { _ } = this;
     if (arguments.length) {
-      _.valueInput.value(_.options.loadingText);
-      _.feed.filter(_.valueLookup(value), (results) => {
-        setValue(this, results, 'api');
-        return typeof callback === 'function' ? callback(results[0]) : undefined;
-      });
+      if (value) {
+        _.valueInput.value(_.options.loadingText);
+        _.feed.filter(_.valueLookup(value), (results) => {
+          const [retVal] = results;
+          setValue(this, retVal, 'api');
+          return typeof callback === 'function' ? callback(retVal) : undefined;
+        });
+      } else {
+        setValue(this, undefined, 'api');
+      }
       return this;
     }
     return _.current;
