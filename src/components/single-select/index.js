@@ -13,7 +13,6 @@ import {
 } from 'utils/selection';
 import {
   merge,
-  identity,
   debounce,
   isFunction,
 } from 'utils/utils';
@@ -65,11 +64,18 @@ class SingleSelect extends EventEmitter {
       matchType: undefined,
       useCache: undefined,
       trimTrailingSpaces: undefined,
-      valueLookup: item => (item ? (item.value || item) : undefined),
 
       // Options used by the ss
       disabled: false,
-      renderer: (element, item) => select(element).text(this._.options.valueLookup(item)),
+      valueLookup: item => (item ? (item.value || item) : undefined),
+      renderer: (element, item) => {
+        const sel = select(element);
+        if (item && item.children) {
+          sel.text(item.text);
+        } else {
+          sel.text(this._.options.valueLookup(item));
+        }
+      },
       value: undefined,
       showSearch: false,
       required: false,
@@ -82,28 +88,6 @@ class SingleSelect extends EventEmitter {
 
     const resolvedOptions = merge({}, defaultOptions, options);
 
-    const selection = select(selector).classed('hx-single-select', true);
-
-    const valueInput = input('hx-input hx-single-select-value')
-      .attr('placeholder', resolvedOptions.chooseValueText)
-      .attr('tabindex', -1)
-      .attr('required', resolvedOptions.required ? true : undefined);
-
-    const setValidity = (value) => {
-      const node = valueInput.node();
-      if (value === undefined) {
-        node.setCustomValidity(resolvedOptions.pleaseSelectAValueText);
-      } else {
-        node.setCustomValidity('');
-      }
-    };
-
-    const shouldDebounce = isFunction(items);
-
-    selection
-      .add(valueInput)
-      .add(span('hx-single-select-icon').add(i('hx-icon hx-icon-caret-down')));
-
     const {
       filter,
       filterOptions,
@@ -112,7 +96,35 @@ class SingleSelect extends EventEmitter {
       trimTrailingSpaces,
       valueLookup,
       useCache,
+      chooseValueText,
+      required,
+      pleaseSelectAValueText,
+      noResultsText,
+      showSearch,
+      searchText,
+      loadingText,
+      renderer,
+      value,
+      disabled,
     } = resolvedOptions;
+
+    const selection = select(selector);
+
+    const valueInput = input('hx-input hx-single-select-value')
+      .attr('placeholder', chooseValueText)
+      .attr('tabindex', -1)
+      .attr('required', required ? true : undefined);
+
+    const setValidity = (val) => {
+      const node = valueInput.node();
+      if (val === undefined) {
+        node.setCustomValidity(pleaseSelectAValueText);
+      } else {
+        node.setCustomValidity('');
+      }
+    };
+
+    const shouldDebounce = isFunction(items);
 
     const feed = new AutocompleteFeed({
       filter,
@@ -125,12 +137,12 @@ class SingleSelect extends EventEmitter {
     });
 
     const noResultsItem = {
-      text: resolvedOptions.noResultsText,
+      text: noResultsText,
       unselectable: true,
     };
 
     const loadingItem = {
-      text: resolvedOptions.loadingText,
+      text: loadingText,
       unselectable: true,
     };
 
@@ -139,7 +151,7 @@ class SingleSelect extends EventEmitter {
       options: resolvedOptions,
       valueInput,
       feed,
-      valueLookup: resolvedOptions.valueLookup || identity,
+      valueLookup,
     };
     if (!validateItems(feed, items)) {
       return;
@@ -157,7 +169,7 @@ class SingleSelect extends EventEmitter {
     };
 
     const searchInput = detached('input').class('hx-input hx-single-select-input')
-      .attr('placeholder', resolvedOptions.searchText);
+      .attr('placeholder', searchText);
 
     const menu = new Menu(selection, {
       dropdownOptions: {
@@ -165,80 +177,96 @@ class SingleSelect extends EventEmitter {
       },
       featureFlags: {
         useUpdatedStructure: true,
-        compact: resolvedOptions.showSearch,
       },
-      extraContent: resolvedOptions.showSearch ? div('hx-single-select-input-container').add(searchInput) : undefined,
+      extraContent: showSearch ? div('hx-single-select-input-container').add(searchInput) : undefined,
     });
 
-    const renderMenu = (renderItems) => {
-      menu.items(renderItems);
-      return menu.render();
+    const renderMenuItems = (itemsToRender) => {
+      menu.items(itemsToRender);
+      menu.render();
     };
 
-    const populateMenu = term => (
+    const filterAndRenderMenu = term => (
       feed.filter(term, (results) => {
         if (results.length === 0) {
           results.push(noResultsItem);
         }
-        renderMenu(results);
+        renderMenuItems(results);
       })
     );
 
-    const debouncedPopulate = debounce(debounceDuration, populateMenu);
+    const debouncedPopulate = debounce(debounceDuration, filterAndRenderMenu);
 
     const setValueAndHide = (item) => {
       setValue(this, item, 'user');
       menu.hide();
     };
 
-    searchInput.on('input', (e) => {
-      if (shouldDebounce) {
-        renderMenu([loadingItem]);
-        debouncedPopulate(e.target.value);
-        return;
-      }
-      populateMenu(e.target.value);
-    }).on('keydown', (e) => {
-      if (searchInput.value().length) {
-        if ((e.which || e.keyCode) === enterKeyCode && menu.cursorPos === -1) {
-          const [topItem] = menu.items();
-          if (!topItem.unselectable) {
-            setValueAndHide(topItem);
+    searchInput
+      .on('input', (e) => {
+        if (shouldDebounce) {
+          renderMenuItems([loadingItem]);
+          debouncedPopulate(e.target.value);
+          return;
+        }
+        filterAndRenderMenu(e.target.value);
+      })
+      .on('keydown', (e) => {
+        if (searchInput.value().length) {
+          if ((e.which || e.keyCode) === enterKeyCode && menu.cursorPos === -1) {
+            const [topItem] = menu.items();
+            if (!topItem.unselectable) {
+              setValueAndHide(topItem);
+            }
           }
         }
-      }
-    });
+      });
 
-    this._.renderer = resolvedOptions.renderer || menu.renderer();
+    this._.renderer = renderer || menu.renderer();
     this._.menu = menu;
-    menu.renderer(renderWrapper);
 
-    menu.dropdown.on('showstart', () => {
-      searchInput.value('');
-      renderMenu([loadingItem]);
-      populateMenu(searchInput.value());
-      searchInput.node().focus();
-    });
-    menu.dropdown.on('showend', () => searchInput.node().focus());
-    menu.on('change', (item) => {
-      if ((item != null) && (item.content != null)) {
-        setValueAndHide(item.content);
-      }
-    });
-    menu.pipe(this, '', ['highlight']);
+    menu
+      .renderer(renderWrapper)
+      .on('change', (item) => {
+        if ((item != null) && (item.content != null)) {
+          setValueAndHide(item.content);
+        }
+      })
+      .on('highlight', 'hx.single-select', ({ content, eventType }) => this.emit('highlight', {
+        cause: 'user',
+        value: {
+          item: content,
+          eventType,
+        },
+      }));
+
+    menu.dropdown
+      .on('showstart', () => {
+        searchInput.value('');
+        renderMenuItems([loadingItem]);
+        filterAndRenderMenu(searchInput.value());
+        searchInput.node().focus();
+      })
+      .on('showend', () => searchInput.node().focus());
+
     menu.dropdown.pipe(this, 'dropdown');
-    if (resolvedOptions.value) {
-      this.value(resolvedOptions.value);
+
+    if (value) {
+      this.value(value);
     }
-    if (resolvedOptions.disabled) {
-      this.disabled(resolvedOptions.disabled);
+    if (disabled) {
+      this.disabled(disabled);
     }
-    if (resolvedOptions.required) {
+
+    if (required) {
       setValidity();
-      this.on('change', 'hx.single-select', ({ value }) => setValidity(value));
+      this.on('change', 'hx.single-select', event => setValidity(event.value));
     }
 
     selection
+      .add(valueInput)
+      .add(span('hx-single-select-icon').add(i('hx-icon hx-icon-caret-down')))
+      .classed('hx-single-select', true)
       .api('single-select', this)
       .api(this);
   }
@@ -292,9 +320,9 @@ class SingleSelect extends EventEmitter {
     return _.current;
   }
 
-  renderer(f) {
-    if (f != null) {
-      this._.renderer = f;
+  renderer(renderer) {
+    if (renderer != null) {
+      this._.renderer = renderer;
       return this;
     }
     return this._.renderer;

@@ -1,0 +1,5 @@
+@property useCache [Boolean]
+  @description
+    Whether the underlying data feed should attempt to cache results based on search term.
+
+    This should be set to false when using a function to return items that can change over time (i.e. are not static).

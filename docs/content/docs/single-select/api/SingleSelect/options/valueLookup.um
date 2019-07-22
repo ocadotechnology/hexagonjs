@@ -1,0 +1,15 @@
+@property valueLookup [Function]
+  @description
+    Set a custom value lookup.
+
+  @arg item [Any]
+    @description
+      The item to retrieve the value from.
+
+  @default
+    @@codeblock js
+      item => (item ? (item.value || item) : undefined);
+
+  @returns [String]
+    @description
+      The string value that is used to filter items and display the selected value in the input field.

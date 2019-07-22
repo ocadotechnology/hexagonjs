@@ -1,0 +1,37 @@
+@prototype hx.SingleSelect
+  @extends EventEmitter
+
+  @added nextReleaseVersion
+
+  @description
+    Creates a @code[<select>] like element that uses an @code[<input>] for consistency
+    and to allow for better form validation.
+
+  @constructor
+    @arg selector [String/HTMLElement]
+      The selector to create the single select inside.
+
+    @arg items [Array/Function]
+      @inline SingleSelect/arguments/items.um
+
+    @arg? options [Object]
+      @inline SingleSelect/options/*um
+
+  @inline SingleSelect/methods/*um
+  @inline SingleSelect/events/*um
+
+@function hx.singleSelect
+  @added nextReleaseVersion
+
+  @description
+    Fluid version of the single select. Returns a selection containing a pre-created single select component.
+
+  @arg items [Array/Function]
+    @inline SingleSelect/arguments/items.um
+
+  @arg? options [Object]
+    @inline SingleSelect/options/*um
+
+  @returns Selection
+    @description
+      A selection containing an element with an SingleSelect initialised on it

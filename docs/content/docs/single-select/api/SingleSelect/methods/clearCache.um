@@ -1,0 +1,3 @@
+@method clearCache
+  @description
+    Clears the cached search results manually

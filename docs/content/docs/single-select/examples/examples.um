@@ -1,0 +1,83 @@
+@version nextReleaseVersion
+  @example
+    @@html
+      <p>Standard</p>
+      <div id="single-select-standard"></div>
+
+    @@js
+      const items = [
+        'Item #1',
+        'Item #2',
+        'Item #3',
+        'Item #4',
+      ];
+
+      new hx.SingleSelect('#single-select-standard', items);
+
+  @example
+    @@html
+      <p>Standard with search</p>
+      <div id="single-select-search"></div>
+
+    @@js
+      new hx.SingleSelect('#single-select-search', items, {
+        showSearch: true,
+      });
+
+  @example
+    @@html
+      <p>Nested Items</p>
+      <div id="single-select-nested-items"></div>
+
+    @@js
+      const nestedItems = [
+        { text: 'Name of group', children: ['Item #1', 'Item #2'] },
+        { text: 'Name of second group', children: ['Item #3', 'Item #4'] },
+        'Item #5 (not in group)',
+        'Item #6',
+      ];
+
+      new hx.SingleSelect('#single-select-nested-items', nestedItems);
+
+  @example
+    @@html
+      <p>Disabled Item</p>
+      <div id="single-select-disabled-item"></div>
+
+    @@js
+      const disabledItem = [
+        { value: 'Item #1' },
+        { value: 'Item #2' },
+        { value: 'Item #3' },
+        { value: 'Item #4' },
+        { value: 'Item #5 (not available)', disabled: true },
+        { value: 'Item #6' },
+      ];
+
+      new hx.SingleSelect('#single-select-disabled-item', disabledItem);
+
+  @example
+    @@html
+      <p>Disabled / Required</p>
+      <form id="single-select-form">
+        <div id="single-select-disabled"></div>
+        <div id="single-select-required"></div>
+        <button id="submit" class="hx-btn hx-flag-button" type="submit">Submit</button>
+      </form>
+
+    @@js
+      new hx.SingleSelect('#single-select-disabled', items, { disabled: true });
+      new hx.SingleSelect('#single-select-required', items, { required: true });
+
+      hx.select('#single-select-form').on('submit', (e) => {
+        e.preventDefault();
+      });
+
+  @example
+    @@html
+      <p>Fluid</p>
+      <div id="single-select-container"></div>
+
+    @@js
+      hx.select('#single-select-container')
+        .add(hx.singleSelect(items));

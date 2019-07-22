@@ -1,0 +1,6 @@
+@property value [Any]
+  @description
+    The value to set.
+
+    By default, this can be a string or an object with @code[value] property and should
+    correspond to one of the @code[items].

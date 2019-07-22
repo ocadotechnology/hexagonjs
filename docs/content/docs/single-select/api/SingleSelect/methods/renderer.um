@@ -1,0 +1,19 @@
+@method renderer
+  @description
+    Get the current renderer of the single select
+
+  @returns [Function]
+    @description
+      The current renderer
+
+@method renderer
+  @description
+    Sets the current renderer of the single select
+
+  @arg renderer [Function]
+    @description
+      The renderer to set
+
+  @returns [SingleSelect]
+    @description
+      This single select

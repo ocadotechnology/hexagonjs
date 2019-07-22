@@ -1,0 +1,7 @@
+@method hide
+  @description
+    Hides the open single select dropdown.
+
+  @returns [SingleSelect]
+    @description
+      This single select

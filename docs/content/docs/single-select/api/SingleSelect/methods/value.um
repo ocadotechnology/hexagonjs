@@ -1,0 +1,19 @@
+@method value
+  @description
+    Get the current value of the single select
+
+  @returns [Any]
+    @description
+      The current value
+
+@method value
+  @description
+    Sets the current value of the single select
+
+  @arg value [Any]
+    @description
+      Whether the single select should be value
+
+  @returns [SingleSelect]
+    @description
+      This single select
