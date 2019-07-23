@@ -162,6 +162,11 @@ export {
   NotificationManager,
 } from 'components/notify';
 export {
+  alert,
+  message,
+  AlertManager,
+} from 'components/alert';
+export {
   graph,
   Graph,
   Axis,
