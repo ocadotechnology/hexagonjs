@@ -22,6 +22,7 @@ import menuExamples from './examples/menu';
 import modalExamples from './examples/modal';
 import noticeExamples from './examples/notice';
 import notifyExamples from './examples/notify';
+import alertExamples from './examples/alert';
 import numberPickerExamples from './examples/number-picker';
 import paginatorExamples from './examples/paginator';
 import paletteExamples from './examples/palette';
@@ -148,6 +149,7 @@ const examples = [
   example('Dropdown Button').add(tryDemo(dropdownButtonExamples)),
   example('Modals').add(tryDemo(modalExamples)),
   example('Notice').add(tryDemo(noticeExamples)),
+  example('Messages and Alerts').add(tryDemo(alertExamples)),
   example('Notify').add(tryDemo(notifyExamples)),
   example('Number Pickers').add(tryDemo(numberPickerExamples)),
   example('Paginator').add(tryDemo(paginatorExamples)),

@@ -43,6 +43,7 @@ import progressBarTests from 'components/progress-bar/spec';
 import crumbtrailTests from 'components/crumbtrail/spec';
 // import autocompletePickerTests from 'components/autocomplete-picker/spec'
 import notifyTests from 'components/notify/spec';
+import alertTests from 'components/alert/spec';
 import plotTests from 'components/plot/spec';
 import labelTests from 'components/label/spec';
 import sliderTests from 'components/slider/spec';
@@ -269,6 +270,9 @@ describe('HexagonJS Test Suite', () => {
         'notifyNegative',
         'notifyPositive',
         'notifyWarning',
+        'alert',
+        'message',
+        'AlertManager',
         'NumberPicker',
         'numberPicker',
         'objectFeed',
@@ -397,6 +401,7 @@ describe('HexagonJS Test Suite', () => {
   dateTimeLocalizerTests();
 
   // Exposed Components
+  alertTests();
   modalTests();
   formTests();
   dropdownTests();
