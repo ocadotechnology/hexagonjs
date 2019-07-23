@@ -5,6 +5,7 @@
 @import "components/spinner";
 @import "components/modal";
 @import "components/notify";
+@import "components/alert";
 @import "components/button";
 @import "components/dropdown";
 @import "components/collapsible";

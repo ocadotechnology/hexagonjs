@@ -1,4 +1,3 @@
-
 import { select, detached, div, i, Selection } from 'utils/selection'
 import { merge, isString, isNumber, isArray, isObject, randomId } from 'utils/utils'
 import logger from 'utils/logger'
@@ -219,39 +218,49 @@ export class NotificationManager
 # Inbuilt notification manager related functions
 inbuiltNotificationManager = new NotificationManager
 
-notifyInfo = (message, options) ->
-  inbuiltNotificationManager.info(message, options)
-
-notifyPositive = (message, options) ->
-  inbuiltNotificationManager.positive(message, options)
-
-notifyWarning = (message, options) ->
-  inbuiltNotificationManager.warning(message, options)
-
-notifyNegative = (message, options) ->
-  inbuiltNotificationManager.negative(message, options)
-
-notifyLoading = (message) ->
-  inbuiltNotificationManager.loading(message)
-
-notifyDefaultTimeout = (timeout) ->
-  inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)
-
-notify = (message, options) ->
-  inbuiltNotificationManager.notify(message, options)
-
-wrapDeprecated = (name, replacement, method) ->
+wrapDeprecated = (name, method) ->
   (...args) ->
-    logger.deprecated(name, "Replaced by hx.#{replacement}")
+    logger.deprecated(name, 'Replaced by hx.alert/hx.message.')
     method(...args)
 
+notifyInfoPlain = (message, options) ->
+  inbuiltNotificationManager.info(message, options)
+
+notifyPositivePlain = (message, options) ->
+  inbuiltNotificationManager.positive(message, options)
+
+notifyWarningPlain = (message, options) ->
+  inbuiltNotificationManager.warning(message, options)
+
+notifyNegativePlain = (message, options) ->
+  inbuiltNotificationManager.negative(message, options)
+
+notifyLoadingPlain = (message) ->
+  inbuiltNotificationManager.loading(message)
+
+notifyPlain = (message, options) ->
+  inbuiltNotificationManager.notify(message, options)
+
+
+notifyDefaultTimeout = (timeout) ->
+  logger.deprecated('notifyDefaultTimeout', 'NotificationManager is replaced by AlertManager which does not require this method')
+  inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)
+
 # XXX Deprecated: Remove in next major
-notify.info = wrapDeprecated('hx.notify.info', 'notifyInfo', notifyInfo)
-notify.positive = wrapDeprecated('hx.notify.positive', 'notifyPositive', notifyPositive)
-notify.warning = wrapDeprecated('hx.notify.warning', 'notifyWarning', notifyWarning)
-notify.negative = wrapDeprecated('hx.notify.negative', 'notifyNegative', notifyNegative)
-notify.loading = wrapDeprecated('hx.notify.loading', 'notifyLoading', notifyLoading)
-notify.defaultTimeout = wrapDeprecated('hx.notify.defaultTimeout', 'notifyDefaultTimeout', notifyDefaultTimeout)
+notify = wrapDeprecated('notify', notifyPlain)
+notifyInfo = wrapDeprecated('notifyInfo', notifyInfoPlain)
+notifyPositive = wrapDeprecated('notifyPositive', notifyPositivePlain)
+notifyWarning = wrapDeprecated('notifyWarning', notifyWarningPlain)
+notifyNegative = wrapDeprecated('notifyNegative', notifyNegativePlain)
+notifyLoading = wrapDeprecated('notifyLoading', notifyLoadingPlain)
+
+notify.info = wrapDeprecated('hx.notify.info', notifyInfoPlain)
+notify.positive = wrapDeprecated('hx.notify.positive', notifyPositivePlain)
+notify.warning = wrapDeprecated('hx.notify.warning', notifyWarningPlain)
+notify.negative = wrapDeprecated('hx.notify.negative', notifyNegativePlain)
+notify.loading = wrapDeprecated('hx.notify.loading', notifyLoadingPlain)
+
+notify.defaultTimeout = notifyDefaultTimeout
 
 export {
   notify,

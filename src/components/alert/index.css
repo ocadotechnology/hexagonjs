@@ -1,0 +1,34 @@
+.hx-alert {
+  margin: 0;
+  transition: margin 0.1s ease-in;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  pointer-events: auto;
+  display: flex;
+  /* Stops long messages wrapping onto second line */
+  flex-wrap: nowrap;
+}
+
+.hx-alert-container {
+  position: fixed;
+  max-width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 106;
+}
+
+.hx-alert-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.hx-alert-close {
+  flex: 0;
+  cursor: pointer;
+}
+
+.hx-alert-container:empty {
+  display: none;
+}

@@ -146,6 +146,32 @@
   --base-text-select-color: #B4B1B5;
 
 
+  /* Alert */
+  --alert-success-background-color: var(--theme-positive-body-color);
+  --alert-success-text-color: var(--theme-text-color);
+  --alert-warning-background-color: var(--theme-warning-body-color);
+  --alert-warning-text-color: var(--theme-text-color);
+  --alert-danger-background-color: var(--theme-negative-body-color);
+  --alert-danger-text-color: var(--theme-text-color);
+  --alert-default-background-color: var(--theme-container-background-color);
+  --alert-default-text-color: var(--theme-text-color);
+
+  --alert-close-icon-color: var(--theme-text-color);
+  --alert-close-icon-success-color: var(--theme-positive-color);
+  --alert-close-icon-warning-color: var(--theme-warning-color);
+  --alert-close-icon-danger-color: var(--theme-negative-color);
+
+  --alert-container-top: 100px;
+  --alert-container-width: 600px;
+
+  --alert-line-height: 20px;
+  --alert-spacing: 10px;
+
+  --alert-title-font-weight: bold;
+  --alert-top-padding : 10px;
+  --alert-left-padding: 15px;
+
+
   /* Badge */
   --badge-border-radius: 0.714rem;
   --badge-border-style: solid;
