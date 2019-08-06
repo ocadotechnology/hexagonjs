@@ -10,15 +10,27 @@ import {
   randomId,
 } from 'utils/utils';
 
+import logger from 'utils/logger';
 
-function calculateMessageDuration(title = '', body = '', { minMessageDuration, maxMessageDuration }) {
+const defaultCalculateMessageDurationOptions = {
+  minMessageDuration: 2000,
+  maxMessageDuration: 7000,
+};
+function calculateMessageDuration(
+  title = '',
+  body = '',
+  {
+    minMessageDuration = 2000,
+    maxMessageDuration = 7000,
+  } = defaultCalculateMessageDurationOptions,
+) {
   const length = title.length + body.length;
   const readingDuration = length * 50;
   return Math.min(Math.max(readingDuration, minMessageDuration), maxMessageDuration);
 }
 
 class Alert {
-  constructor(id, closeAction, options) {
+  constructor(id, closeAction, options = {}) {
     this.id = id;
     this.closeAction = closeAction;
     this.options = options;
@@ -39,8 +51,13 @@ class Alert {
       duration,
     } = this.options;
 
-    const titleSpan = span('hx-alert-title').text(`${title} `);
-    const bodySpan = span('hx-alert-body').text(body);
+    const titleSpan = title
+      ? span('hx-alert-title').text(`${title} `)
+      : undefined;
+
+    const bodySpan = body
+      ? span('hx-alert-body').text(body)
+      : undefined;
 
     const closeDiv = !duration
       ? div('hx-alert-close')
@@ -48,11 +65,8 @@ class Alert {
         .on('click', () => this.close())
       : undefined;
 
-    const sel = div('hx-alert hx-flag-alert');
-
-    sel.classed(`hx-alert-${type}`, type);
-
-    return sel
+    return div('hx-alert')
+      .classed(`hx-alert-${type}`, type)
       .add(div('hx-alert-content')
         .add(titleSpan)
         .add(bodySpan))
@@ -61,6 +75,7 @@ class Alert {
 
   close() {
     window.clearTimeout(this.activeTimeout);
+    delete this.activeTimeout;
     this.closeAction(this.id);
     return this;
   }
@@ -71,9 +86,7 @@ class AlertManager {
     this.options = merge({
       animationInDuration: 200,
       animationOutDuration: 200,
-      maxMessageDuration: 7000,
-      minMessageDuration: 2000,
-    }, options);
+    }, defaultCalculateMessageDurationOptions, options);
 
     this._ = {
       container: undefined,
@@ -84,15 +97,21 @@ class AlertManager {
     this.selection = select(selector);
   }
 
-  message({
-    title,
-    body,
-    type = 'default',
-    duration,
-  }) {
-    const types = ['default', 'success'];
+  message(options) {
+    if (!options) {
+      throw new Error('AlertManager::message - No options were provided. An object with title or body should be provided');
+    }
+
+    const {
+      title,
+      body,
+      type,
+      duration,
+    } = options;
+
+    const types = ['success'];
     if (type && !types.includes(type)) {
-      throw new Error(`NotificationManager:message - Invalid message type provided: ${type}.\nAccepted types: [${types.join(', ')}]`);
+      throw new Error(`AlertManager::message - Invalid message type provided: '${type}'.\nAccepted types: ['${types.join('\', \'')}']`);
     }
     return this.addAlert({
       title,
@@ -102,14 +121,24 @@ class AlertManager {
     });
   }
 
-  alert({
-    title,
-    body,
-    type = 'default',
-  }) {
-    const types = ['default', 'success', 'warning', 'danger'];
+  alert(options) {
+    if (!options) {
+      throw new Error('AlertManager::alert - No options were provided. An object with title or body should be provided');
+    }
+
+    const {
+      title,
+      body,
+      type,
+      duration,
+    } = options;
+
+    const types = ['success', 'warning', 'danger'];
     if (type && !types.includes(type)) {
-      throw new Error(`NotificationManager:alert - Invalid alert type provided: ${type}.\nAccepted types: [${types.join(', ')}]`);
+      throw new Error(`AlertManager::alert - Invalid alert type provided: '${type}'.\nAccepted types: ['${types.join('\', \'')}']`);
+    }
+    if (duration) {
+      logger.warn('AlertManager::alert called with "duration" but can only be closed by user interaction. Ignoring passed in duration');
     }
     return this.addAlert({
       title,
@@ -120,45 +149,15 @@ class AlertManager {
   }
 
   render() {
-    const alertMgr = this;
-    const container = alertMgr.createOrGetContainer();
+    const container = this.createOrGetContainer();
 
-    container.view('.hx-alert')
-      .enter(function enter(thisAlert) {
-        const nSel = thisAlert.render();
+    container.api('_alerts-view')
+      .apply(this._.alerts, d => d.id);
 
-        this.prepend(nSel);
-
-        nSel
-          .style('opacity', 0)
-          .style('height', 0)
-          .style('padding-top', 0)
-          .style('padding-bottom', 0)
-          .morph()
-          .with('fadein', alertMgr.options.animationInDuration)
-          .and('expandv', alertMgr.options.animationInDuration)
-          .then(() => nSel
-            .style('padding-top', undefined)
-            .style('padding-bottom', undefined)
-            .style('height', undefined)
-            .style('opactity', undefined))
-          .go();
-
-        return nSel.node();
-      })
-      .exit(function exit() {
-        this.style('opacity', '1')
-          .morph()
-          .with('collapsev', alertMgr.options.animationOutDuration)
-          .and('fadeout', alertMgr.options.animationOutDuration)
-          .then(() => this.remove())
-          .go();
-      })
-      .apply(alertMgr._.alerts, d => d.id);
-    return alertMgr;
+    return this;
   }
 
-  addAlert(options = {}) {
+  addAlert(options) {
     const nextId = `alert-${randomId()}`;
     const alertToAdd = new Alert(nextId, id => this.closeAlert(id), options);
     this._.alerts.unshift(alertToAdd);
@@ -171,16 +170,52 @@ class AlertManager {
     const index = this._.alerts.indexOf(alertToClose);
     if (index >= 0) {
       this._.alerts.splice(index, 1);
+      this.render();
     }
-    this.render();
   }
 
   createOrGetContainer() {
-    const { container } = this._;
+    const alertMgr = this;
+    const { container } = alertMgr._;
+
     if (!container) {
-      this._.container = this.selection.append(div('hx-alert-container'));
+      const newContainer = alertMgr.selection.append(div('hx-alert-container'));
+      const view = newContainer.view('.hx-alert')
+        .enter(function enter(thisAlert) {
+          const nSel = thisAlert.render();
+
+          this.prepend(nSel);
+
+          nSel
+            .style('opacity', 0)
+            .style('height', 0)
+            .style('padding-top', 0)
+            .style('padding-bottom', 0)
+            .morph()
+            .with('fadein', alertMgr.options.animationInDuration)
+            .and('expandv', alertMgr.options.animationInDuration)
+            .then(() => nSel
+              .style('padding-top', undefined)
+              .style('padding-bottom', undefined)
+              .style('height', undefined)
+              .style('opacity', undefined))
+            .go();
+
+          return nSel.node();
+        })
+        .exit(function exit() {
+          this.style('opacity', '1')
+            .morph()
+            .with('collapsev', alertMgr.options.animationOutDuration)
+            .and('fadeout', alertMgr.options.animationOutDuration)
+            .then(() => this.remove())
+            .go();
+        });
+
+      newContainer.api('_alerts-view', view);
+      alertMgr._.container = newContainer;
     }
-    return this._.container;
+    return alertMgr._.container;
   }
 }
 

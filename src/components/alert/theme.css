@@ -18,6 +18,7 @@
   padding: var(--alert-top-padding) var(--alert-left-padding);
   background: var(--alert-default-background-color);
   color: var(--alert-default-text-color);
+  box-shadow: var(--alert-box-shadow);
 }
 
 .hx-alert + .hx-alert {
