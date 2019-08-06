@@ -171,6 +171,8 @@
   --alert-top-padding : 10px;
   --alert-left-padding: 15px;
 
+  --alert-box-shadow: 0 6px 10px 0 var(--theme-shadow-color);
+
 
   /* Badge */
   --badge-border-radius: 0.714rem;
