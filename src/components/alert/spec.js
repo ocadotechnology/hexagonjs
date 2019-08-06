@@ -35,7 +35,6 @@ export default () => {
     });
 
     beforeEach(() => {
-      chaiSandbox.on(logger, 'warn', () => {});
       clock = installFakeTimers();
       chaiSandbox.on(logger, 'warn', () => {});
       fixture.clear();
