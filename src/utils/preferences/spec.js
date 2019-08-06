@@ -22,18 +22,20 @@ export default () => {
     const modalAnimationDuration = 500;
     const defaultNotificationTimeout = notifyDefaultTimeout();
     let clock;
+    const chaiSandbox = chai.spy.sandbox();
+
     beforeEach(() => {
       notifyDefaultTimeout(0);
       clock = installFakeTimers();
       localStorage.setItem(localStorageKey, undefined);
-      chai.spy.on(logger, 'warn', () => {});
-      chai.spy.on(logger, 'deprecated', () => {});
+      chaiSandbox.on(logger, 'warn', () => {});
+      chaiSandbox.on(logger, 'deprecated', () => {});
     });
 
     afterEach(() => {
       notifyDefaultTimeout(defaultNotificationTimeout);
       clock.restore();
-      chai.spy.restore();
+      chaiSandbox.restore();
       preferences.setup();
     });
 
@@ -154,8 +156,8 @@ export default () => {
           modalPreferences.setup();
           modalPreferences.show();
           clock.tick(modalAnimationDuration);
-          chai.spy.on(modalPreferences, 'timezone');
-          chai.spy.on(modalPreferences, 'locale');
+          chaiSandbox.on(modalPreferences, 'timezone');
+          chaiSandbox.on(modalPreferences, 'locale');
         });
 
         afterEach(() => {
@@ -401,8 +403,8 @@ export default () => {
               });
               modalPreferences.show();
               clock.tick(modalAnimationDuration);
-              chai.spy.on(modalPreferences, 'timezone');
-              chai.spy.on(modalPreferences, 'locale');
+              chaiSandbox.on(modalPreferences, 'timezone');
+              chaiSandbox.on(modalPreferences, 'locale');
             });
 
             afterEach(() => {

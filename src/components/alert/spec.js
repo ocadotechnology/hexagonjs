@@ -35,17 +35,17 @@ export default () => {
     });
 
     beforeEach(() => {
-      chaiSandbox.on(logger, 'warn', () => {});
       clock = installFakeTimers();
+      chaiSandbox.on(logger, 'warn', () => {});
       fixture.clear();
     });
 
     afterEach(() => {
+      clock.restore();
       chaiSandbox.restore();
     });
 
     after(() => {
-      clock.restore();
       fixture.remove();
       inbuiltAlertManager.selection = select('body');
     });
