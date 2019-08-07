@@ -1,0 +1,119 @@
+@prototype Alert
+  @added nextReleaseVersion
+
+  @description
+    The constructor for the alerts used by @code[hx.alert] and @code[hx.message]
+
+  @method close
+    @description
+      Closes this alert
+
+@prototype hx.AlertManager
+  @added nextReleaseVersion
+  @description
+    The constructor for creating a custom alert manager. The @code[alert] and @code[message] methods use the default alert manager that creates a container within @code[body]
+
+  @constructor
+    @arg selector [String/Selection/HTMLElement]
+      @description
+        The selector for the element the container should be created inside
+
+    @arg options [Object]
+      @property minMessageDuration [Number]
+        @description
+          Sets the minMessageDuration for the alerts/messages shown from this alert manager (in milliseconds)
+
+          This controls the minimum duration messages should be displayed for when not passing in @code[duration] to the
+          @code[message] method.
+
+          This is not used when a length is specified in the @code[message] options.
+
+        @default: 2000
+
+      @property maxMessageDuration [Number]
+        @description
+          Sets the maxMessageDuration for the alerts/messages shown from this alert manager (in milliseconds)
+
+          This controls the maximum duration messages should be displayed for when not passing in @code[duration] to the
+          @code[message] method.
+
+          This is not used when a length is specified in the @code[message] options.
+
+        @default: 7000
+
+      @property animationInDuration [Number]
+        @description
+          Sets the animationInDuration for the alerts/messages shown from this alert manager (in milliseconds)
+
+          This controls how long it takes for the alerts/messages to appear when closing (i.e. the animation duration)
+
+        @default: 200
+
+      @property animationOutDuration [Number]
+        @description
+          Sets the animationOutDuration for the alerts/messages shown from this alert manager (in milliseconds)
+
+          This controls how long it takes for the alerts/messages to disappear when closing (i.e. the animation duration)
+
+        @default: 200
+
+
+
+@function hx.alert
+  @added nextReleaseVersion
+
+  @description
+    Displays an alert notification that can only be dismissed by the user clicking the close button or by calling the @code[close] method.
+
+    This utilises the inbuilt alert manager that will add the alert container to the @code[body]
+
+  @arg options [Object]
+    @property title [String]
+      @description
+        The title to display in bold in the alert. This should be a short summary of the alert.
+
+    @property body [String]
+      @description
+        The main alert body to display next to the title.
+
+    @property? type [String]
+      @description
+        The type of message. Can be @code[success], @code[danger], @code[warning] or @code[undefined]
+
+
+  @returns Alert
+    @description
+      The alert that was added
+
+@function hx.message
+  @added nextReleaseVersion
+
+  @description
+    Displays an alert notification that can only be dismissed by the user clicking the close button or by calling the @code[close] method.
+
+    This utilises the inbuilt alert manager that will add the alert container to the @code[body]
+
+  @arg options [Object]
+    @property title [String]
+      @description
+        The title to display in bold in the alert. This should be a short summary of the alert.
+
+    @property body [String]
+      @description
+        The main alert body to display next to the title.
+
+    @property? type [String]
+      @description
+        The type of message. Can be @code[success] or @code[undefined]
+
+    @property? duration [Number]
+      @description
+        The time (in milliseconds) that the message shoiuld display. When undefined, this value is calcuated
+        using @code[Math.min(Math.max(numCharacters, minMessageDuration), maxMessageDuration)]
+
+        @code[minMessageDuration] is 2000 and @code[maxMessageDuration] is 7000 by default.
+
+
+  @returns Alert
+    @description
+      The alert that was added

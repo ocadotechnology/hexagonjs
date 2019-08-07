@@ -58,6 +58,7 @@
             @page /docs/table/: Table
 
           @section Js Components
+            @page /docs/alert/: Alerts and Messages
             @page /docs/autocomplete-picker/: Autocomplete Picker
             @page /docs/autocomplete/: Autocomplete
             @page /docs/button-group/: Button Group

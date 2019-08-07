@@ -149,7 +149,7 @@ const examples = [
   example('Dropdown Button').add(tryDemo(dropdownButtonExamples)),
   example('Modals').add(tryDemo(modalExamples)),
   example('Notice').add(tryDemo(noticeExamples)),
-  example('Messages and Alerts').add(tryDemo(alertExamples)),
+  example('Alerts and Messages').add(tryDemo(alertExamples)),
   example('Notify').add(tryDemo(notifyExamples)),
   example('Number Pickers').add(tryDemo(numberPickerExamples)),
   example('Paginator').add(tryDemo(paginatorExamples)),
