@@ -1,0 +1,47 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Alerts and Messages
+  @description
+    Provides the @code[alert] and @code[message] functions
+
+
+@contentSection
+  @topic About
+    Alerts and messages are essentially the same, with messages being a sub-type of alerts.
+    The key difference between messages and alerts is that messages will auto-dismiss themselves
+    after a set duration and do not show a close button, while alert will persist on screen until
+    the close button is clicked. Both @code[message] and @code[alert] return an @code[Alert] and have
+    the same methods available.
+
+    Messages should be used to show information that is useful for the user to know, but isn’t critical, or too complex.
+    The best example of success message stating a task was completed successfully. Without the message the user will
+    not know if the system was able to complete the task. If the user finds they need to dismiss the message and it is too
+    distracting to the workflow, this is a good case to use message instead of alert.
+
+
+  @topic Alert Types
+    @b[Default]: use as informational/neutral alerts.
+
+    @b[Success]: use to inform of successful completion of a task.
+
+    @b[Warning]: use to alert of issues that do not require the user to take action, but be aware of them.
+
+    @b[Danger]: use to inform user of errors and unsuccessful completion of tasks. It is advised to provide advice on how to resolve the issue in the alert.
+
+  @topic Message Types
+    @b[Default]: use as informational/neutral messages.
+
+    @b[Success]: use to inform of successful completion of a task.
+
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/alert/changelog)[Change Log]
+
+    @inline api.um
