@@ -1,0 +1,45 @@
+@version nextReleaseVersion
+  @examples
+    @example
+      @@html
+        <div id="alertsDemo"></div>
+
+      @@js
+        hx.select('#alertsDemo')
+          .set([
+            hx.div('hx-header-small').text('Alerts'),
+            hx.detached('br'),
+            hx.button('hx-btn hx-flag-button').text('Success').on('click', () => hx.alert({
+              title: 'This is a success alert.',
+              body: 'Use it to let users know that something was successful.',
+              type: 'success',
+            })),
+            hx.button('hx-btn hx-flag-button').text('Warning').on('click', () => hx.alert({
+              title: 'This is a warning alert.',
+              body: 'Use it to tell users about something that could be a problem, but won\'t block them from doing things yet.',
+              type: 'warning',
+            })),
+            hx.button('hx-btn hx-flag-button').text('Danger').on('click', () => hx.alert({
+              title: 'This is an error alert.',
+              body: 'Use it to tell users about errors. Include steps that the user can take to resolve the error, even if it\'s just "Try again".',
+              type: 'danger',
+            })),
+            hx.button('hx-btn hx-flag-button').text('Default').on('click', () => hx.alert({
+              title: 'This is an information alert.',
+              body: 'Use it for alerts that don\'t fit into the other three categories.',
+            })),
+            hx.detached('br'),
+            hx.detached('br'),
+            hx.detached('hr'),
+            hx.div('hx-header-small').text('Messages'),
+            hx.detached('br'),
+            hx.button('hx-btn hx-flag-button').text('Success').on('click', () => hx.message({
+              title: 'This is a success message.',
+              body: 'Use it to let users know that something was successful.',
+              type: 'success',
+            })),
+            hx.button('hx-btn hx-flag-button').text('Default').on('click', () => hx.message({
+              title: 'This is an information message.',
+              body: 'Use it for messages that don\'t fit into the other three categories.',
+            })),
+          ]);
