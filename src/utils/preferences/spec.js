@@ -8,22 +8,31 @@ import {
 } from 'utils/preferences';
 import { userFacingText } from 'utils/user-facing-text';
 import logger from 'utils/logger';
+import { notifyDefaultTimeout } from 'components/notify';
+import installFakeTimers from 'test/utils/fake-time';
 
 import { defaultLocaleObjects } from './data';
 import { RFC5456LocaleList, RFC5456LocaleObjects } from './RFC5456Locales';
 import IANATimezoneList from './IANATimezoneList';
 
+
 export default () => {
   const should = chai.should();
-
   describe('hx-preferences', () => {
+    const modalAnimationDuration = 500;
+    const defaultNotificationTimeout = notifyDefaultTimeout();
+    let clock;
     beforeEach(() => {
+      notifyDefaultTimeout(0);
+      clock = installFakeTimers();
       localStorage.setItem(localStorageKey, undefined);
-      chai.spy.on(logger, 'warn');
-      chai.spy.on(logger, 'deprecated');
+      chai.spy.on(logger, 'warn', () => {});
+      chai.spy.on(logger, 'deprecated', () => {});
     });
 
     afterEach(() => {
+      notifyDefaultTimeout(defaultNotificationTimeout);
+      clock.restore();
       chai.spy.restore();
       preferences.setup();
     });
@@ -140,15 +149,13 @@ export default () => {
 
       describe('when showing the modal', () => {
         let modalPreferences;
-        beforeEach((done) => {
+        beforeEach(() => {
           modalPreferences = new Preferences();
           modalPreferences.setup();
-          modalPreferences._.modal.on('showend', () => {
-            chai.spy.on(modalPreferences, 'timezone');
-            chai.spy.on(modalPreferences, 'locale');
-            done();
-          });
           modalPreferences.show();
+          clock.tick(modalAnimationDuration);
+          chai.spy.on(modalPreferences, 'timezone');
+          chai.spy.on(modalPreferences, 'locale');
         });
 
         afterEach(() => {
@@ -183,6 +190,7 @@ export default () => {
           modalPreferences.locale('fr');
           modalPreferences.timezone('UTC+01:00');
           modalPreferences.show();
+          clock.tick(modalAnimationDuration);
         });
 
         afterEach(() => {
@@ -384,19 +392,17 @@ export default () => {
 
           describe('when showing the modal', () => {
             let modalPreferences;
-            beforeEach((done) => {
+            beforeEach(() => {
               modalPreferences = new Preferences();
               modalPreferences.setup({
                 featureFlags: {
                   useIntlFormat: true,
                 },
               });
-              modalPreferences._.modal.on('showend', () => {
-                chai.spy.on(modalPreferences, 'timezone');
-                chai.spy.on(modalPreferences, 'locale');
-                done();
-              });
               modalPreferences.show();
+              clock.tick(modalAnimationDuration);
+              chai.spy.on(modalPreferences, 'timezone');
+              chai.spy.on(modalPreferences, 'locale');
             });
 
             afterEach(() => {
@@ -435,6 +441,7 @@ export default () => {
               modalPreferences.locale('fr');
               modalPreferences.timezone('Europe/Paris');
               modalPreferences.show();
+              clock.tick(modalAnimationDuration);
             });
 
             afterEach(() => {
