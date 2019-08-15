@@ -1,0 +1,3 @@
+@property title
+  @description
+    The title to display at the top of the modal. This is required for all modals.

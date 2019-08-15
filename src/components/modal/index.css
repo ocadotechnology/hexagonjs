@@ -85,3 +85,116 @@ body.hx-modal-open .hx-content {
     max-width: 90%;
   }
 }
+
+
+
+
+.hx-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hx-modal.hx-flag-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  max-width: none;
+  min-width: none;
+  display: block;
+  box-shadow: none;
+  z-index: 105;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-center {
+  z-index: 106;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-container {
+  display: flex;
+  position: static;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-title {
+  margin: 0;
+  padding: 0;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-footer {
+  text-align: right;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-content {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 100%;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-body-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-body {
+  overflow: auto;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-header {
+  display: flex;
+  align-items: center;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-title {
+  flex: 1;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-close {
+  flex: 0;
+  text-align: center;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-full-screen .hx-modal-container,
+.hx-modal.hx-flag-modal.hx-modal-right .hx-modal-container {
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-full-screen .hx-modal-content {
+  max-width: 100%;
+  border-radius: 0;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-body-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-right .hx-modal-body-container {
+  display: block;
+}
+
+.hx-modal.hx-flag-modal .hx-modal-body {
+  flex: 1;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-right .hx-modal-content {
+  border-radius: 0;
+}
+
+.hx-modal.hx-flag-modal.hx-modal-center .hx-modal-content {
+  max-height: 90vh;
+}

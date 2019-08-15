@@ -1,0 +1,16 @@
+@function modalCenter
+  @added nextReleaseVersion
+  @description
+    Renders a modal in the center of the screen
+
+  @arg options [Object]
+    @collapsed false
+    @inline ./Modal/options/animate.um
+    @inline ./Modal/options/isOpen.um
+    @inline ./Modal/options/renderBody.um
+    @inline ./Modal/options/renderFooter.um
+    @inline ./Modal/options/title.um
+
+  @returns Modal
+    @description
+      The constructed Modal

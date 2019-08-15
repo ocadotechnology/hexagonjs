@@ -173,3 +173,9 @@ export {
   modalInput,
   modal
 }
+
+export {
+  modalCenter,
+  modalRight,
+  modalFullScreen,
+} from './modal'

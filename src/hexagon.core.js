@@ -125,6 +125,9 @@ export {
   modalDialog,
   modalInput,
   modal,
+  modalCenter,
+  modalRight,
+  modalFullScreen,
 } from 'components/modal';
 export { Dropdown } from 'components/dropdown';
 export { Collapsible, initializeCollapsibles } from 'components/collapsible';

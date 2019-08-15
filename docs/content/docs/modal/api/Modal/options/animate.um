@@ -1,0 +1,7 @@
+@property? animate
+  @description
+    Whether to animate the modal in/out.
+
+    Does not apply to the modal backdrop which will always fade in/out as it does not have an effect on user interaction or flows.
+
+  @default: @code[true]
