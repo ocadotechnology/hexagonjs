@@ -1,0 +1,18 @@
+@function modalRight
+  @added nextReleaseVersion
+  @description
+    Renders a modal displayed on the right hand side of the screen
+
+  @arg options [Object]
+    @collapsed false
+    @inline ./Modal/options/*.um
+
+    @property wide [Boolean]
+      @description
+        Whether the modal should be wider than a standard right modal.
+
+        The size of the standard and wide modals should be defined by the theme that is currently in use.
+
+  @returns Modal
+    @description
+      The constructed Modal

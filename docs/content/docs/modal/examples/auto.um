@@ -633,3 +633,53 @@
           })
         })
 
+@version nextReleaseVersion
+  @css
+    .hx-modal.hx-flag-modal {
+      z-index: 1001 !important;
+    }
+  @examples
+    @example
+      @@html
+        <button id="modal-center" class="hx-btn hx-flag-button">Show Center Modal</button>
+
+      @@js
+        hx.select('#modal-center').on('click', () => {
+          hx.modalCenter({
+            title: 'Modal Title',
+            renderBody: () => hx.div().text('Modal Body'),
+            renderFooter: thisModal => hx.button('hx-btn hx-secondary')
+              .on('click', () => thisModal.hide())
+              .text('Ok'),
+          });
+        })
+
+    @example
+      @@html
+        <button id="modal-right" class="hx-btn hx-flag-button">Show Right Modal</button>
+
+      @@js
+        hx.select('#modal-right').on('click', () => {
+          hx.modalRight({
+            title: 'Modal Title',
+            renderBody: () => hx.div().text('Modal Body'),
+            renderFooter: thisModal => hx.button('hx-btn hx-secondary')
+              .on('click', () => thisModal.hide())
+              .text('Ok'),
+          });
+        })
+
+    @example
+      @@html
+        <button id="modal-full-screen" class="hx-btn hx-flag-button">Show Full Screen Modal</button>
+
+      @@js
+        hx.select('#modal-full-screen').on('click', () => {
+          hx.modalFullScreen({
+            title: 'Modal Title',
+            renderBody: () => hx.div().text('Modal Body'),
+            renderFooter: thisModal => hx.button('hx-btn hx-secondary')
+              .on('click', () => thisModal.hide())
+              .text('Ok'),
+          });
+        })

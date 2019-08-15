@@ -1,0 +1,12 @@
+@property? onClose
+  @description
+    The function to call when the user clicks the close button or presses the escape key.
+
+    By default, clicking the close button or pressing escape will call the @code[hide] method.
+    If this options is provided, it will be used instead and the modal will not be hidden.
+
+    This is primarily intended to be used to add a confirmation (i.e. 'Are you sure you want to close,
+    you have unsaved changes') and should always include an action that either calls @code[hide] or
+    allows the user to continue editing the information.
+
+  @default: @code[undefined]

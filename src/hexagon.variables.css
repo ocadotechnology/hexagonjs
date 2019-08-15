@@ -683,8 +683,27 @@
   --modal-title-text-color: var(--theme-text-color);
   --modal-title-font-size: 1em;
   --modal-shadow-color: var(--theme-shadow-color);
-  --modal-border-radius: 3px;
   --modal-border-color: var(--theme-divider-color);
+
+  --modal-backdrop-color: rgba(0, 0, 0, 0.5);
+  --modal-border-radius: 3px;
+  --modal-outer-padding-right: 30px;
+  --modal-outer-padding-top: 20px;
+  --modal-outer-padding-bottom: 20px;
+  --modal-inner-padding: 30px;
+
+  --modal-footer-margin: 30px;
+
+  --modal-right-max-width: 440px;
+  --modal-right-wide-max-width: 840px;
+
+  --modal-center-max-width: 500px;
+  --modal-center-footer-margin: 40px;
+
+  --modal-close-icon-color: var(--theme-faint-icon-color);
+  --modal-close-icon-padding: 20px;
+  --modal-close-icon-size: 16px;
+
 
 
   /* Notice */

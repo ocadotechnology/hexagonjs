@@ -1,0 +1,6 @@
+@property? isOpen
+  @description
+    Whether the modal should be open when creating it. Set to @code[false] if you want to open
+    a modal later in the code or have more than one method of opening a modal.
+
+  @default: @code[true]

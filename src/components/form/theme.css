@@ -59,7 +59,7 @@
   margin-top: var(--form-label-spacing);
 }
 
-.hx-form-group {
+.hx-form-group:not(:last-child) {
   margin-bottom: var(--form-input-spacing);
 }
 

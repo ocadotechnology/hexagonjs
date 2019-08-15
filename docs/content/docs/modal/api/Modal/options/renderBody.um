@@ -1,0 +1,11 @@
+@property renderBody
+  @description
+    The function used to render the body of the modal.
+
+    One of @code[renderFooter] or @code[renderBody] is required when creating a modal.
+
+  @arg modal [Modal]
+    @description
+      The current Modal
+
+  @default: @code[undefined]

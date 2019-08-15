@@ -1,0 +1,12 @@
+@function modalFullScreen
+  @added nextReleaseVersion
+  @description
+    Renders a modal that covers the whole screen.
+
+  @arg options [Object]
+    @collapsed false
+    @inline ./Modal/options/*.um
+
+  @returns Modal
+    @description
+      The constructed Modal

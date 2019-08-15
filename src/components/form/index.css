@@ -4,6 +4,10 @@
   display: inline-block;
 }
 
+.hx-form .hx-form-buttons {
+  order: 999;
+}
+
 .hx-form:not(.hx-flag-form) .hx-form-buttons > * {
   display: inline-block;
 }

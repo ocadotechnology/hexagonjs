@@ -19,11 +19,11 @@ import { SingleSelect } from 'components/single-select'
 import { validateForm } from './validate-form'
 
 # XXX: Refactor into constructor in next major
-getButtons = (form) ->
+getButtons = (form, createIfEmpty = true) ->
   selection = select(form.selector)
   sel = selection.select('.hx-form-buttons')
-  buttons = if sel.empty()
-    selection.append('div').class('hx-form-buttons')
+  buttons = if createIfEmpty and sel.empty()
+    selection.prepend('div').class('hx-form-buttons')
   else sel
 
 export class Form extends EventEmitter
@@ -133,7 +133,7 @@ export class Form extends EventEmitter
       .classed('hx-form-group', @options.featureFlags.useUpdatedStructure)
 
     # Append buttons container to the end of the form
-    formSel.append(getButtons(this))
+    formSel.append(getButtons(this, false))
 
     entry.append('label')
       .classed('hx-form-label', @options.featureFlags.useUpdatedStructure)
