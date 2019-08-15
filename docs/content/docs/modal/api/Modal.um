@@ -1,0 +1,76 @@
+@prototype Modal
+  @added nextReleaseVersion
+  @description
+    The type returned when calling the three modal functions:
+
+    @list
+      @item: @code[modalCenter]
+      @item: @code[modalRight]
+      @item: @code[modalFullScreen]
+
+  @method isOpen
+    @description
+      Returns the current open state of the Modal
+
+    @returns Boolean
+      @description
+        Whether the modal is open
+
+  @method isOpen
+    @description
+      Set the open state of the modal (and animate if changing state)
+
+    @arg open [Boolean]
+      @description
+        Whether the modal should be open.
+
+    @arg? callback [Function]
+      @description
+        The function to call when the modal has been shown/hidden and the animation has completed.
+
+  @method show
+    @description
+      Shows the modal.
+
+      Alias for @code[isOpen(true)]
+
+    @arg? callback [Function]
+      @description
+        The function to call when the modal has been shown and the animation is complete.
+
+    @returns Modal
+      @description
+        Returns this Modal
+
+  @method hide
+    @description
+      Shows the modal.
+
+      Alias for @code[isOpen(true)]
+
+    @arg? callback [Function]
+      @description
+        The function to call when the modal has been hidden and the animation is complete.
+
+    @returns Modal
+      @description
+        Returns this Modal
+
+  @method close
+    @description
+      The function called by the close button and when the user presses 'Escape' for modals that show the close button.
+
+      The default action will be to call @code[hide] immediately. Providing @code[options.onClose] will override this and call
+      the provided method instead, allowing the close action to be intercepted without closing the modal.
+
+    @arg? callback [Function]
+      @description
+        The function to call when the modal has been hidden and the animation is complete.
+
+  @method render
+    @description
+      A method to update the content of a modal using the @code[renderBody] and @code[renderFooter] options.
+
+      This is called whenever the modal transitions from closed to open.
+
+      This is useful when the data rendered in the modal needs to be redrawn after the source data has been updated.

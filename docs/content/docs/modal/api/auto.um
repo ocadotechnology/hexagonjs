@@ -8,6 +8,10 @@
     Added some styles to modals so they no longer overflow on small devices
 
 @prototype hx.Modal
+  @deprecated nextReleaseVersion
+    @description
+      This Modal has been replaced by the new @type[Modal] class returned by @code[modalCenter], @code[modalRight] and @code[modalFullScreen].
+
   @bugfix 1.2.1
     @issue 142
     @description
@@ -621,6 +625,10 @@
 
 
 @function modalDialog
+  @deprecated nextReleaseVersion
+    @description
+      This has been replaced by @code[modalCenter]
+
   @added 2.0.0
   @description
     A function for creating a simple modal popup with a title, a message and some buttons.
@@ -686,6 +694,10 @@
       The newly constructed Modal
 
 @function modalInput
+  @deprecated nextReleaseVersion
+    @description
+      This has been replaced by @code[modalCenter]
+
   @added 2.0.0
   @description
     A function for creating a simple modal popup with a title, a message and an input box (and confirm and cancel buttons).
