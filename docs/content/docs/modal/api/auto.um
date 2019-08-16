@@ -8,7 +8,7 @@
     Added some styles to modals so they no longer overflow on small devices
 
 @prototype hx.Modal
-  @deprecated nextReleaseVersion
+  @deprecated 2.3.0
     @description
       This Modal has been replaced by the new @type[Modal] class returned by @code[modalCenter], @code[modalRight] and @code[modalFullScreen].
 
@@ -625,7 +625,7 @@
 
 
 @function modalDialog
-  @deprecated nextReleaseVersion
+  @deprecated 2.3.0
     @description
       This has been replaced by @code[modalCenter]
 
@@ -694,7 +694,7 @@
       The newly constructed Modal
 
 @function modalInput
-  @deprecated nextReleaseVersion
+  @deprecated 2.3.0
     @description
       This has been replaced by @code[modalCenter]
 

@@ -43,7 +43,7 @@ setPickerValue = (picker, results, cause) ->
 
 
 
-class AutocompletePicker extends EventEmitter
+class AutocompletePickerBase extends EventEmitter
   constructor: (selector, items, options = {}) ->
     super()
 
@@ -255,6 +255,15 @@ class AutocompletePicker extends EventEmitter
     else
       @_.renderer
 
+class AutocompletePicker extends AutocompletePickerBase
+  constructor: (selector, options) ->
+    logger.deprecated('AutocompletePicker', 'Deprecated in favour of the SingleSelect component')
+    super(selector, options)
+
+autocompletePickerBase = (items, options) ->
+  selection = div()
+  new AutocompletePickerBase(selection, items, options)
+  selection
 
 autocompletePicker = (items, options) ->
   selection = div()
@@ -262,6 +271,7 @@ autocompletePicker = (items, options) ->
   selection
 
 export {
+  AutocompletePickerBase,
   autocompletePicker,
   AutocompletePicker
 }

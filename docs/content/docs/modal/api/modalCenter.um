@@ -1,5 +1,5 @@
 @function modalCenter
-  @added nextReleaseVersion
+  @added 2.3.0
   @description
     Renders a modal in the center of the screen
 

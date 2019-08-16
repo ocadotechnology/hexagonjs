@@ -4,7 +4,7 @@ import { select, div, button, Selection } from 'utils/selection'
 import { userFacingText } from 'utils/user-facing-text'
 import logger from 'utils/logger'
 
-import { autocompletePicker, AutocompletePicker } from 'components/autocomplete-picker'
+import { autocompletePicker, AutocompletePickerBase as AutocompletePicker } from 'components/autocomplete-picker'
 import { MenuBase as Menu } from 'components/menu'
 import { Dropdown, config as dropdownConfig } from 'components/dropdown'
 

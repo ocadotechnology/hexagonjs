@@ -1,5 +1,5 @@
 @prototype Alert
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     The constructor for the alerts used by @code[hx.alert] and @code[hx.message]
@@ -9,7 +9,7 @@
       Closes this alert
 
 @prototype hx.AlertManager
-  @added nextReleaseVersion
+  @added 2.3.0
   @description
     The constructor for creating a custom alert manager. The @code[alert] and @code[message] methods use the default alert manager that creates a container within @code[body]
 
@@ -60,7 +60,7 @@
 
 
 @function hx.alert
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Displays an alert notification that can only be dismissed by the user clicking the close button or by calling the @code[close] method.
@@ -86,7 +86,7 @@
       The alert that was added
 
 @function hx.message
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Displays an alert notification that can only be dismissed by the user clicking the close button or by calling the @code[close] method.

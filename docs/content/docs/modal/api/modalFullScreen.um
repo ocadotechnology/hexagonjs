@@ -1,5 +1,5 @@
 @function modalFullScreen
-  @added nextReleaseVersion
+  @added 2.3.0
   @description
     Renders a modal that covers the whole screen.
 

@@ -1,5 +1,5 @@
 @function hx.moreButton
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Creates a dropdown button using the updated style with an ellipsis arrow to indicate that more actions can be peformed.

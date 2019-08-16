@@ -1,4 +1,4 @@
-@version nextReleaseVersion
+@version 2.3.0
   @examples
     @example
       @@html

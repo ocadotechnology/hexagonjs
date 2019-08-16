@@ -20,7 +20,7 @@ import * as filter from 'utils/filter'
 import logger from 'utils/logger'
 import { json } from 'utils/request'
 
-import { picker, Picker } from 'components/picker'
+import { pickerBase as picker, PickerBase as Picker } from 'components/picker'
 import { Toggle } from 'components/toggle'
 import { StickyTableHeaders } from 'components/sticky-table-headers'
 
