@@ -2,10 +2,6 @@
   max-height: var(--menu-max-height);
 }
 
-.hx-menu-item {
-  line-height: 1rem;
-}
-
 .hx-menu-item.hx-menu-link {
   padding: var(--menu-item-padding);
 }
