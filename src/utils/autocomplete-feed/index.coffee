@@ -9,8 +9,7 @@ import {
 } from 'utils/utils'
 import { Map as HMap } from 'utils/map'
 
-sortItems = (valueLookup) ->
-  valueLookup ?= identity
+sortItems = (valueLookup = identity) ->
   (a, b) -> compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
@@ -24,6 +23,27 @@ sortActive = (items) ->
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
+
+filterNested = (items, term, filterName, filterOptions) ->
+  if items.some((item) -> item.children?.length)
+    items.reduce((acc, item) ->
+      if item.children
+        children = filterNested(item.children, term, filterName, filterOptions)
+        if children.length
+          return [
+            ...acc,
+            Object.assign({}, item, {
+              children,
+            })
+          ]
+
+      filterSingle = filter[filterName]([item], term, filterOptions)
+
+      return [...acc, ...filterSingle];
+    , []);
+  else
+    filter[filterName](items, term, filterOptions)
+
 
 class AutocompleteFeed
   constructor: (options = {}) ->
@@ -48,7 +68,7 @@ class AutocompleteFeed
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
       filterName = 'filter' + resolvedOptions.matchType[0].toUpperCase() + resolvedOptions.matchType.slice(1)
-      filtered = filter[filterName](items, term, resolvedOptions.filterOptions)
+      filtered = filterNested(items, term, filterName, resolvedOptions.filterOptions)
       { active, inactive } = sortActive(filtered)
       [active..., inactive...]
 

@@ -4,7 +4,7 @@ import { select, div, span, i, detached } from 'utils/selection'
 import { merge, identity, debounce } from 'utils/utils'
 import logger from 'utils/logger'
 
-import { AutocompleteFeed } from 'components/autocomplete-feed'
+import { AutocompleteFeed } from 'utils/autocomplete-feed'
 import { MenuBase as Menu } from 'components/menu'
 
 userFacingText({

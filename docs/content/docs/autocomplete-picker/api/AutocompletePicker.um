@@ -8,6 +8,10 @@
       'disabled' items in the list
     @issue 343
 
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
+
   @constructor
     @description
       Creates an autocomplete picker element inside the passed in selector
@@ -33,6 +37,10 @@
     @description
       Resolved an issue to make it possible to clear the value of the
       autocomplete picker using @code[.value(undefined)]
+
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
 
   @description
     Creates a new AutocompletePicker set up on a detached element, wrapped in a

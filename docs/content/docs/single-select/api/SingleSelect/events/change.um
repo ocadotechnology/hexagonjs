@@ -1,0 +1,13 @@
+@event change [Object]
+  @description
+    The event emit when the value of the single select is changed.
+
+  @property cause [String]
+    @description
+      The cause of the event. Either @code[user] when caused by a user interaction
+      or @code[api] when caused by calling the @code[value] method
+
+  @property value [Any]
+    @description
+      The currently set value for the single select. Can be any of the @code[items]
+      passed in, or @code[undefined]

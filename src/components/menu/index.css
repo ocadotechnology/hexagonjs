@@ -35,3 +35,16 @@ a.hx-menu-item:hover {
   cursor: default;
   user-select: none;
 }
+
+.hx-flag-menu .hx-menu-item.hx-menu-link {
+  border-left: none;
+}
+
+.hx-flag-menu.hx-menu {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.hx-menu.hx-flag-menu .hx-menu-items {
+  overflow: auto;
+}

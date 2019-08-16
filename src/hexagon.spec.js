@@ -33,7 +33,7 @@ import collapsibleTests from 'components/collapsible/spec';
 import titlebarTests from 'components/titlebar/spec';
 import menuTests from 'components/menu/spec';
 import autocompleteTests from 'components/autocomplete/spec';
-import autocompleteFeedTests from 'components/autocomplete-feed/spec';
+import autocompleteFeedTests from 'utils/autocomplete-feed/spec';
 import numberPickerTests from 'components/number-picker/spec';
 import buttonGroupTests from 'components/button-group/spec';
 import pickerTests from 'components/picker/spec';
@@ -65,6 +65,7 @@ import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
 import paginatorTests from 'components/paginator/spec';
 import errorPageTests from 'components/error-pages/spec';
+import singleSelectTests from 'components/single-select/spec';
 
 window.hx = hx;
 
@@ -314,6 +315,8 @@ describe('HexagonJS Test Suite', () => {
         'si',
         'Sidebar',
         'SideCollapsible',
+        'SingleSelect',
+        'singleSelect',
         'Slider',
         'slider',
         'sort',
@@ -359,7 +362,6 @@ describe('HexagonJS Test Suite', () => {
       const deepKeys = getDeepKeys(hx);
       const extraKeys = deepKeys.filter(x => propertyList.indexOf(x) === -1);
       const missingKeys = propertyList.filter(x => deepKeys.indexOf(x) === -1);
-      console.log(extraKeys, missingKeys);
       extraKeys.should.eql([]);
       missingKeys.should.eql([]);
     });
@@ -431,7 +433,7 @@ describe('HexagonJS Test Suite', () => {
   inlineEditableTests();
   paginatorTests();
   errorPageTests();
-
+  singleSelectTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //

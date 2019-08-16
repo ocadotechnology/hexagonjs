@@ -14,6 +14,7 @@ import { TagInput } from 'components/tag-input'
 import { FileInput } from 'components/file-input'
 import { Toggle } from 'components/toggle'
 import { AutocompletePicker } from 'components/autocomplete-picker'
+import { SingleSelect } from 'components/single-select'
 
 import { validateForm } from './validate-form'
 
@@ -620,6 +621,25 @@ export class Form extends EventEmitter
         key: options.key
         elem: div()
           .add(componentElem)
+        component: component
+        disable: (disabled) -> component.disabled(disabled)
+        options: {
+          hidden: options.hidden
+          disabled: options.disabled
+        }
+      }
+
+  addSingleSelect: (name, items, options = {}) ->
+    @add name, 'select', ->
+      componentElem = div()
+      { required } = options
+      singleSelectOptions = merge({ required }, options.singleSelectOptions)
+
+      component = new SingleSelect(componentElem, items, singleSelectOptions)
+
+      return {
+        key: options.key
+        elem: componentElem
         component: component
         disable: (disabled) -> component.disabled(disabled)
         options: {

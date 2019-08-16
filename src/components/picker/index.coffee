@@ -1,4 +1,3 @@
-
 import { select, span, button, i } from 'utils/selection'
 import { isObject, mergeDefined, isFunction } from 'utils/utils'
 import { EventEmitter } from 'utils/event-emitter'

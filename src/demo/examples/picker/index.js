@@ -1,11 +1,13 @@
-import { picker } from 'hexagon-js';
+import {
+  picker,
+} from 'hexagon-js';
 
 export default () => {
   const items = [
-    'item 1',
-    'item 2',
-    'item 3',
-    { text: 'item 4', children: ['item 1', 'item 2'] },
+    'Item #1',
+    'Item #2',
+    'Item #3',
+    { text: 'Item #4', value: 'Item #4', disabled: true },
   ];
 
   return [

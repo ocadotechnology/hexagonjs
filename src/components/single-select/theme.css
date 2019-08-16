@@ -1,0 +1,12 @@
+.hx-single-select-value {
+  padding-right: var(--single-select-input-right-padding);
+  margin-right: var(--single-select-arrow-offset);
+}
+
+.hx-single-select-input-container {
+  margin: var(--single-select-input-margin);
+}
+
+.hx-single-select-icon {
+  color: var(--single-select-arrow-color);
+}

@@ -1,0 +1,7 @@
+@property required [Boolean]
+  @description
+    Whether the single select should be required.
+
+    This is mainly applicable when used inside a @code[Form].
+
+    When this is true, the @code[pleaseSelectAValueText] option is used as the error message.

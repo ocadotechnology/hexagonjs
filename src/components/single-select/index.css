@@ -1,0 +1,14 @@
+.hx-single-select {
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.hx-single-select-icon,
+.hx-single-select-value:not(:disabled) {
+  pointer-events: none;
+}
+
+.hx-single-select-input {
+  width: 100%;
+}

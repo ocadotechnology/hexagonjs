@@ -1,0 +1,19 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Single Select
+  @description
+    Provides a @code[<select>] like element with more features and options.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/single-select/changelog)[Change Log]
+
+    @inline api.um

@@ -92,6 +92,7 @@
             @page /docs/progress-bar/: Progress Bar
             @page /docs/side-collapsible/: Side Collapsible
             @page /docs/sidebar/: Sidebar
+            @page /docs/single-select/: Single Select
             @page /docs/slider/: Slider
             @page /docs/sticky-table-headers/: Sticky Table Headers
             @page /docs/tabs/: Tabs

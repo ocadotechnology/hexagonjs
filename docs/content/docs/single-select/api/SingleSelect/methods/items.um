@@ -1,0 +1,19 @@
+@method items
+  @description
+    Get the current items of the single select
+
+  @returns [Array/Function]
+    @description
+      The current items
+
+@method items
+  @description
+    Sets the current items of the single select
+
+  @arg items [Array/Function]
+    @description
+      The items to set
+
+  @returns [SingleSelect]
+    @description
+      This single select

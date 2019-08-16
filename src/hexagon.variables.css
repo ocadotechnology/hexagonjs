@@ -562,6 +562,7 @@
   --menu-item-link-margin: -0.4em;
   --menu-collapsible-padding: 0.75em;
   --menu-item-collapsible-left-padding: 1.5em;
+  --menu-item-margin: 2px;
 
   --menu-disabled-background-color: var(--theme-disabled-background-color);
   --menu-disabled-text-color: var(--theme-disabled-text-color);
@@ -872,6 +873,13 @@
   --sidebar-titlebar-button-hover-text-color: var(--theme-faint-icon-hover-color);
   --sidebar-titlebar-button-text-color: var(--theme-faint-icon-color);
   --sidebar-titlebar-icon-background-color: var(--theme-header-background-color);
+
+
+  /* Single Select */
+  --single-select-arrow-color: var(--theme-disabled-text-color);
+  --single-select-input-right-padding: 2em;
+  --single-select-arrow-offset: -1.5em;
+  --single-select-input-margin: 5px;
 
 
   /* Slider */

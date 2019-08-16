@@ -7,7 +7,12 @@
     Fixed an issue with the picker not rendering values correcly
 
 @prototype hx.Picker
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
+
   @added 0.14.0
+
   @description
   @extends EventEmitter
   @constructor
@@ -104,6 +109,7 @@
         @default
           false
 
+
   @method items
     @description
       Set the items for the select using a function that returns the data.
@@ -130,7 +136,9 @@
         Fixed a bug where the items setter was not updating the value when a new list of items was passed in.
 
     @description
-      Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code[undefined] @arg items [Array[Any]]
+      Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code[undefined]
+
+    @arg items [Array[Any]]
       @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
@@ -152,7 +160,9 @@
         Made it possible to clear the value of a picker by passing in @code[undefined]
 
     @description
-      Sets the currently selected item. Passing in @code[undefined] will clear the value, unless an item is found with a value of @code[undefined] @arg value [String]
+      Sets the currently selected item. Passing in @code[undefined] will clear the value, unless an item is found with a value of @code[undefined]
+
+    @arg value [String]
       @description
         The value of the item to select.
 
@@ -297,6 +307,10 @@
   @added 1.0.0
     @description
       Fluid api version of Picker
+
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
 
   @description
     Creates a new Picker set up on a detached element, wrapped in a selection
