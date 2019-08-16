@@ -1,5 +1,5 @@
 @prototype Modal
-  @added nextReleaseVersion
+  @added 2.3.0
   @description
     The type returned when calling the three modal functions:
 

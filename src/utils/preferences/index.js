@@ -2,7 +2,7 @@ import { userFacingText } from 'utils/user-facing-text';
 import { EventEmitter } from 'utils/event-emitter';
 import { isString, merge } from 'utils/utils';
 import { zeroPad } from 'utils/format';
-import { Modal } from 'components/modal';
+import { ModalBase as Modal } from 'components/modal';
 import { notifyNegative, notifyPositive } from 'components/notify';
 import logger from 'utils/logger';
 import { Autocomplete } from 'components/autocomplete';

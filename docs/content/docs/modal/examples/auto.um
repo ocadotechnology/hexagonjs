@@ -633,7 +633,7 @@
           })
         })
 
-@version nextReleaseVersion
+@version 2.3.0
   @css
     .hx-modal.hx-flag-modal {
       z-index: 1001 !important;

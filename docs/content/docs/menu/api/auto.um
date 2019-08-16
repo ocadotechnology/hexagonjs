@@ -333,7 +333,7 @@
           false
 
       @property featureFlags [Object]
-        @added nextReleaseVersion
+        @added 2.3.0
           @description
             Added the @code[useUpdatedStructure] feature flag to remove the collapsibles when displaying grouped content in menus
 

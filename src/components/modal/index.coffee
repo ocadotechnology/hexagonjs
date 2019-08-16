@@ -1,8 +1,9 @@
+import logger from 'utils/logger'
 import { EventEmitter } from 'utils/event-emitter'
 import { select, detached } from 'utils/selection'
 import { merge, mergeDefined } from 'utils/utils'
 
-class Modal extends EventEmitter
+class ModalBase extends EventEmitter
 
   closeModal = (modal, event) ->
     body = select('body').classed('hx-modal-open', false)
@@ -161,6 +162,11 @@ modalInput = (title, message, callback, options) ->
   modal.on 'close', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
 
+class Modal extends ModalBase
+  constructor: (title, setup, options) ->
+    logger.deprecated('Modal', 'The Modal (and associated fluid methods modalDialog, modalInput etc.) has been replaced by the modalCenter, modalRight and modalFullScreen functions.')
+    super(title, setup, options)
+
 # XXX: Remove in next major
 modal =  {
   input: modalInput,
@@ -169,6 +175,7 @@ modal =  {
 
 export {
   Modal,
+  ModalBase,
   modalDialog,
   modalInput,
   modal

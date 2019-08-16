@@ -1,5 +1,5 @@
 @function modalRight
-  @added nextReleaseVersion
+  @added 2.3.0
   @description
     Renders a modal displayed on the right hand side of the screen
 

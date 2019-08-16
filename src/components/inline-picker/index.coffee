@@ -1,6 +1,6 @@
 import { detached, select } from 'utils/selection'
 import { InlineMorphSection } from 'components/morph-section'
-import { Picker } from 'components/picker'
+import { PickerBase as Picker } from 'components/picker'
 import { merge } from 'utils/utils'
 import { userFacingText } from 'utils/user-facing-text'
 

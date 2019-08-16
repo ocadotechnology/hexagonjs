@@ -1,3 +1,4 @@
+import logger from 'utils/logger'
 import { select, span, button, i } from 'utils/selection'
 import { isObject, mergeDefined, isFunction } from 'utils/utils'
 import { EventEmitter } from 'utils/event-emitter'
@@ -32,7 +33,7 @@ setValue = (picker, value, items, cause = 'api') ->
       cause: cause
     }
 
-export class Picker extends EventEmitter
+class PickerBase extends EventEmitter
   constructor: (selector, options = {}) ->
     super()
 
@@ -130,10 +131,27 @@ export class Picker extends EventEmitter
     if disable? then this
     else menuDisable
 
+class Picker extends PickerBase
+  constructor: (selector, options) ->
+    logger.deprecated('Picker', 'Deprecated in favour of the SingleSelect component')
+    super(selector, options)
 
 
-export picker = (options) ->
+pickerBase = (options) ->
+  # XXX [2.0.0] added options.class
+  selection = button(options.class)
+  new PickerBase(selection, options)
+  selection
+
+picker = (options) ->
   # XXX [2.0.0] added options.class
   selection = button(options.class)
   new Picker(selection, options)
   selection
+
+export {
+  picker,
+  pickerBase,
+  Picker,
+  PickerBase,
+}

@@ -1,7 +1,7 @@
 @prototype hx.SingleSelect
   @extends EventEmitter
 
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Creates a @code[<select>] like element that uses an @code[<input>] for consistency
@@ -21,7 +21,7 @@
   @inline SingleSelect/events/*um
 
 @function hx.singleSelect
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Fluid version of the single select. Returns a selection containing a pre-created single select component.

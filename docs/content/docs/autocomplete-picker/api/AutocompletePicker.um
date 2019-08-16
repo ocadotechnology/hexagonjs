@@ -8,7 +8,7 @@
       'disabled' items in the list
     @issue 343
 
-  @deprecated nextReleaseVersion
+  @deprecated 2.3.0
     @description
       Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
 
@@ -38,7 +38,7 @@
       Resolved an issue to make it possible to clear the value of the
       autocomplete picker using @code[.value(undefined)]
 
-  @deprecated nextReleaseVersion
+  @deprecated 2.3.0
     @description
       Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
 
