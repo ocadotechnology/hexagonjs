@@ -1,4 +1,3 @@
-// import logger from 'utils/logger';
 import { EventEmitter } from 'utils/event-emitter';
 import { mergeDefined, randomId } from 'utils/utils';
 import { div, detached, select } from 'utils/selection';

@@ -6,7 +6,6 @@ import { MenuBase } from 'components/menu';
 
 const supportedSizes = ['small', 'micro'];
 function moreButton(options) {
-  const sel = button('hx-btn hx-more-button hx-flag-button');
   const { text, size } = options;
 
   const forcedOptions = {
@@ -14,21 +13,28 @@ function moreButton(options) {
   };
 
   const opts = merge({
+    items: [],
     dropdownOptions: {
       align: 'rbrt',
     },
   }, options, forcedOptions);
 
+  if (!opts.items.length) {
+    throw new Error('moreButton: Items are required when creating a more button');
+  }
+
+  const validSize = supportedSizes.includes(size);
+
+  if (size && !validSize) {
+    logger.warn(`moreButton: Called with an invalid size: '${size}'. Supported sizes: ${supportedSizes.join(', ')}`);
+  }
+
+  const sel = button('hx-btn hx-more-button hx-flag-button')
+    .classed(`hx-btn-${size}`, validSize);
+
   if (text) {
     sel.text(text);
   }
-
-  const validSize = !size || supportedSizes.includes(size);
-  if (!validSize) {
-    logger.warn(`moreButton: Called with an invalid size: '${size}'. Supported sizes: ${supportedSizes.join(', ')}`);
-  }
-  sel
-    .classed(`hx-btn-${size}`, size && validSize);
 
   new MenuBase(sel, opts);
   return sel;

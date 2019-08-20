@@ -24,6 +24,7 @@ import paletteTests from 'utils/palette/spec';
 import formatTests from 'utils/format/spec';
 import preferencesTests from 'utils/preferences/spec';
 import dateTimeLocalizerTests from 'utils/date-localizer/spec';
+import domUtilsTests from 'utils/dom-utils/spec';
 
 // Components
 
@@ -67,6 +68,8 @@ import inlineEditableTests from 'components/inline-editable/spec';
 import paginatorTests from 'components/paginator/spec';
 import errorPageTests from 'components/error-pages/spec';
 import singleSelectTests from 'components/single-select/spec';
+import dropdownButtonTests from 'components/dropdown-button/spec';
+import moreButtonTests from 'components/more-button/spec';
 
 window.hx = hx;
 
@@ -402,6 +405,7 @@ describe('HexagonJS Test Suite', () => {
   formatTests();
   preferencesTests();
   dateTimeLocalizerTests();
+  domUtilsTests();
 
   // Exposed Components
   alertTests();
@@ -442,6 +446,8 @@ describe('HexagonJS Test Suite', () => {
   paginatorTests();
   errorPageTests();
   singleSelectTests();
+  dropdownButtonTests();
+  moreButtonTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //
