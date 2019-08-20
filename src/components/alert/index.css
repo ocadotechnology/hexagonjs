@@ -7,7 +7,6 @@
   overflow: hidden;
   pointer-events: auto;
   display: flex;
-  /* Stops long messages wrapping onto second line */
   flex-wrap: nowrap;
 }
 
