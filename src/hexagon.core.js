@@ -134,6 +134,7 @@ export { Collapsible, initializeCollapsibles } from 'components/collapsible';
 export { titleBar, TitleBar } from 'components/titlebar';
 export { dropdownButton } from 'components/dropdown-button';
 export { moreButton } from 'components/more-button';
+export { tooltip } from 'components/tooltip';
 export { Menu } from 'components/menu';
 export {
   autocomplete,
