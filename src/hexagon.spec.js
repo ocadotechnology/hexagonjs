@@ -70,6 +70,8 @@ import errorPageTests from 'components/error-pages/spec';
 import singleSelectTests from 'components/single-select/spec';
 import dropdownButtonTests from 'components/dropdown-button/spec';
 import moreButtonTests from 'components/more-button/spec';
+import tooltipTests from 'components/tooltip/spec';
+
 
 window.hx = hx;
 
@@ -448,6 +450,7 @@ describe('HexagonJS Test Suite', () => {
   singleSelectTests();
   dropdownButtonTests();
   moreButtonTests();
+  tooltipTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //
