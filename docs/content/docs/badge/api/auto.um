@@ -21,3 +21,26 @@
   @extraClass hx-badge-inverse
     @description
       Inverts the label styling to display a coloured border to provide less emphasis but still utilise the Badge style.
+
+@function hx.badge
+  @description
+    A function that returns a badge as a selection.
+
+  @arg? options [Object]
+    @property type [String]
+      @description
+        The type of badge to create. When no type is provided, the badge will be the default grey type.
+
+        The supported types are:
+
+        @list
+          @item: success
+          @item: warning
+          @item: danger
+
+    @property inverse [Boolean]
+      @default: @code[false]
+
+  @returns Selection
+    @description
+      A span element with the appropriate badge classes.
