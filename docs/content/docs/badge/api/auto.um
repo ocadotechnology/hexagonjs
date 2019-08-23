@@ -23,6 +23,7 @@
       Inverts the label styling to display a coloured border to provide less emphasis but still utilise the Badge style.
 
 @function hx.badge
+  @added 1.20.0
   @description
     A function that returns a badge as a selection.
 

@@ -1,5 +1,16 @@
 # Working on the library
 
+## Making Changes
+
+This project uses GitFlow
+
+- `master` contains only viable releases
+- `develop` should be used for all PRs
+- `feature/<feature name>` should be used for all feature branches when working on this repository
+
+When working on a fork, merge to `develop`
+
+
 ## Code Style
 
 This project is currently written in a combination of `coffeescript` and `es6`.
