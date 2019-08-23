@@ -65,8 +65,11 @@ hr {
 }
 .example-section{
   margin: 0;
-  padding: 2em;
+  padding: 0.5rem 2rem 2rem;
   box-shadow: 0 5px 5px -5px #000;
+}
+.example-section > h2 {
+  padding-top: 1.5rem;
 }
 .example-header {
   margin-top: 0;
@@ -113,4 +116,35 @@ note {
   font-weight: bold;
   font-size: 32px;
   margin-bottom: 1em;
+}
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  box-sizing: border-box;
+  background: white;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+.intro,
+.examples {
+  margin-left: 250px;
+}
+.intro {
+  margin-top: 0;
+  padding: 1em;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 1em;
+  margin: 0;
+  overflow: auto;
+  border-top: 1px dashed #DDD;
+}
+.sidebar input {
+  display: block;
+  margin: 1em 0.5em;
 }

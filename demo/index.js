@@ -335,8 +335,12 @@
       .addDateTimePicker('Date Time Picker (required)', { required: true })
       .addAutocompletePicker('Autocomplete Picker', ['a', 'b', 'c'])
       .addAutocompletePicker('Autocomplete Picker (required)', ['a', 'b', 'c'], { required: true })
+      .addSingleSelect('Single Select', ['a', 'b', 'c'])
+      .addSingleSelect('Single Select (required)', ['a', 'b', 'c'], { required: true })
+      .addSingleSelect('Single Select with search', hx.range(100).map(function (x) { return ("Item " + x); }), { singleSelectOptions: { showSearch: true } })
       .addButton('Button', function () { return console.log('Clicked Button'); })
-      .addSubmit('Submit', 'fa fa-check', function (data) { console.log(data); }, { context: 'primary' });
+      .addSubmit('Submit', 'fa fa-check', undefined, { context: 'primary' })
+      .on('submit', function (data) { console.log(data); });
 
     return [
       hx.detached('form').class('hx-form')
@@ -417,24 +421,21 @@
 
     var disabledMenu = hx.button('hx-btn').text('Disabled');
 
-    var renderer = function (elem, item) { return hx.select(elem).text(item.name); };
-
     var disabledItems = [
       {
-        name: 'Disabled Item 1',
+        text: 'Disabled Item 1',
         disabled: true,
       },
       {
-        name: 'Disabled Item 2',
+        text: 'Disabled Item 2',
         disabled: true,
       },
       {
-        name: 'Disabled Item 3',
+        text: 'Disabled Item 3',
         disabled: true,
       } ];
 
     new hx.Menu(disabledMenu, {
-      renderer: renderer,
       items: disabledItems,
     });
 
@@ -442,20 +443,19 @@
 
     var unselectableItems = [
       {
-        name: 'Unselectable Item 1',
+        text: 'Unselectable Item 1',
         unselectable: true,
       },
       {
-        name: 'Unselectable Item 2',
+        text: 'Unselectable Item 2',
         unselectable: true,
       },
       {
-        name: 'Unselectable Item 3',
+        text: 'Unselectable Item 3',
         unselectable: true,
       } ];
 
     new hx.Menu(unselectable, {
-      renderer: renderer,
       items: unselectableItems,
     });
 
@@ -463,30 +463,29 @@
 
     var mixedItems = [
       {
-        name: 'Disabled Item 1',
+        text: 'Disabled Item 1',
         disabled: true,
       },
       {
-        name: 'Item 1',
+        text: 'Item 1',
       },
       {
-        name: 'Disabled Item 2',
+        text: 'Disabled Item 2',
         disabled: true,
       },
       {
-        name: 'Unselectable Item 1',
+        text: 'Unselectable Item 1',
         unselectable: true,
       },
       {
-        name: 'Item 2',
+        text: 'Item 2',
       },
       {
-        name: 'Unselectable Item 2',
+        text: 'Unselectable Item 2',
         unselectable: true,
       } ];
 
     new hx.Menu(mixed, {
-      renderer: renderer,
       items: mixedItems,
     });
 
@@ -501,7 +500,6 @@
       return sel;
     });
 
-
     return hx.div().set([
       defaultMenu,
       disabledMenu,
@@ -515,11 +513,85 @@
       hx.select(node).text('Hello');
     });
 
-    return hx.button('hx-btn')
-      .text('Show Modal')
-      .on('click', function () {
-        modal.show();
-      });
+    var renderBody = function () { return hx.div().text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium.'); };
+    var renderFooter = function (m) { return ([
+      hx.button('hx-btn')
+        .text('Standard')
+        .on('click', function () { return m.hide(); }),
+      hx.button('hx-btn hx-secondary hx-margin-left')
+        .text('Secondary')
+        .on('click', function () { return m.hide(); }) ]); };
+
+    var renderRightBody = function () {
+      var theForm = hx.detached('form');
+
+      new hx.Form(theForm, { featureFlags: { useUpdatedStructure: true, displayVertical: true } })
+        .addText('Text')
+        .addDatePicker('Date Picker');
+
+      return hx.div()
+        .add(hx.detached('p').text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium.'))
+        .add(hx.div('hx-form hx-flag-form hx-form-vertical')
+          .add(theForm));
+    };
+
+    var renderRightFooter = function (thisModal) { return ([
+      hx.button('hx-btn')
+        .text('Cancel')
+        .on('click', function () { return thisModal.hide(); }),
+      hx.button('hx-btn hx-primary hx-margin-left')
+        .text('Primary')
+        .on('click', function () { return thisModal.hide(); }) ]); };
+
+    var renderFullFooter = function (thisModal) { return ([
+      hx.button('hx-btn')
+        .text('Cancel')
+        .on('click', function () { return thisModal.onClose(); }),
+      hx.button('hx-btn hx-primary hx-margin-left')
+        .text('Primary')
+        .on('click', function () { return thisModal.hide(); }) ]); };
+
+    return hx.div()
+      .set([
+        hx.button('hx-btn').text('Show Deprecated Modal').on('click', function () { return modal.show(); }),
+        hx.div('hx-pad'),
+        hx.button('hx-btn hx-flag-button').text('Show Center Modal').on('click', function () { return hx.modalCenter({
+          title: 'Lorem ipsum dolor sit',
+          renderBody: renderBody,
+          renderFooter: renderFooter,
+        }); }),
+        hx.div('hx-pad'),
+        hx.button('hx-btn hx-flag-button hx-margin-right').text('Show Right Modal').on('click', function () { return hx.modalRight({
+          title: 'Lorem ipsum dolor sit',
+          renderBody: renderRightBody,
+          renderFooter: renderRightFooter,
+        }); }),
+        hx.button('hx-btn hx-flag-button').text('Show Wide Right Modal').on('click', function () { return hx.modalRight({
+          title: 'Lorem ipsum dolor sit',
+          renderBody: renderRightBody,
+          renderFooter: renderRightFooter,
+          wide: true,
+        }); }),
+        hx.div('hx-pad'),
+        hx.button('hx-btn hx-flag-button').text('Show Full Screen Modal').on('click', function () { return hx.modalFullScreen({
+          title: 'Lorem ipsum dolor sit',
+          renderBody: renderBody,
+          renderFooter: renderFullFooter,
+          onClose: function (thisModal) { return hx.modalCenter({
+            title: 'Discard unsaved changes?',
+            renderBody: function () { return hx.div().text('Any new data you entered will be discarded.'); },
+            renderFooter: function (cancelModal) { return ([
+              hx.button('hx-btn')
+                .text('Cancel')
+                .on('click', function () { return cancelModal.hide(); }),
+              hx.button('hx-btn hx-primary hx-margin-left')
+                .text('Discard')
+                .on('click', function () {
+                  cancelModal.hide();
+                  thisModal.hide();
+                }) ]); },
+          }); },
+        }); }) ]);
   }
 
   function exampleNotice(cls) {
@@ -545,6 +617,43 @@
     hx.button('hx-btn').text('Negative').on('click', function () { return hx.notifyNegative('Negative notification'); }),
     hx.button('hx-btn').text('Info').on('click', function () { return hx.notifyInfo('Info notification'); }),
     hx.button('hx-btn').text('Loading').on('click', function () { return hx.notifyLoading('Loading notification'); }) ]; }
+
+  function alertExamples () { return [
+    hx.div('hx-header-small').text('Alerts'),
+    hx.detached('br'),
+    hx.button('hx-btn hx-flag-button').text('Success').on('click', function () { return hx.alert({
+      title: 'This is a success alert.',
+      body: 'Use it to let users know that something was successful.',
+      type: 'success',
+    }); }),
+    hx.button('hx-btn hx-flag-button').text('Warning').on('click', function () { return hx.alert({
+      title: 'This is a warning alert.',
+      body: 'Use it to tell users about something that could be a problem, but won\'t block them from doing things yet.',
+      type: 'warning',
+    }); }),
+    hx.button('hx-btn hx-flag-button').text('Danger').on('click', function () { return hx.alert({
+      title: 'This is an error alert.',
+      body: 'Use it to tell users about errors. Include steps that the user can take to resolve the error, even if it\'s just "Try again".',
+      type: 'danger',
+    }); }),
+    hx.button('hx-btn hx-flag-button').text('Default').on('click', function () { return hx.alert({
+      title: 'This is an information alert.',
+      body: 'Use it for alerts that don\'t fit into the other three categories.',
+    }); }),
+    hx.detached('br'),
+    hx.detached('br'),
+    hx.detached('hr'),
+    hx.div('hx-header-small').text('Messages'),
+    hx.detached('br'),
+    hx.button('hx-btn hx-flag-button').text('Success').on('click', function () { return hx.message({
+      title: 'This is a success message.',
+      body: 'Use it to let users know that something was successful.',
+      type: 'success',
+    }); }),
+    hx.button('hx-btn hx-flag-button').text('Default').on('click', function () { return hx.message({
+      title: 'This is an information message.',
+      body: 'Use it for messages that don\'t fit into the other three categories.',
+    }); }) ]; }
 
   function numberPickerExamples () { return [
     hx.numberPicker() ]; }
@@ -595,10 +704,10 @@
 
   function pickerExamples () {
     var items = [
-      'item 1',
-      'item 2',
-      'item 3',
-      { text: 'item 4', children: ['item 1', 'item 2'] } ];
+      'Item #1',
+      'Item #2',
+      'Item #3',
+      { text: 'Item #4', value: 'Item #4', disabled: true } ];
 
     return [
       hx.picker({ items: items }),
@@ -1133,10 +1242,242 @@
               .add(radio('e', 'e8'))
               .add(label$2('hx-form-label').attr('for', 'e8').text('Maybe'))))))); }
 
+  function note$4(text) {
+    return hx.detached('note')
+      .text(text);
+  }
+
+  function moreButtonExamples () {
+    var items = [
+      {
+        text: 'A very long function #1',
+        onClick: function () { return hx.notify('Clicked More Button Action 1'); },
+      },
+      {
+        text: 'Function #2',
+        onClick: function () { return hx.notify('Clicked More Button Action 2'); },
+      },
+      {
+        text: 'Disabled',
+        disabled: true,
+        onClick: function () { return hx.notify('Clicked More Button Action 3'); },
+      },
+      {
+        text: 'Link #1',
+        onClick: '#link-1',
+      },
+      {
+        text: 'Link #2',
+        onClick: '#link-2',
+      },
+      {
+        text: 'Disabled',
+        disabled: true,
+        onClick: '#link-3',
+      } ];
+
+    var r1 = hx.detached('tr')
+      .add(hx.detached('td').text('Cell 1'))
+      .add(hx.detached('td').text('Cell 2'))
+      .add(hx.detached('td').text('Normal size (for tablets) --> '))
+      .add(hx.detached('td').add(hx.moreButton({ items: items })));
+
+    var r2 = hx.detached('tr')
+      .add(hx.detached('td').text('Cell 1'))
+      .add(hx.detached('td').text('Cell 2'))
+      .add(hx.detached('td').text('Small Button -->'))
+      .add(hx.detached('td').add(hx.moreButton({ items: items, size: 'small' })));
+
+    return hx.div().set([
+      hx.detached('h2').text('Inside Tables'),
+      hx.detached('table').class('hx-table hx-flag-table')
+        .add(hx.detached('thead')
+          .add(hx.detached('tr')
+            .add(hx.detached('th').text('Header 1'))
+            .add(hx.detached('th').text('Header 2'))
+            .add(hx.detached('th').text('Header 3'))
+            .add(hx.detached('th').text('Actions'))))
+        .add(hx.detached('tbody')
+          .add(r1)
+          .add(r2)),
+      hx.detached('h2').text('Outside Tables'),
+      note$4('The MoreButton attempts to align the bottom right corner of the button with the top right corner of the dropdown. When there is insufficient space, the dropdown is moved to accommodate.'),
+      hx.group({ compact: true })
+        .add(hx.section({ fixed: true })
+          .add(hx.moreButton({ items: items })))
+        .add(hx.section())
+        .add(hx.section({ fixed: true })
+          .add(hx.moreButton({ items: items }))),
+      note$4('The more button can be used in an input group when there is a primary action and a list of secondary actions'),
+      hx.div('hx-input-group').set([
+        hx.button('hx-btn hx-flag-button').text('Primary action'),
+        hx.moreButton({ items: items }) ]) ]);
+  }
+
+  function dropdownButtonExamples () {
+    var items = [
+      {
+        text: 'Function #1',
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 1'); },
+      },
+      {
+        text: 'Function #2',
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 2'); },
+      },
+      {
+        text: 'Disabled',
+        disabled: true,
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 3'); },
+      } ];
+
+    var itemsFull = [
+      {
+        text: 'A very long function #1',
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 1'); },
+      },
+      {
+        text: 'Function #2',
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 2'); },
+      },
+      {
+        text: 'Disabled',
+        disabled: true,
+        onClick: function () { return hx.notify('Clicked Dropdown Button Action 3'); },
+      },
+      {
+        text: 'Link #1',
+        onClick: '#link-1',
+      },
+      {
+        text: 'Link #2',
+        onClick: '#link-2',
+      },
+      {
+        text: 'Disabled',
+        disabled: true,
+        onClick: '#link-3',
+      } ];
+
+    var ddContexts = [undefined, 'primary', 'secondary'];
+    var ddContextButtons = ddContexts.map(function (type) { return hx.dropdownButton({
+      type: type,
+      items: type ? itemsFull : items,
+      text: type || 'standard',
+    }); });
+
+    return hx.div().set([].concat( ddContextButtons ));
+  }
+
+  var fluidFactory$3 = function (type) { return function (cls) {
+    if ( cls === void 0 ) cls = '';
+
+    return hx.detached(type).class(cls);
+   }  };
+  var label$3 = fluidFactory$3('label');
+  var hr$3 = fluidFactory$3('hr');
+  var note$5 = fluidFactory$3('note');
+
+  function singleSelectExamples () {
+    var items = [
+      { text: 'Name of group', children: ['Item #1', 'Item #2'] },
+      { text: 'Name of second group', children: ['Item #3', 'Item #4'] },
+      'Item #5 (not in group)',
+      'Item #6' ];
+
+    var disabledItem = [
+      'Item #1',
+      'Item #2',
+      'Item #3',
+      'Item #4',
+      { value: 'Item #5 (not available)', disabled: true },
+      'Item #6' ];
+
+    var filterItems = hx.range(100).map(function (x) { return ("Item " + (x + 1)); });
+    var delayedItems = function (term, cb) {
+      setTimeout(function () { return cb(filterItems); }, Math.random() * 2000);
+    };
+
+    return [
+      note$5().text('When used outside form elements, behaves as standard inline element'),
+      hx.singleSelect(filterItems),
+      hx.singleSelect(delayedItems),
+      hr$3(),
+      hx.group({ compact: true })
+        .add(hx.section().set([
+          note$5().text('Before Input'),
+          hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(items))),
+          note$5().text('After Input'),
+          hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(items, {
+                value: 'item 1',
+              }))) ]))
+        .add(hx.section()
+          .add(note$5().text('Error state'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(items, {
+                required: true,
+              }))
+              .add(hx.div('hx-form-message').text('Warning message will be here and if very long allow to it to be wider the component'))))),
+      hr$3(),
+      hx.group({ compact: true })
+        .add(hx.section({ fixed: true })
+          .add(note$5().text('Drop down with grouped options'))
+          .add(note$5().text('First option for each group should be ‘all’ if applicable'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(items)))))
+        .add(hx.section({ fixed: true })
+          .add(note$5().text('Drop down with disabled options'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(disabledItem))))),
+      hr$3(),
+      hx.group({ compact: true })
+        .add(hx.section({ fixed: true })
+          .add(note$5().text('Drop down with grouped options'))
+          .add(note$5().text('First option for each group should be ‘all’ if applicable'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(items, {
+                showSearch: true,
+              }))))),
+      hr$3(),
+      note$5().text('Examples of Search'),
+      hx.group({ compact: true })
+        .add(hx.section({ fixed: true })
+          .add(note$5().text('Filter with fixed items'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(filterItems, {
+                showSearch: true,
+              })))))
+        .add(hx.section({ fixed: true })
+          .add(note$5().text('Filter with delayed items'))
+          .add(note$5().text('Emulate loading items from backend'))
+          .add(hx.div('hx-form hx-flag-form')
+            .add(hx.div('hx-form-group')
+              .add(label$3('hx-form-label').text('Label'))
+              .add(hx.singleSelect(delayedItems, {
+                showSearch: true,
+              }))))) ];
+  }
+
   var select = hx.select;
+  var selectAll = hx.selectAll;
   var div = hx.div;
   var detached = hx.detached;
-  var titleBar = hx.titleBar;
+  var debounce = hx.debounce;
 
   window.hx = hx;
 
@@ -1181,13 +1522,43 @@
     }));
   }
 
+  function findContentsItem(text) {
+    var lcText = text.toLowerCase().replace('back to top', '');
+    var sel = selectAll('.sidebar ul a').filter(function (item) { return item.text().toLowerCase() === lcText; });
+    var node = sel.node(0);
+    if (node) {
+      return select(node.parentNode);
+    }
+    return div();
+  }
+
+  function updateURL(value) {
+    window.history.replaceState({}, undefined, ("?filter=" + (encodeURIComponent(value)) + (window.location.hash)));
+  }
+
+  function applyFilter(value) {
+    selectAll('.example-section').forEach(function (sel) {
+      var vis = value.toLowerCase().split(', ').some(function (v) { return sel.text().toLowerCase().includes(v); });
+      sel.style('display', vis ? undefined : 'none');
+      findContentsItem(sel.select('.example-header').text()).style('display', vis ? undefined : 'none');
+    });
+
+    updateURL(value);
+  }
+
+  var filter = detached('input').class('hx-input')
+    .attr('placeholder', 'Filter...')
+    .on('keyup', debounce(200, function (e) {
+      applyFilter(e.target.value);
+      backToTop();
+    }));
+
   var examples = [
     example('Text Styles').add(tryDemo(typographyExamples)),
     example('Input Fields').add(tryDemo(inputExamples)),
     example('Checklists').add(tryDemo(checkboxExamples)),
     example('Radio Buttons').add(tryDemo(radioExamples)),
     example('Palette').add(tryDemo(paletteExamples)),
-    example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
     example('Autocomplete').add(tryDemo(autocompleteExamples)),
     example('Badge').add(tryDemo(badgeExamples)),
     example('Button Group').add(tryDemo(buttonGroupExamples)),
@@ -1206,12 +1577,17 @@
     example('Layout').add(tryDemo(layoutExamples)),
     example('Loading Spinners').add(tryDemo(loadingSpinnerExamples)),
     example('Menu').add(tryDemo(menuExamples)),
+    example('More Button').add(tryDemo(moreButtonExamples)),
+    example('Dropdown Button').add(tryDemo(dropdownButtonExamples)),
     example('Modals').add(tryDemo(modalExamples)),
     example('Notice').add(tryDemo(noticeExamples)),
+    example('Alerts and Messages').add(tryDemo(alertExamples)),
     example('Notify').add(tryDemo(notifyExamples)),
     example('Number Pickers').add(tryDemo(numberPickerExamples)),
     example('Paginator').add(tryDemo(paginatorExamples)),
     example('Picker').add(tryDemo(pickerExamples)),
+    example('Single Select').add(tryDemo(singleSelectExamples)),
+    example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
     example('Pivot Table').add(tryDemo(pivotTableExamples)),
     example('Plot').add(tryDemo(plotExamples)),
     example('Progress Bar').add(tryDemo(progressBarExamples)),
@@ -1227,8 +1603,18 @@
     example('Tree').add(tryDemo(treeExamples)) ];
 
   select('body')
-    .add(titleBar({ title: 'Title', subtitle: 'Subtitle' }))
-    .add(getContents())
-    .add(examples);
+    .add(div('sidebar')
+      .add(filter)
+      .add(getContents()))
+    .add(detached('p').class('intro').text('This page demonstrates examples of the various Hexagon components available on a single page. Use the filter on the left to search for components'))
+    .add(div('examples').set(examples));
+
+  setTimeout(function () {
+    if (window.location.search) {
+      var filterValueFromWindow = decodeURIComponent(window.location.search.slice(window.location.search.indexOf('=') + 1));
+      filter.value(filterValueFromWindow);
+      applyFilter(filterValueFromWindow);
+    }
+  }, 1);
 
 }(hx));
