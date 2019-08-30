@@ -1,0 +1,70 @@
+.hx-visualisation-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.hx-visualisation-bar-header,
+.hx-visualisation-bar-body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.hx-visualisation-bar-title,
+.hx-visualisation-bar-count {
+  display: flex;
+}
+
+.hx-visualisation-bar-title {
+  width: 70%;
+}
+
+.hx-visualisation-bar-count {
+  width: 30%;
+  flex-direction: row-reverse;
+}
+
+.hx-visualisation-bar-fill {
+  --text-color: var(--visual-text-color);
+}
+
+.hx-visualisation-bar-fill.inversed-text-color {
+  --text-color: var(--visual-inversed-text-color);
+}
+
+.hx-visualisation-bar-fill {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  transition: background-color ease 0.25s;
+  color: var(--text-color);
+  font-weight: bold;
+  height: var(--visual-fill-height);
+}
+
+.hx-animate .hx-visualisation-bar-p-wrapper {
+  transition: width ease 0.25s;
+}
+
+.hx-visualisation-bar-progress {
+  --fill-color: var(--visual-positive-color);
+}
+
+.hx-visualisation-bar-progress .error {
+  --fill-color: var(--visual-negative-color);
+}
+
+.hx-visualisation-bar-progress .hx-visualisation-bar-fill {
+  background-color: var(--fill-color);
+  border-radius: var(--visual-border-radius) 0 0 var(--visual-border-radius);
+}
+
+.hx-visualisation-bar-buffer .hx-visualisation-bar-fill {
+  background-color: var(--visual-buffer-color);
+}
+
+.hx-visualisation-bar-balance .hx-visualisation-bar-fill {
+  background-color: var(--visual-healthy-na-color);
+  border-radius: 0 var(--visual-border-radius) var(--visual-border-radius) 0;
+}

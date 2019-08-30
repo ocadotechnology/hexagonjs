@@ -5,6 +5,7 @@ import { palette } from 'utils/palette'
 import { detached } from './selection.coffee'
 
 export div = (cls) -> detached('div').class(cls)
+export h = (size, cls) -> detached('h' + size).class(cls)
 export span = (cls) -> detached('span').class(cls)
 export input = (cls) -> detached('input').class(cls)
 export checkbox = (cls) -> detached('input').attr('type', 'checkbox').class(cls)
