@@ -14,7 +14,7 @@
 }
 
 .hx-visualization-bar .hx-header-small {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .hx-visualization-bar.disabled .hx-visualization-bar-title .hx-header-small {
@@ -35,6 +35,7 @@
 }
 
 .hx-visualization-bar-title {
+  margin-top: 15px;
   width: 70%;
 }
 
@@ -83,20 +84,32 @@
   justify-content: center;
   transition: width ease 0.25s;
   font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.hx-visualization-bar-label .hx-visualization-bar-label-text {
+  padding: 5px;
 }
 
 .hx-animate .hx-visualization-bar-p-wrapper {
   transition: width ease 0.25s;
 }
 
-@media only screen and(min-width: 700px) {
-  .hx-visualization-bar-p-wrapper {
+@media screen and (min-width: 700px) {
+  .hx-visualization-bar-p-wrapper,
+  .hx-visualization-bar-label {
     min-width: 50px;
   }
 }
 
 .hx-visualization-bar.error .hx-visualization-bar-progress .hx-visualization-bar-fill {
   background-color: var(--visual-negative-color);
+}
+
+.hx-visualization-bar.error .hx-visualization-bar-buffer .hx-visualization-bar-fill {
+  background-color: var(--visual-alert-color);
 }
 
 .hx-visualization-bar-progress .hx-visualization-bar-fill {
