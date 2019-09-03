@@ -1103,4 +1103,18 @@
   --tree-icon-text-hover-color: var(--theme-accent-text-color);
   --tree-item-border-left-color: var(--theme-accent-color);
   --tree-shadow-color: var(--theme-shadow-color);
+
+  /* Visualisation bar */
+  --visual-negative-color: #a22032;
+  --visual-positive-color: #1469a0;
+  --visual-buffer-color: #60a3c8;
+  --visual-alert-color: #dc6f00;
+  --visual-healthy-color: #c9c9c9;
+  --visual-healthy-na-color: #e5e5e5;
+  --visual-fill-height: 30px;
+  --visual-border-radius: 3px;
+  --visual-text-color: #fff;
+  --visual-inversed-text-color: #424242;
+  --visual-disabled-text-color: #c9c9c9;
 }
+

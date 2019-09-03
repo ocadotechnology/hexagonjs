@@ -70,6 +70,7 @@ import errorPageTests from 'components/error-pages/spec';
 import singleSelectTests from 'components/single-select/spec';
 import dropdownButtonTests from 'components/dropdown-button/spec';
 import moreButtonTests from 'components/more-button/spec';
+import visualizationBarTests from 'components/visualization-bar/spec';
 
 window.hx = hx;
 
@@ -367,6 +368,8 @@ describe('HexagonJS Test Suite', () => {
         'version',
         'zeroPad',
         'zip',
+        'VisualizationBar',
+        'visualizationBar',
       ].sort();
 
       const deepKeys = getDeepKeys(hx);
@@ -448,6 +451,7 @@ describe('HexagonJS Test Suite', () => {
   singleSelectTests();
   dropdownButtonTests();
   moreButtonTests();
+  visualizationBarTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //

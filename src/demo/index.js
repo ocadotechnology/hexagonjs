@@ -47,7 +47,7 @@ import radioExamples from './examples/radio';
 import moreButtonExamples from './examples/more-button';
 import dropdownButtonExamples from './examples/dropdown-button';
 import singleSelectExamples from './examples/single-select';
-import visualisationBarExamples from './examples/visualisation-bar';
+import visualisationBarExamples from './examples/visualization-bar';
 
 const {
   select, selectAll, div, detached, debounce,
@@ -170,7 +170,7 @@ const examples = [
   example('Time Slider').add(tryDemo(timeSliderExamples)),
   example('Toggle').add(tryDemo(toggleExamples)),
   example('Tree').add(tryDemo(treeExamples)),
-  example('Visualisation Bar').add(tryDemo(visualisationBarExamples))
+  example('Visualisation Bar').add(tryDemo(visualisationBarExamples)),
 ];
 
 select('body')

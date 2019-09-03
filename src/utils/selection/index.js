@@ -4,7 +4,7 @@ export {
   input,
   checkbox,
   i,
-  h,
+  heading,
   icon,
   button,
 } from './fluid.coffee';
