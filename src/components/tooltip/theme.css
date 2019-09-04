@@ -1,0 +1,14 @@
+.hx-tooltip {
+    box-shadow: none;
+    border: none;
+    background-color: #686868;
+    font-size: 12px;
+    color: white;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+
+.hx-tooltip:before {
+
+}
