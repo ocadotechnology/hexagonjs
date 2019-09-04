@@ -1,0 +1,9 @@
+.hx-tooltip-label  {
+    border-bottom: 1px dotted red;
+}
+
+.hx-tooltip-icon, 
+.hx-tooltip-label {
+    cursor: pointer;
+}
+
