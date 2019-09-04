@@ -50,7 +50,7 @@ export default () => {
   const renderFullFooter = thisModal => ([
     button('hx-btn')
       .text('Cancel')
-      .on('click', () => thisModal.onClose()),
+      .on('click', () => thisModal.close()),
     button('hx-btn hx-primary hx-margin-left')
       .text('Primary')
       .on('click', () => thisModal.hide()),
