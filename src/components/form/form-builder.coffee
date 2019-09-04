@@ -23,7 +23,7 @@ getButtons = (form, createIfEmpty = true) ->
   selection = select(form.selector)
   sel = selection.select('.hx-form-buttons')
   buttons = if createIfEmpty and sel.empty()
-    selection.prepend('div').class('hx-form-buttons')
+    selection.append('div').class('hx-form-buttons')
   else sel
 
 export class Form extends EventEmitter
