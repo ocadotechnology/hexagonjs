@@ -4235,7 +4235,7 @@ var dx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.3.0";
+  var version = "2.3.1";
 
   var currentTheme$1 = {};
   var themeSet = false;
@@ -20640,7 +20640,7 @@ var dx = (function (exports) {
     var buttons, sel, selection;
     selection = select(form.selector);
     sel = selection.select('.hx-form-buttons');
-    return buttons = createIfEmpty && sel.empty() ? selection.prepend('div').class('hx-form-buttons') : sel;
+    return buttons = createIfEmpty && sel.empty() ? selection.append('div').class('hx-form-buttons') : sel;
   };
 
   var Form = /*@__PURE__*/(function (EventEmitter) {
