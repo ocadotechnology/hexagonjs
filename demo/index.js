@@ -546,7 +546,7 @@
     var renderFullFooter = function (thisModal) { return ([
       hx.button('hx-btn')
         .text('Cancel')
-        .on('click', function () { return thisModal.onClose(); }),
+        .on('click', function () { return thisModal.close(); }),
       hx.button('hx-btn hx-primary hx-margin-left')
         .text('Primary')
         .on('click', function () { return thisModal.hide(); }) ]); };
