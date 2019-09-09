@@ -13,16 +13,6 @@ const adaptNumber = max => value => moreThan(max)(lessThan(0)(value));
 
 export class VisualizationBar {
   constructor(selector, options) {
-    this.eventBus = new EventEmitter();
-
-    this.percents = {
-      [VisualizationBarTypes.PROGRESS]: 0,
-      [VisualizationBarTypes.BUFFER]: 0,
-      [VisualizationBarTypes.BALANCE]: 100,
-    };
-
-    this.oldPercents = mergeDefined({}, this.percents);
-
     this.options = mergeDefined({
       value: 0,
       secondary: false,
@@ -38,6 +28,16 @@ export class VisualizationBar {
       withMax: true,
       size: VisualizationBarSizes.STANDARD,
     }, options);
+
+    this.eventBus = new EventEmitter();
+
+    this.percents = {
+      [VisualizationBarTypes.PROGRESS]: 0,
+      [VisualizationBarTypes.BUFFER]: 0,
+      [VisualizationBarTypes.BALANCE]: 100,
+    };
+
+    this.oldPercents = mergeDefined({}, this.percents);
 
     this.selection = select(selector)
       .classed('hx-visualization-bar', true)
@@ -268,13 +268,12 @@ export class VisualizationBar {
     this.progressElementsMap.get(VisualizationBarParts.WRAPPER)
       .add(this.progressElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.progressElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
-        .add(this.progressElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
-      );
+        .add(this.progressElementsMap.get(VisualizationBarParts.LABEL_PERCENT)));
     this.bufferElementsMap.get(VisualizationBarParts.WRAPPER).add(
       this.bufferElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
-    )
+    );
     this.balanceElementsMap.get(VisualizationBarParts.WRAPPER).add(
       this.balanceElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
