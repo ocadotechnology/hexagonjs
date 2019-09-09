@@ -17,6 +17,12 @@ export class VisualizationBar {
       [VisualizationBarTypes.BALANCE]: 100,
     };
 
+    this.pixels = {
+      [VisualizationBarTypes.PROGRESS]: 0,
+      [VisualizationBarTypes.BUFFER]: 0,
+      [VisualizationBarTypes.BALANCE]: 100,
+    };
+
     this.options = mergeDefined({
       value: 0,
       secondary: false,
@@ -101,12 +107,15 @@ export class VisualizationBar {
     * @param {number} value
     */
   progress(value) {
-    this.options.value = value;
-    if (this.size() !== VisualizationBarSizes.SMALL) {
-      this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+    if (defined(value)) {
+      this.options.value = value;
+      if (this.size() !== VisualizationBarSizes.SMALL) {
+        this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+      }
+      this.checkBuffer(value);
+      this.update();
     }
-    this.checkBuffer(value);
-    this.update();
+    return this.options.value;
   }
 
   /**
@@ -303,17 +312,11 @@ export class VisualizationBar {
     if (this.disabled()) {
       return;
     }
-    const { value, buffer, max } = this.options;
+    const { value, buffer } = this.options;
     const currentMax = this.max();
-    this.percents[VisualizationBarTypes.PROGRESS] = Math.round((value * 100) / currentMax);
-    this.percents[VisualizationBarTypes.BUFFER] = Math.round((buffer * 100) / currentMax);
-    this.percents[VisualizationBarTypes.BALANCE] = max
-      ? Math.round(
-        100
-        - this.percents[VisualizationBarTypes.BUFFER]
-        - this.percents[VisualizationBarTypes.PROGRESS],
-      )
-      : 0;
+    this.updatePercents(currentMax);
+    this.updatePixels();
+
     this.mainElements[VisualizationBarTypes.BALANCE].get(VisualizationBarParts.PROGRESS);
 
     if (!this.isSize(VisualizationBarSizes.SMALL)) {
@@ -326,6 +329,26 @@ export class VisualizationBar {
     this.updateFill(VisualizationBarTypesList);
     this.updateLabelPercent(VisualizationBarTypesList);
     this.updateCount();
+  }
+
+  updatePercents(currentMax) {
+    const { max, value, buffer } = this.options;
+    this.percents[VisualizationBarTypes.PROGRESS] = Math.round((value * 100) / currentMax);
+    this.percents[VisualizationBarTypes.BUFFER] = Math.round((buffer * 100) / currentMax);
+    this.percents[VisualizationBarTypes.BALANCE] = max ? Math.round(
+      100
+      - this.percents[VisualizationBarTypes.BUFFER]
+      - this.percents[VisualizationBarTypes.PROGRESS],
+    )
+      : 0;
+  }
+
+  updatePixels() {
+    const width = this.body.width();
+    console.log(width);
+    this.pixels[VisualizationBarTypes.PROGRESS] = width * this.percents[VisualizationBarTypes.PROGRESS] / 100;
+    this.pixels[VisualizationBarTypes.BUFFER] = width * this.percents[VisualizationBarTypes.BUFFER] / 100;
+    this.pixels[VisualizationBarTypes.BALANCE] = width * this.percents[VisualizationBarTypes.BALANCE] / 100;
   }
 
   updateLabelPercent(labelTypes) {
@@ -344,7 +367,7 @@ export class VisualizationBar {
     });
   }
 
-  updateFill(labelTypes) {
+  updateFill(labelTypes, ms) {
     if (this.disabled()) {
       return;
     }
@@ -353,22 +376,26 @@ export class VisualizationBar {
         throw new Error('You should choose one of types from VisualizationBarTypes enum');
       }
       const element = this.mainElements[type];
-      const percent = this.percents[type];
+      const pixels = this.pixels[type];
 
-      animate(element.get(VisualizationBarParts.WRAPPER).node())
-        .style('width', `${percent}%`, 250)
-        .on('end', () => this.eventBus.emit('visibility', {
-          type,
-          value: percent !== 0,
-        }));
-
-      animate(element.get(VisualizationBarParts.LABEL).node())
-        .style('width', `${percent}%`, 250);
-
-      this.eventBus.emit('label-visibility', {
+      const visibility = (v) => this.eventBus.emit('visibility', {
         type,
-        value: percent !== 0,
+        value: v || pixels !== 0,
       });
+
+      const labelVisibility = () => this.eventBus.emit('label-visibility', {
+        type,
+        value: pixels !== 0,
+      });
+
+      visibility(true);
+      animate(element.get(VisualizationBarParts.WRAPPER).node())
+        .style('width', `${pixels}px`, 250)
+        .on('end', () => visibility());
+
+      labelVisibility()
+      animate(element.get(VisualizationBarParts.LABEL).node())
+        .style('width', `${pixels}px`, 250);
     });
   }
 

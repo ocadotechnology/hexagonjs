@@ -2,7 +2,8 @@
 import { visualizationBar, VisualizationBar, VisualizationBarSizes } from 'hexagon-js';
 import { div } from 'utils/selection';
 
-const rand = max => e => e.progress(Math.round(Math.random() * max));
+const randNum = max => Math.round(Math.random() * max);
+const rand = max => e => e.progress(randNum(max));
 
 export default () => {
   const selectionWithMax = div();
@@ -47,7 +48,7 @@ export default () => {
       progressLabel: 'Progress',
       bufferLabel: 'Buffer Long Text!',
       balanceLabel: 'Balance',
-    }), rand(20)],
+    }), (v) => v.progress(v.progress() ? 0 : randNum(100))],
   ];
 
   setInterval(() => {
