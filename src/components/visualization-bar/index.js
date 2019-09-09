@@ -7,12 +7,13 @@ import {
   generateGroup, VisualizationBarSizesList, VisualizationBarTypesList,
 } from './lib';
 
-const moreThan = max => value => (value > max ? max : value);
-const lessThan = min => value => (value < min ? min : value);
-const adaptNumber = max => value => moreThan(max)(lessThan(0)(value));
+const moreThan = target => value => (value > target ? target : value);
+const lessThan = target => value => (value < target ? target : value);
+const adaptNumber = target => value => moreThan(target)(lessThan(0)(value));
 
-export class VisualizationBar {
+export class VisualizationBar extends EventEmitter {
   constructor(selector, options) {
+    super();
     this.options = mergeDefined({
       value: 0,
       secondary: false,
@@ -28,8 +29,6 @@ export class VisualizationBar {
       withMax: true,
       size: VisualizationBarSizes.STANDARD,
     }, options);
-
-    this.eventBus = new EventEmitter();
 
     this.percents = {
       [VisualizationBarTypes.PROGRESS]: 0,
@@ -49,7 +48,7 @@ export class VisualizationBar {
 
     this.body = div('hx-visualization-bar-body hx-animate');
     this.fillWrapper = div('hx-visualization-bar-fill-wrapper');
-    this.labelWrapper = div('hx-visualization-bar-label-wrapper');
+
     this.mainElements = {
       [VisualizationBarTypes.PROGRESS]:
         generateGroup(VisualizationBarTypes[VisualizationBarTypes.PROGRESS]),
@@ -68,7 +67,7 @@ export class VisualizationBar {
     this.selection.add(div('hx-visualization-bar-title').add(this.titleElement));
     this.selection.add(div('hx-visualization-bar-count').add(this.countElement));
     this.selection.add(this.body);
-    this.body.add(this.fillWrapper).add(this.labelWrapper);
+    this.body.add(this.fillWrapper)
 
     this.initFill();
     this.initLabels();
@@ -108,10 +107,10 @@ export class VisualizationBar {
     */
   progress(value) {
     this.options.value = adaptNumber(this.max())(value);
-    if (this.size() !== VisualizationBarSizes.SMALL) {
+    if (!this.isSize(VisualizationBarSizes.SMALL)) {
       this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
     }
-    this.checkBuffer(value);
+    this.updateBuffer(value);
     this.update();
   }
 
@@ -210,13 +209,9 @@ export class VisualizationBar {
   }
 
   listen() {
-    this.eventBus.on('visibility', ({ type, value }) => {
+    this.on('visibility', ({ type, value }) => {
       this.mainElements[type].get(VisualizationBarParts.WRAPPER).classed('hx-hidden', !value);
       this.body.classed(`hx-without-${VisualizationBarTypes[type]}`, !value);
-    });
-
-    this.eventBus.on('label-visibility', ({ type, value }) => {
-      this.mainElements[type].get(VisualizationBarParts.LABEL).classed('hx-hidden', !value);
     });
   }
 
@@ -291,14 +286,7 @@ export class VisualizationBar {
     this.selection.classed('hx-without-label', showLabels);
   }
 
-  isLabelsExist() {
-    return this.options.progressLabel
-      || this.options.bufferLabel
-      || this.options.balanceLabel
-      || this.options.withPercent;
-  }
-
-  checkBuffer() {
+  updateBuffer() {
     const { buffer, value, max = this.options.value + this.options.buffer } = this.options;
     const sum = buffer + value;
     if (max && (sum > max)) {
@@ -371,15 +359,15 @@ export class VisualizationBar {
       const percent = this.percents[type];
       const oldPercent = this.oldPercents[type];
 
-      const visible = (fncPc, task) => this.eventBus.emit(task, {
+      const visible = fncPc => this.emit('visibility', {
         type,
         value: fncPc !== 0,
       });
 
-      visible(oldPercent, 'visibility');
+      visible(oldPercent);
       animate(element.get(VisualizationBarParts.WRAPPER).node())
         .style('width', `${oldPercent}%`, `${percent}% `, 250)
-        .on('end', () => visible(percent, 'visibility'));
+        .on('end', () => visible(percent));
     });
   }
 
