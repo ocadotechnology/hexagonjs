@@ -265,15 +265,17 @@ export class VisualizationBar {
   }
 
   initLabels() {
-    this.labelWrapper.add(
-      this.progressElementsMap.get(VisualizationBarParts.LABEL)
+    this.progressElementsMap.get(VisualizationBarParts.WRAPPER)
+      .add(this.progressElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.progressElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.progressElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
-    ).add(
+      );
+    this.bufferElementsMap.get(VisualizationBarParts.WRAPPER).add(
       this.bufferElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
-    ).add(
+    )
+    this.balanceElementsMap.get(VisualizationBarParts.WRAPPER).add(
       this.balanceElementsMap.get(VisualizationBarParts.LABEL)
         .add(div('hx-visualization-bar-label-text-wrapper').add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
@@ -379,11 +381,6 @@ export class VisualizationBar {
       animate(element.get(VisualizationBarParts.WRAPPER).node())
         .style('width', `${oldPercent}%`, `${percent}% `, 250)
         .on('end', () => visible(percent, 'visibility'));
-
-      visible(oldPercent, 'label-visibility');
-      animate(element.get(VisualizationBarParts.LABEL).node())
-        .style('width', `${oldPercent}%`, `${percent}% `, 250)
-        .on('end', () => visible(percent, 'label-visibility'));
     });
   }
 
