@@ -6,7 +6,6 @@ import { div } from 'utils/selection';
 import { VisualizationBar } from 'components/visualization-bar';
 
 export default () => {
-
   chai.should();
 
   describe('hx-visualization-bar', () => {

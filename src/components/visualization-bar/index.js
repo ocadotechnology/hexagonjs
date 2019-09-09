@@ -7,6 +7,10 @@ import {
   generateGroup, VisualizationBarSizesList, VisualizationBarTypesList,
 } from './lib';
 
+const moreThan = max => value => (value > max ? max : value);
+const lessThan = min => value => (value < min ? min : value);
+const adaptNumber = max => value => moreThan(max)(lessThan(0)(value));
+
 export class VisualizationBar {
   constructor(selector, options) {
     this.eventBus = new EventEmitter();
@@ -17,11 +21,7 @@ export class VisualizationBar {
       [VisualizationBarTypes.BALANCE]: 100,
     };
 
-    this.pixels = {
-      [VisualizationBarTypes.PROGRESS]: 0,
-      [VisualizationBarTypes.BUFFER]: 0,
-      [VisualizationBarTypes.BALANCE]: 100,
-    };
+    this.oldPercents = mergeDefined({}, this.percents);
 
     this.options = mergeDefined({
       value: 0,
@@ -107,15 +107,12 @@ export class VisualizationBar {
     * @param {number} value
     */
   progress(value) {
-    if (defined(value)) {
-      this.options.value = value;
-      if (this.size() !== VisualizationBarSizes.SMALL) {
-        this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
-      }
-      this.checkBuffer(value);
-      this.update();
+    this.options.value = adaptNumber(this.max())(value);
+    if (this.size() !== VisualizationBarSizes.SMALL) {
+      this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
     }
-    return this.options.value;
+    this.checkBuffer(value);
+    this.update();
   }
 
   /**
@@ -123,7 +120,7 @@ export class VisualizationBar {
     * @param {number} value
     */
   buffer(value) {
-    this.options.buffer = value;
+    this.options.buffer = adaptNumber(this.max())(value);
     if (!this.isSize(VisualizationBarSizes.SMALL)) {
       this.bufferElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
     }
@@ -244,7 +241,7 @@ export class VisualizationBar {
       throw new Error('You should choose one of types from VisualizationBarTypes enum');
     }
 
-    this.mainElements[type].get(VisualizationBarParts.LABEL_TEXT).classed('hx-hidden', !defined(value));
+    this.mainElements[type].get(VisualizationBarParts.LABEL_TEXT).classed('hx-hidden', !defined(value) || !value);
     this.mainElements[type].get(VisualizationBarParts.LABEL_TEXT).text(this.percents[type] ? value : '');
   }
 
@@ -270,15 +267,15 @@ export class VisualizationBar {
   initLabels() {
     this.labelWrapper.add(
       this.progressElementsMap.get(VisualizationBarParts.LABEL)
-        .add(this.progressElementsMap.get(VisualizationBarParts.LABEL_TEXT))
+        .add(div('hx-visualization-bar-label-text-wrapper').add(this.progressElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.progressElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
     ).add(
       this.bufferElementsMap.get(VisualizationBarParts.LABEL)
-        .add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_TEXT))
+        .add(div('hx-visualization-bar-label-text-wrapper').add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.bufferElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
     ).add(
       this.balanceElementsMap.get(VisualizationBarParts.LABEL)
-        .add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_TEXT))
+        .add(div('hx-visualization-bar-label-text-wrapper').add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_TEXT)))
         .add(this.balanceElementsMap.get(VisualizationBarParts.LABEL_PERCENT)),
     );
 
@@ -312,27 +309,18 @@ export class VisualizationBar {
     if (this.disabled()) {
       return;
     }
-    const { value, buffer } = this.options;
     const currentMax = this.max();
     this.updatePercents(currentMax);
-    this.updatePixels();
-
-    this.mainElements[VisualizationBarTypes.BALANCE].get(VisualizationBarParts.PROGRESS);
-
-    if (!this.isSize(VisualizationBarSizes.SMALL)) {
-      this.mainElements[VisualizationBarTypes.BALANCE].get(VisualizationBarParts.PROGRESS)
-        .text(currentMax
-          ? currentMax - value - buffer
-          : Math.max(value, buffer) - Math.min(value, buffer));
-    }
-
+    this.updateBalance(currentMax);
     this.updateFill(VisualizationBarTypesList);
     this.updateLabelPercent(VisualizationBarTypesList);
     this.updateCount();
   }
 
   updatePercents(currentMax) {
-    const { max, value, buffer } = this.options;
+    const { value, buffer, max } = this.options;
+    this.oldPercents = mergeDefined({}, this.percents);
+
     this.percents[VisualizationBarTypes.PROGRESS] = Math.round((value * 100) / currentMax);
     this.percents[VisualizationBarTypes.BUFFER] = Math.round((buffer * 100) / currentMax);
     this.percents[VisualizationBarTypes.BALANCE] = max ? Math.round(
@@ -343,11 +331,14 @@ export class VisualizationBar {
       : 0;
   }
 
-  updatePixels() {
-    const width = this.body.width();
-    this.pixels[VisualizationBarTypes.PROGRESS] = width * this.percents[VisualizationBarTypes.PROGRESS] / 100;
-    this.pixels[VisualizationBarTypes.BUFFER] = width * this.percents[VisualizationBarTypes.BUFFER] / 100;
-    this.pixels[VisualizationBarTypes.BALANCE] = width * this.percents[VisualizationBarTypes.BALANCE] / 100;
+  updateBalance(currentMax) {
+    const { value, buffer } = this.options;
+    if (!this.isSize(VisualizationBarSizes.SMALL)) {
+      this.mainElements[VisualizationBarTypes.BALANCE].get(VisualizationBarParts.PROGRESS)
+        .text(currentMax
+          ? currentMax - value - buffer
+          : Math.max(value, buffer) - Math.min(value, buffer));
+    }
   }
 
   updateLabelPercent(labelTypes) {
@@ -366,41 +357,39 @@ export class VisualizationBar {
     });
   }
 
-  updateFill(labelTypes, ms) {
+  updateFill(labelTypes) {
     if (this.disabled()) {
       return;
     }
+
     labelTypes.forEach((type) => {
       if (!defined(VisualizationBarTypes[type])) {
         throw new Error('You should choose one of types from VisualizationBarTypes enum');
       }
       const element = this.mainElements[type];
-      const pixels = this.pixels[type];
+      const percent = this.percents[type];
+      const oldPercent = this.oldPercents[type];
 
-      const visibility = (v) => this.eventBus.emit('visibility', {
+      const visible = (fncPc, task) => this.eventBus.emit(task, {
         type,
-        value: v || pixels !== 0,
+        value: fncPc !== 0,
       });
 
-      const labelVisibility = () => this.eventBus.emit('label-visibility', {
-        type,
-        value: pixels !== 0,
-      });
-
-      visibility(true);
+      visible(oldPercent, 'visibility');
       animate(element.get(VisualizationBarParts.WRAPPER).node())
-        .style('width', `${pixels}px`, 250)
-        .on('end', () => visibility());
+        .style('width', `${oldPercent}%`, `${percent}% `, 250)
+        .on('end', () => visible(percent, 'visibility'));
 
-      labelVisibility()
+      visible(oldPercent, 'label-visibility');
       animate(element.get(VisualizationBarParts.LABEL).node())
-        .style('width', `${pixels}px`, 250);
+        .style('width', `${oldPercent}%`, `${percent}% `, 250)
+        .on('end', () => visible(percent, 'label-visibility'));
     });
   }
 
   updateCount() {
     const { withMax, value, max } = this.options;
-    this.countElement.text(withMax ? `${value}/${max || '-'}` : value);
+    this.countElement.text(withMax ? `${value} / ${max || '-'}` : value);
   }
 }
 

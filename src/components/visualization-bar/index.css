@@ -67,7 +67,7 @@
 
 .hx-visualization-bar-fill-wrapper {
   height: var(--visual-fill-height);
-  background-color: var(--visual-text-color);
+  background-color: var(--visual-healthy-na-color);
   border-radius: var(--visual-border-radius);
 }
 
@@ -100,6 +100,16 @@
   color: var(--visual-text-color);
   font-weight: bold;
   height: 100%;
+  position: relative;
+}
+
+.hx-visualization-bar-fill:before {
+  content: " ";
+  width: 5px;
+  height: 100%;
+  background: var(--visual-text-color);
+  position: absolute;
+  left: -2.5px;
 }
 
 .hx-visualization-bar-fill.inversed-text-color {
@@ -116,7 +126,7 @@
 }
 
 .hx-visualization-bar-label .hx-visualization-bar-label-text {
-  padding: var(--visual-base-inner-padding);
+  padding: 0 var(--visual-base-inner-padding);
 }
 
 .hx-animate .hx-visualization-bar-p-wrapper {
@@ -236,17 +246,17 @@
 
 /** Overflow **/
 
-.hx-visualization-bar-label-text,
+.hx-visualization-bar-label-text-wrapper,
 .hx-visualization-bar-label-percent {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 100%;
+  display: inline-flex;
+  max-width: 100%;
 }
 
 .hx-visualization-bar-label-text {
-  /* width: 80%; */
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .hx-visualization-bar-label-percent {

@@ -19,7 +19,10 @@ export const VisualizationBarSizes = (function () {
   return BarSizes;
 }({}));
 
-export const VisualizationBarSizesList = [VisualizationBarSizes.SMALL, VisualizationBarSizes.STANDARD];
+export const VisualizationBarSizesList = [
+  VisualizationBarSizes.SMALL,
+  VisualizationBarSizes.STANDARD,
+];
 
 export const VisualizationBarTypes = (function () {
   const BarTypes = {};
@@ -29,13 +32,17 @@ export const VisualizationBarTypes = (function () {
   return BarTypes;
 }({}));
 
-export const VisualizationBarTypesList = [VisualizationBarTypes.PROGRESS, VisualizationBarTypes.BUFFER, VisualizationBarTypes.BALANCE];
+export const VisualizationBarTypesList = [
+  VisualizationBarTypes.PROGRESS,
+  VisualizationBarTypes.BUFFER,
+  VisualizationBarTypes.BALANCE,
+];
 
 export const generateGroup = title => new Map([
   [VisualizationBarParts.WRAPPER, div(`hx-visualization-bar-${title} hx-visualization-bar-p-wrapper`)],
   [VisualizationBarParts.FILL, div(`hx-visualization-bar-fill hx-visualization-bar-${title}-fill`)],
   [VisualizationBarParts.PROGRESS, span(`hx-visualization-bar-${title}-info hx-visualization-bar-${title}-progress-info`)],
   [VisualizationBarParts.LABEL, div(`hx-visualization-bar-label hx-visualization-bar-${title}-label`)],
-  [VisualizationBarParts.LABEL_PERCENT, span('hx-visualization-bar-label-percent')],
-  [VisualizationBarParts.LABEL_TEXT, span('hx-visualization-bar-label-text')],
+  [VisualizationBarParts.LABEL_PERCENT, div('hx-visualization-bar-label-percent')],
+  [VisualizationBarParts.LABEL_TEXT, div('hx-visualization-bar-label-text')],
 ]);
