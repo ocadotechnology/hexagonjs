@@ -345,7 +345,6 @@ export class VisualizationBar {
 
   updatePixels() {
     const width = this.body.width();
-    console.log(width);
     this.pixels[VisualizationBarTypes.PROGRESS] = width * this.percents[VisualizationBarTypes.PROGRESS] / 100;
     this.pixels[VisualizationBarTypes.BUFFER] = width * this.percents[VisualizationBarTypes.BUFFER] / 100;
     this.pixels[VisualizationBarTypes.BALANCE] = width * this.percents[VisualizationBarTypes.BALANCE] / 100;
