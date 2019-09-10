@@ -3,7 +3,9 @@ import { visualizationBar, VisualizationBar, VisualizationBarSizes } from 'hexag
 import { div } from 'utils/selection';
 
 const randNum = max => Math.round(Math.random() * max);
-const rand = max => e => e.progress(randNum(max));
+const rand = max => e => {
+  e.progress(randNum(max));
+};
 
 export default () => {
   const selectionWithMax = div();
@@ -36,7 +38,7 @@ export default () => {
       progressLabel: 'Progress',
       bufferLabel: 'Buffer Long Text!',
       balanceLabel: 'Balance',
-    }), rand(20)],
+    }), rand(1000)],
     [new VisualizationBar(selectionSmall.node(), {
       size: VisualizationBarSizes.SMALL,
       title: 'Small progress bar',

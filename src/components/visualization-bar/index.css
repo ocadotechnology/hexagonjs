@@ -71,7 +71,7 @@
 
 .hx-visualization-bar-fill {
   background-color: var(--visual-healthy-na-color);
-  border-radius: var(--visual-border-radius);
+  /* border-radius: var(--visual-border-radius); */
   height: var(--visual-fill-height);
 }
 
@@ -233,7 +233,7 @@
 }
 
 .hx-visualization-bar.hx-small-bar .hx-visualization-bar-fill:before {
-  width: 3.5px;
+  display: none;
 }
 
 .hx-visualization-bar.hx-small-bar .hx-visualization-bar-count {

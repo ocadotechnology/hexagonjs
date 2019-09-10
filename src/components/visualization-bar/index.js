@@ -7,8 +7,8 @@ import {
   generateGroup, VisualizationBarSizesList, VisualizationBarTypesList,
 } from './lib';
 
-const moreThan = target => value => (value > target ? target : value);
-const lessThan = target => value => (value < target ? target : value);
+const moreThan = target => value => (value < target ? target : value);
+const lessThan = target => value => (value > target ? target : value);
 const adaptNumber = target => value => moreThan(target)(lessThan(0)(value));
 
 export class VisualizationBar extends EventEmitter {
@@ -67,7 +67,7 @@ export class VisualizationBar extends EventEmitter {
     this.selection.add(div('hx-visualization-bar-title').add(this.titleElement));
     this.selection.add(div('hx-visualization-bar-count').add(this.countElement));
     this.selection.add(this.body);
-    this.body.add(this.fillWrapper)
+    this.body.add(this.fillWrapper);
 
     this.initFill();
     this.initLabels();
@@ -106,11 +106,10 @@ export class VisualizationBar extends EventEmitter {
     * @param {number} value
     */
   progress(value) {
-    this.options.value = adaptNumber(this.max())(value);
+    this.options.value = moreThan(0)(value);
     if (!this.isSize(VisualizationBarSizes.SMALL)) {
       this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
     }
-    this.updateBuffer(value);
     this.update();
   }
 
@@ -119,7 +118,7 @@ export class VisualizationBar extends EventEmitter {
     * @param {number} value
     */
   buffer(value) {
-    this.options.buffer = adaptNumber(this.max())(value);
+    this.options.buffer = moreThan(0)(value);
     if (!this.isSize(VisualizationBarSizes.SMALL)) {
       this.bufferElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
     }
@@ -286,14 +285,6 @@ export class VisualizationBar extends EventEmitter {
     this.selection.classed('hx-without-label', showLabels);
   }
 
-  updateBuffer() {
-    const { buffer, value, max = this.options.value + this.options.buffer } = this.options;
-    const sum = buffer + value;
-    if (max && (sum > max)) {
-      this.buffer(max - value);
-    }
-  }
-
   update() {
     if (this.disabled()) {
       return;
@@ -301,8 +292,8 @@ export class VisualizationBar extends EventEmitter {
     const currentMax = this.max();
     this.updatePercents(currentMax);
     this.updateBalance(currentMax);
-    this.updateFill(VisualizationBarTypesList);
     this.updateLabelPercent(VisualizationBarTypesList);
+    this.updateFill(VisualizationBarTypesList);
     this.updateCount();
   }
 
@@ -312,21 +303,22 @@ export class VisualizationBar extends EventEmitter {
 
     this.percents[VisualizationBarTypes.PROGRESS] = Math.round((value * 100) / currentMax);
     this.percents[VisualizationBarTypes.BUFFER] = Math.round((buffer * 100) / currentMax);
-    this.percents[VisualizationBarTypes.BALANCE] = max ? Math.round(
-      100
-      - this.percents[VisualizationBarTypes.BUFFER]
-      - this.percents[VisualizationBarTypes.PROGRESS],
-    )
-      : 0;
+    const totalFillPc = this.percents[VisualizationBarTypes.BUFFER]
+      + this.percents[VisualizationBarTypes.PROGRESS];
+    this.percents[VisualizationBarTypes.BALANCE] = max ? totalFillPc > 100 ? 0 : Math.round(
+      100 - totalFillPc,
+    ) : 0;
   }
 
   updateBalance(currentMax) {
     const { value, buffer } = this.options;
     if (!this.isSize(VisualizationBarSizes.SMALL)) {
+      const totalFill = value + buffer;
+      const balanceValue = totalFill > currentMax ? 0 : currentMax
+        ? currentMax - totalFill
+        : Math.max(value, buffer) - Math.min(value, buffer);
       this.mainElements[VisualizationBarTypes.BALANCE].get(VisualizationBarParts.PROGRESS)
-        .text(currentMax
-          ? currentMax - value - buffer
-          : Math.max(value, buffer) - Math.min(value, buffer));
+        .text(balanceValue || '');
     }
   }
 
@@ -372,8 +364,8 @@ export class VisualizationBar extends EventEmitter {
   }
 
   updateCount() {
-    const { withMax, value, max } = this.options;
-    this.countElement.text(withMax ? `${value} / ${max || '-'}` : value);
+    const { withMax, value, max, buffer } = this.options;
+    this.countElement.text(withMax ? `${value + buffer} / ${max || '-'}` : value);
   }
 }
 

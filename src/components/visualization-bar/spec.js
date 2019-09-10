@@ -1,13 +1,8 @@
-
-import chai from 'chai';
-
 import { div } from 'utils/selection';
 
 import { VisualizationBar } from 'components/visualization-bar';
 
 export default () => {
-  chai.should();
-
   describe('hx-visualization-bar', () => {
     it('should create and class the progress bar correctly', () => {
       const pb = new VisualizationBar(div());
