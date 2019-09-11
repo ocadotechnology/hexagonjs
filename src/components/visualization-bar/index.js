@@ -93,36 +93,44 @@ export class VisualizationBar extends EventEmitter {
   }
 
   /**
-    * Setter of title property
+    * Get/Set of title property
     * @param {string} value
     */
   title(value) {
-    this.titleElement.text(this.options.title = value);
+    if (defined(value)) {
+      this.titleElement.text(this.options.title = value);
+    }
     return this.options.title;
   }
 
   /**
-    * Setter of progress property
+    * Get/Set of progress property
     * @param {number} value
     */
   progress(value) {
-    this.options.value = moreThan(0)(value);
-    if (!this.isSize(VisualizationBarSizes.SMALL)) {
-      this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+    if (defined(value)) {
+      this.options.value = moreThan(0)(value);
+      if (!this.isSize(VisualizationBarSizes.SMALL)) {
+        this.progressElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+      }
+      this.update();
     }
-    this.update();
+    return this.options.value;
   }
 
   /**
-    * Setter of buffer property
+    * Get/Set of buffer property
     * @param {number} value
     */
   buffer(value) {
-    this.options.buffer = moreThan(0)(value);
-    if (!this.isSize(VisualizationBarSizes.SMALL)) {
-      this.bufferElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+    if (defined(value)) {
+      this.options.buffer = moreThan(0)(value);
+      if (!this.isSize(VisualizationBarSizes.SMALL)) {
+        this.bufferElementsMap.get(VisualizationBarParts.PROGRESS).text(value || '');
+      }
+      this.update();
     }
-    this.update();
+    return this.options.buffer;
   }
 
   /**
@@ -139,7 +147,7 @@ export class VisualizationBar extends EventEmitter {
   }
 
   /**
-    * Setter of content property
+    * Get/Set of content property
     * @param {string} value
     */
   content(value) {
@@ -147,7 +155,7 @@ export class VisualizationBar extends EventEmitter {
       this.contentElement.text(value);
       return value;
     }
-    throw new Error('You should pass value to set property!');
+    return this.options.content;
   }
 
   /**
