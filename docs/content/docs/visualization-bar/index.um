@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Visualization Bar
+  @description
+    A component for showing a collection of status segments
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/visualization-bar/changelog)[Change Log]
+
+    @inline api.um

@@ -3,9 +3,17 @@
   @description
     Updated the progressbar background color to add more contrast
 
-@prototype hx.ProgressBar
+@prototype ProgressBarV1
+  @deprecated nextReleaseVersion
+    @description
+      Replaced by @code[ProgressBarV2].
+
+      Pass @code[featureFlags.useUpdatedClass: true] in the constructor options to create a new style progress bar.
+
   @description
     Create one of these for each progress bar in your page. This object provides methods to get and set the value of the progressbar.
+
+    This prototype is not exposed directly. Use @code[hx.ProgressBar].
 
   @constructor
     @removed 0.13.0
@@ -171,6 +179,229 @@
         @default
           false
 
+@prototype ProgressBarV2
+  @added nextReleaseVersion
+
+  @description
+    This prototype is not exposed directly. Use @code[hx.ProgressBar] with the @code[featureFlags.useUpdatedClass: true] option.
+
+  @constructor
+    @arg selector [String/HTMLElement/Selection]
+      @description
+        The selector to create the progress bar inside.
+
+    @arg? options [Object]
+      @property title [String]
+        @description
+          Sets the title to display above the progress bar
+        @default: @code[undefined]
+
+      @property breakdown [String]
+        @description
+          Sets the 'breakdown text' to display below the progress bar.
+          This is intended to explain what the progress bar and its segments are showing.
+
+        @default: @code[undefined]
+
+      @property plan [Number]
+        @description
+          Sets the plan for the progress bar. This is the target number used to indicate the total progress.
+
+          It is shown above and to the right of the progress bar like @code[progress / plan] (e.g. @code[100 / 1200])
+
+        @default: @code[0]
+
+      @property inProgress [Number]
+        @description
+          The current number of items that are being actioned but have not been completed.
+
+        @default: @code[0]
+
+      @property done [Number]
+        @description
+          The number of completed items.
+
+          This number will be shown next to the plan. It is shown above and to the right of
+          the progress bar like @code[progress / plan] (e.g. @code[100 / 1200])
+
+          The @code[done] amount can be greater than the planned amount (e.g. when you have completed more than you planned to complete)
+
+        @default: @code[0]
+
+      @property hidePlan [Boolean]
+        @description
+          Whether to hide the plan and just show the progress bar with title/breakdown text.
+
+        @default: @code[false]
+
+      @property compact [Boolean]
+        @description
+          Whether the progress bar should be compact. In this mode, the bar will be shorter and not display numbers on the segments.
+
+        @default: @code[false]
+
+      @property disabled [Boolean]
+        @description
+          Whether the progress bar is disabled. This can be used when there is no data or when a bar is not applicable.
+        @default: @code[false]
+
+  @method title
+    @description
+      Gets the title option
+    @returns [String]
+
+  @method title
+    @description
+      Sets the title option
+
+    @arg title [String]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method breakdown
+    @description
+      Gets the breakdown option
+    @returns [String]
+
+  @method breakdown
+    @description
+      Sets the breakdown option
+
+    @arg breakdown [String]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method plan
+    @description
+      Gets the plan option
+    @returns [Number]
+
+  @method plan
+    @description
+      Sets the plan option
+
+    @arg plan [Number]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method inProgress
+    @description
+      Gets the inProgress option
+
+    @returns [Number]
+
+  @method inProgress
+    @description
+      Sets the inProgress option
+
+    @arg inProgress [Number]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method done
+    @description
+      Gets the done option
+
+    @returns [Number]
+
+  @method done
+    @description
+      Sets the done option
+
+    @arg done [Number]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method hidePlan
+    @description
+      Gets the hidePlan option
+
+    @returns [Boolean]
+
+  @method hidePlan
+    @description
+      Sets the hidePlan option
+
+    @arg hidePlan [Boolean]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method compact
+    @description
+      Gets the compact option
+
+    @returns [Boolean]
+
+  @method compact
+    @description
+      Sets the compact option
+
+    @arg compact [Boolean]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+  @method disabled
+    @description
+      Gets the disabled option
+
+    @returns [Boolean]
+
+  @method disabled
+    @description
+      Sets the disabled option
+
+    @arg disabled [Boolean]
+
+    @returns ProgressBar
+      @description
+        This ProgressBar
+
+@prototype hx.ProgressBar
+  @description
+    Creates a Progress Bar element.
+
+  @constructor
+    @collapsed false
+    @arg selector [String/HTMLElement/Selection]
+      @description
+        The selection to create the progress bar inside.
+
+    @arg? options [Object]
+      @collapsed false
+      @description
+        The options to use when creating the progress bar.
+
+        There are two classes used internally, @code[ProgressBarV1] and @code[ProgressBarV2].
+
+        By default, this will create a @code[ProgressBarV1]. If passing
+        @code[featureFlags.useUpdatedClass: true] in the options, a @code[ProgressBarV2] will be created.
+
+        The other available options differ for each of the two prototypes. See their constructors for details.
+
+      @property featureFlags [Object]
+        @added nextReleaseVersion
+          @description
+            Added featureFlags to enable a new progress bar class
+        @collapsed false
+        @property useUpdatedClass [Boolean]
+          @collapsed false
+          @description
+            Whether to use the ProgressBarV2 prototype instead of ProgressBarV1
+
 @class hx-progressbar
   @deprecated 0.9.0
     @description
@@ -260,8 +491,24 @@
     Creates a new ProgressBar set up on a detached element, wrapped in a selection
 
   @arg? options [Object]
+    @collapsed false
     @description
-      See the options object for constructing ProgressBar
+      See the options object for constructing ProgressBar.
+
+      By default, this will create a @code[ProgressBarV1]. If passing
+      @code[featureFlags.useUpdatedClass: true] in the options, a @code[ProgressBarV2] will be created.
+
+      The other available options differ for each of the two prototypes. See their constructors for details.
+
+    @property featureFlags [Object]
+      @added nextReleaseVersion
+        @description
+          Added featureFlags to enable a new progress bar class
+      @collapsed false
+      @property useUpdatedClass [Boolean]
+        @collapsed false
+        @description
+          Whether to use the ProgressBarV2 prototype instead of ProgressBarV1
 
   @returns [Selection]
     @description

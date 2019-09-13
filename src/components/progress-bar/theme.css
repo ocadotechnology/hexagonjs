@@ -1,4 +1,4 @@
-.hx-progress-bar {
+.hx-progress-bar:not(.hx-flag-progress-bar) {
   border-color: var(--progress-bar-border-color);
   border-width: var(--progress-bar-border-width);
   background-color: var(--progress-bar-background-color);

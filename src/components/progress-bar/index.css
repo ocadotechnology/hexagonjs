@@ -1,4 +1,4 @@
-.hx-progress-bar {
+.hx-progress-bar:not(.hx-flag-progress-bar) {
   position: relative;
   height: 10px;
   border-radius: 3px;
