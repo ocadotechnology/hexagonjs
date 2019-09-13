@@ -161,6 +161,7 @@ const examples = [
   example('Pivot Table').add(tryDemo(pivotTableExamples)),
   example('Plot').add(tryDemo(plotExamples)),
   example('Progress Bar').add(tryDemo(progressBarExamples)),
+  example('Visualization Bar').add(tryDemo(visualizationBarExamples)),
   example('Side Collapsible').add(tryDemo(sideCollapsibleExamples)),
   example('Sidebar').add(tryDemo(sidebarExamples)),
   example('Slider').add(tryDemo(sliderExamples)),

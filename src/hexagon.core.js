@@ -150,6 +150,7 @@ export { inputGroup } from 'components/input-group';
 export { group, section } from 'components/layout';
 export { dragContainer, DragContainer } from 'components/drag-container';
 export { progressBar, ProgressBar } from 'components/progress-bar';
+export { visualizationBar, VisualizationBar } from 'components/visualization-bar';
 export { toggle, Toggle } from 'components/toggle';
 export { crumbtrail, Crumbtrail } from 'components/crumbtrail';
 export { notice, noticeHead, noticeBody } from 'components/notice';

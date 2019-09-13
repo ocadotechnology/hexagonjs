@@ -367,6 +367,8 @@ describe('HexagonJS Test Suite', () => {
         'validateForm',
         'vendor',
         'version',
+        'visualizationBar',
+        'VisualizationBar',
         'zeroPad',
         'zip',
       ].sort();
@@ -384,7 +386,7 @@ describe('HexagonJS Test Suite', () => {
   autocompleteFeedTests();
 
   // Internal Components
-  // ... none yet :)
+  statusBarTests();
 
   // Exposed Utils
   setTests();
