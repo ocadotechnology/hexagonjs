@@ -951,6 +951,27 @@
   --spinner-color: var(--theme-accent-color);
 
 
+  /* Status Bar */
+  --status-bar-default-background-color: #C9C9C9;
+  --status-bar-default-text-color: black;
+  --status-bar-todo-background-color: #e5e5e5;
+  --status-bar-todo-text-color: black;
+  --status-bar-light-background-color: #e5e5e5;
+  --status-bar-light-text-color: black;
+  --status-bar-medium-background-color: #878787;
+  --status-bar-medium-text-color: black;
+  --status-bar-dark-background-color: #424242;
+  --status-bar-dark-text-color: white;
+  --status-bar-danger-background-color: var(--theme-negative-color);
+  --status-bar-danger-text-color: white;
+  --status-bar-warning-background-color: var(--theme-warning-color);
+  --status-bar-warning-text-color: white;
+  --status-bar-done-background-color: var(--theme-accent-border-color);
+  --status-bar-done-text-color: white;
+  --status-bar-progress-background-color: var(--theme-accent-hover-color);
+  --status-bar-progress-text-color: white;
+
+
   /* Sticky Table Headers */
   --sticky-table-headers-scroll-indicator-shadow-color: rgba(0, 0, 0, 0.5);
 

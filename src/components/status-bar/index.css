@@ -1,0 +1,76 @@
+.hx-status-bar-segments {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.hx-status-bar-section {
+  flex-grow: 100;
+  flex-basis: 0;
+  text-align: center;
+  position: relative;
+  transition: flex-grow .5s;
+}
+
+.hx-status-bar-section-bar {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.hx-status-bar-section-percent,
+.hx-status-bar-section-label {
+  white-space: nowrap;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.hx-status-bar-section + .hx-status-bar-section .hx-status-bar-section-bar:before {
+  content: ' ';
+  height: 100%;
+  flex: 0;
+  position: absolute;
+}
+
+.hx-status-bar-disabled .hx-status-bar-section,
+.hx-status-bar-disabled .phx-status-bar-progress-count {
+  display: none;
+}
+
+.hx-status-bar-breakdown p:first-child {
+  margin-top: 0;
+}
+
+.hx-status-bar-breakdown p:last-child {
+  margin-bottom: 0;
+}
+
+.hx-status-bar-compact .hx-status-bar-segments {
+  flex: 1;
+}
+
+.hx-status-bar-section-hidden {
+  display: none;
+}
+
+.hx-status-bar-compact {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hx-status-bar-compact .hx-status-bar-segments {
+  flex: 1;
+}
+
+.hx-status-bar-compact .hx-status-bar-plan {
+  flex: 0 auto;
+}
+
+.hx-status-bar-compact .hx-status-bar-title-section,
+.hx-status-bar-compact .hx-status-bar-breakdown {
+  width: 100%;
+}
+
+.hx-progress-bar .hx-status-bar-section-bar:before {
+  display: none;
+}

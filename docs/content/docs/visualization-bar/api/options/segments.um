@@ -1,0 +1,39 @@
+@property segments [Array[Segment]]
+  @description
+    The array of segments to display. At least one segment is required to render a
+    visualization bar. Segments can also be shown with a zero value.
+
+  @extra
+    @object Segment
+      @property id [String]
+        @description
+          A unique identifier string used to ensure segments are rendered in the correct order
+
+      @property? label [String]
+        @description
+          The text label shown below the segment. If a label is provided, the percentage of the
+          total for the segment is also shown.
+
+          If no label is provided, only the count is shown on the segment.
+
+      @property count [Number]
+        @description
+          The number to display in this segment. A count is required for each segment,
+          however it can be @code[0]
+
+      @property? type [String]
+        @description
+          The type (i.e. colour) of the segment.
+
+          Available types are:
+
+          @list
+            @item: default (or @code[undefined] type)
+            @item: light
+            @item: medium
+            @item: dark
+            @item: danger
+            @item: warning
+            @item: done
+            @item: in-progress
+            @item: todo

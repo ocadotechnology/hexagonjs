@@ -19,6 +19,7 @@
 @import "components/picker";
 @import "components/input-group";
 @import "components/drag-container";
+@import "components/status-bar";
 @import "components/progress-bar";
 @import "components/error-pages";
 @import "components/table";

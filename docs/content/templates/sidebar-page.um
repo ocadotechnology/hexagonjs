@@ -104,6 +104,7 @@
             @page /docs/toggle-button/: Toggle Button
             @page /docs/toggle/: Toggle
             @page /docs/tree/: Tree
+            @page /docs/visualization-bar/: Visualization Bar
 
           @section Utilities
             @page /docs/animate/: Animate
