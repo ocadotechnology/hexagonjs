@@ -63,7 +63,7 @@ export {
   shallowClone,
   vendor,
   identity,
-} from './utils/utils';
+} from 'utils/utils';
 export { EventEmitter } from 'utils/event-emitter';
 export { color, isColor, isColorString } from 'utils/color';
 export {
@@ -81,7 +81,7 @@ export {
   icon,
   component,
   components,
-} from './utils/selection';
+} from 'utils/selection';
 export { loop, transition, ease } from 'utils/transition';
 export { interpolate } from 'utils/interpolate';
 export { animate, morph } from 'utils/animate';
@@ -149,7 +149,10 @@ export { inputGroup } from 'components/input-group';
 export { group, section } from 'components/layout';
 export { dragContainer, DragContainer } from 'components/drag-container';
 export { progressBar, ProgressBar } from 'components/progress-bar';
-export { visualizationBar, VisualizationBar, VisualizationBarSizes } from 'components/visualization-bar';
+export {
+  visualizationBar, VisualizationBar, VisualizationBarSizes,
+  progressVisualizationBar, ProgressVisualizationBar, VisualizationBarTypes,
+} from 'components/visualization-bar';
 export { toggle, Toggle } from 'components/toggle';
 export { crumbtrail, Crumbtrail } from 'components/crumbtrail';
 export { notice, noticeHead, noticeBody } from 'components/notice';
