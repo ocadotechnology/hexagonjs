@@ -3939,6 +3939,41 @@ initLogos = function() {
   }
 };
 
+function actionRenderer(ref) {
+  var text = ref.text;
+  var onClick = ref.onClick;
+  var disabled = ref.disabled;
+
+  if (!onClick) {
+    throw new Error('Action items require an onClick function or url');
+  }
+  if (exports.isString(onClick)) {
+    var link = detached('a')
+      .text(text);
+    if (!disabled) {
+      link.attr('href', onClick);
+    }
+    return link;
+  }
+  var sel = div()
+    .text(text);
+
+  if (!disabled) {
+    sel.on('click', onClick);
+  }
+  return sel;
+}
+
+function actionRenderWrapper(elem, item) {
+  var sel = select(elem);
+  var cls = sel.class();
+  var retSel = actionRenderer(item);
+  retSel.classed(cls, true);
+  sel.insertBefore(retSel);
+  sel.remove();
+  return retSel;
+}
+
 var cachedParseHtml, cachedScrollbarSize;
 
 //XXX [2.0.0]: remove - not used in hexagon anymore since request.node().innerHTML = has gone
@@ -4201,7 +4236,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.2.0";
+var version = "2.3.1";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -5010,13 +5045,311 @@ exports.format = {
   }
 };
 
-var getHeaderRender, getTitleRender, makeButtons;
+function objectWithoutProperties (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
 
-exports.Modal = (function() {
+var errors = {
+  missingTitle: 'Modal: options.title - A title is required when creating a Modal',
+  missingBody: 'Modal: options.renderBody/renderFooter - A body or footer renderer is required when creating a Modal',
+  noCloseButton: 'Modal: options.onClose was passed in but no close button is visible for this type of modal',
+};
+
+var config = {
+  attachToSelector: 'body',
+  backdropAnimationDuration: 200,
+};
+
+var Modal = /*@__PURE__*/(function (EventEmitter) {
+  function Modal(modalSettings, options) {
+    var this$1 = this;
+    if ( options === void 0 ) options = {};
+
+    EventEmitter.call(this);
+
+    this.options = exports.mergeDefined({
+      title: '',
+      isOpen: true,
+      animate: true,
+      onClose: undefined,
+      renderBody: undefined,
+      renderFooter: undefined,
+    }, options);
+
+    var ref = this.options;
+    var isOpen = ref.isOpen;
+    var onClose = ref.onClose;
+    var titleOption = ref.title;
+    var renderBody = ref.renderBody;
+    var renderFooter = ref.renderFooter;
+
+    var showClose = modalSettings.showClose; if ( showClose === void 0 ) showClose = false;
+    var type = modalSettings.type; if ( type === void 0 ) type = 'center';
+    var extraClass = modalSettings.extraClass;
+    var modalAnimateFn = modalSettings.modalAnimateFn;
+
+    if (onClose && !showClose) {
+      throw new Error(errors.noCloseButton);
+    }
+
+    if (!titleOption) {
+      throw new Error(errors.missingTitle);
+    }
+
+    if (!(renderBody || renderFooter)) {
+      throw new Error(errors.missingBody);
+    }
+
+    var parent = select(config.attachToSelector);
+
+    var modal = div('hx-modal hx-flag-modal hx-flag-button')
+      .classed(("hx-modal-" + type), true)
+      .classed(("hx-modal-" + extraClass), extraClass);
+
+    var backdrop = div('hx-modal-backdrop');
+    var container = div('hx-modal-container');
+    var content = div('hx-modal-content');
+    var header = div('hx-modal-header');
+    var bodyContainer = div('hx-modal-body-container');
+    var body = div('hx-modal-body');
+    var footer = div('hx-modal-footer');
+    var title = detached('h1').class('hx-modal-title');
+
+    var closeBtn = showClose
+      ? div('hx-modal-close')
+        .add(detached('i').class('hx-icon hx-icon-close'))
+        .on('click', 'hx-modal', function () { return this$1.close(); })
+      : undefined;
+
+    this._ = {
+      parent: parent,
+      modal: modal,
+      content: content,
+      backdrop: backdrop,
+      body: body,
+      footer: footer,
+      title: title,
+      eventId: ("hx-modal-" + (exports.randomId())),
+      showClose: showClose,
+      modalAnimateFn: modalAnimateFn,
+    };
+
+    modal
+      .add(backdrop)
+      .add(container
+        .add(content
+          .add(header
+            .add(title)
+            .add(closeBtn))
+          .add(bodyContainer
+            .add(body)
+            .add(footer))));
+
+    if (isOpen) {
+      this.isOpen(true);
+    }
+  }
+
+  if ( EventEmitter ) Modal.__proto__ = EventEmitter;
+  Modal.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+  Modal.prototype.constructor = Modal;
+
+  Modal.prototype.render = function render () {
+    var ref = this._;
+    var body = ref.body;
+    var footer = ref.footer;
+    var title = ref.title;
+
+    var ref$1 = this.options;
+    var titleText = ref$1.title;
+    var renderBody = ref$1.renderBody;
+    var renderFooter = ref$1.renderFooter;
+
+    title.text(titleText);
+    body.set(renderBody ? renderBody(this) : []);
+    footer.set(renderFooter ? renderFooter(this) : []);
+  };
+
+  Modal.prototype.isOpen = function isOpen (isOpen$1, cb) {
+    var this$1 = this;
+
+    if (isOpen$1 === this._.isOpen) {
+      return this;
+    }
+    if (!arguments.length) {
+      return this._.isOpen;
+    }
+
+    this._.isOpen = isOpen$1;
+    var callback = cb || (function () { return undefined; });
+
+    var ref = this._;
+    var modal = ref.modal;
+    var content = ref.content;
+    var backdrop = ref.backdrop;
+    var parent = ref.parent;
+    var eventId = ref.eventId;
+    var modalAnimateFn = ref.modalAnimateFn;
+    var showClose = ref.showClose;
+
+    var ref$1 = this.options;
+    var animate = ref$1.animate;
+
+    parent.classed('hx-modal-open', isOpen$1);
+
+    if (isOpen$1) {
+      // Clears the focus so pressing 'enter' does not cause buttons to call modal.show()
+      try {
+        document.activeElement.blur();
+      } catch (e) {
+        // In some browsers document.activeElement is null instead of <body>
+      }
+
+      if (showClose) {
+        parent.on('keydown', eventId, function (e) {
+          var isEscape = (e.key && (e.key === 'Esc' || e.key === 'Escape')) || e.which === 27;
+          if (isEscape) {
+            this$1.close();
+          }
+        });
+      }
+
+      this.emit('showstart');
+      this.emit('show');
+      this.render();
+
+      parent.add(modal);
+
+      backdrop
+        .style('opacity', 0)
+        .morph()
+        .with('fadein', config.backdropAnimationDuration)
+        .go();
+
+      var doneFn = function () {
+        this$1.emit('showend');
+        callback();
+      };
+
+      if (animate) {
+        modalAnimateFn(content, doneFn, true);
+      } else {
+        doneFn();
+      }
+    } else {
+      parent.off('keydown', eventId);
+      this.emit('hidestart');
+      this.emit('hide');
+
+      backdrop
+        .style('opacity', 1)
+        .morph()
+        .with('fadeout', config.backdropAnimationDuration)
+        .go();
+
+      var doneFn$1 = function () {
+        this$1.emit('hideend');
+        modal.remove();
+        callback();
+      };
+
+      if (animate) {
+        modalAnimateFn(content, doneFn$1, false);
+      } else {
+        doneFn$1();
+      }
+    }
+
+    return this;
+  };
+
+  Modal.prototype.show = function show (cb) {
+    return this.isOpen(true, cb);
+  };
+
+  Modal.prototype.hide = function hide (cb) {
+    return this.isOpen(false, cb);
+  };
+
+  Modal.prototype.close = function close (cb) {
+    var ref = this.options;
+    var onClose = ref.onClose;
+    return onClose ? onClose(this, cb) : this.hide(cb);
+  };
+
+  return Modal;
+}(EventEmitter));
+
+function getModalAnimationFn(direction, duration, distance) {
+  return function (modal, callback, animateIn) {
+    if (animateIn) {
+      modal
+        .style('opacity', 0)
+        .style(direction, ("-" + distance + "px"))
+        .morph()
+        .and('fadein', duration)
+        .andStyle(direction, '0px', duration)
+        .then(function () {
+          modal
+            .style('opacity', undefined)
+            .style(direction, undefined);
+
+          callback();
+        })
+        .go();
+    } else {
+      modal
+        .style('opacity', 1)
+        .style(direction, '0px')
+        .morph()
+        .andStyle(direction, ("-" + distance + "px"), duration)
+        .and('fadeout', duration)
+        .then(function () {
+          modal
+            .style('opacity', undefined)
+            .style(direction, undefined);
+
+          callback();
+        })
+        .go();
+    }
+  };
+}
+
+function modalCenter(options) {
+  return new Modal({
+    type: 'center',
+    modalAnimateFn: getModalAnimationFn('top', 150, 100),
+  }, options);
+}
+
+function modalFullScreen(options) {
+  return new Modal({
+    showClose: true,
+    type: 'full-screen',
+    modalAnimateFn: getModalAnimationFn('top', 300, 300),
+  }, options);
+}
+
+function modalRight(options) {
+  if ( options === void 0 ) options = {};
+
+  var wide = options.wide;
+  var rest = objectWithoutProperties( options, ["wide"] );
+  var opts = rest;
+  return new Modal({
+    showClose: true,
+    type: 'right',
+    extraClass: wide ? 'right-wide' : undefined,
+    modalAnimateFn: getModalAnimationFn('right', 300, 300),
+  }, opts);
+}
+
+var ModalBase, getHeaderRender, getTitleRender, makeButtons;
+
+ModalBase = (function() {
   var closeModal;
 
-  var Modal = /*@__PURE__*/(function (EventEmitter) {
-    function Modal(title1, setup1, options) {
+  var ModalBase = /*@__PURE__*/(function (EventEmitter) {
+    function ModalBase(title1, setup1, options) {
       EventEmitter.call(this);
       this.title = title1;
       this.setup = setup1;
@@ -5033,11 +5366,11 @@ exports.Modal = (function() {
       this.contentContainer = null;
     }
 
-    if ( EventEmitter ) Modal.__proto__ = EventEmitter;
-    Modal.prototype = Object.create( EventEmitter && EventEmitter.prototype );
-    Modal.prototype.constructor = Modal;
+    if ( EventEmitter ) ModalBase.__proto__ = EventEmitter;
+    ModalBase.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+    ModalBase.prototype.constructor = ModalBase;
 
-    Modal.prototype.show = function show (cb) {
+    ModalBase.prototype.show = function show (cb) {
       var this$1 = this;
 
       var body, closeButton, modal, modalContainer, ref, self, shade, title, titleContainer;
@@ -5094,14 +5427,14 @@ exports.Modal = (function() {
       return this;
     };
 
-    Modal.prototype.hide = function hide () {
+    ModalBase.prototype.hide = function hide () {
       closeModal(this, {
         cause: 'api'
       });
       return this;
     };
 
-    return Modal;
+    return ModalBase;
   }(EventEmitter));
   closeModal = function(modal, event) {
     var body;
@@ -5113,7 +5446,7 @@ exports.Modal = (function() {
     return modal.emit('hideend');
   };
 
-  return Modal;
+  return ModalBase;
 
 }).call(undefined);
 
@@ -5233,13 +5566,26 @@ exports.modalInput = function(title, message, callback, options) {
   return modal.show();
 };
 
+exports.Modal = /*@__PURE__*/(function (ModalBase) {
+  function Modal(title, setup, options) {
+    logger.deprecated('Modal', 'The Modal (and associated fluid methods modalDialog, modalInput etc.) has been replaced by the modalCenter, modalRight and modalFullScreen functions.');
+    ModalBase.call(this, title, setup, options);
+  }
+
+  if ( ModalBase ) Modal.__proto__ = ModalBase;
+  Modal.prototype = Object.create( ModalBase && ModalBase.prototype );
+  Modal.prototype.constructor = Modal;
+
+  return Modal;
+}(ModalBase));
+
 // XXX: Remove in next major
 exports.modal = {
   input: exports.modalInput,
   dialog: exports.modalDialog
 };
 
-var Notification, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus, wrapDeprecated$1;
+var Notification, inbuiltNotificationManager, nextId, notifyInfoPlain, notifyLoadingPlain, notifyNegativePlain, notifyPlain, notifyPositivePlain, notifyWarningPlain, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus, wrapDeprecated$1;
 
 // utility method for setting up notifications
 setupNotification = function(notification, selection) {
@@ -5470,56 +5816,69 @@ var NotificationManager = /*@__PURE__*/(function () {
 // Inbuilt notification manager related functions
 inbuiltNotificationManager = new NotificationManager;
 
-exports.notifyInfo = function(message, options) {
-  return inbuiltNotificationManager.info(message, options);
-};
-
-exports.notifyPositive = function(message, options) {
-  return inbuiltNotificationManager.positive(message, options);
-};
-
-exports.notifyWarning = function(message, options) {
-  return inbuiltNotificationManager.warning(message, options);
-};
-
-exports.notifyNegative = function(message, options) {
-  return inbuiltNotificationManager.negative(message, options);
-};
-
-exports.notifyLoading = function(message) {
-  return inbuiltNotificationManager.loading(message);
-};
-
-exports.notifyDefaultTimeout = function(timeout) {
-  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
-};
-
-exports.notify = function(message, options) {
-  return inbuiltNotificationManager.notify(message, options);
-};
-
-wrapDeprecated$1 = function(name, replacement, method) {
+wrapDeprecated$1 = function(name, method) {
   return function() {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
-    logger.deprecated(name, ("Replaced by hx." + replacement));
+    logger.deprecated(name, 'Replaced by hx.alert/hx.message.');
     return method.apply(void 0, args);
   };
 };
 
+notifyInfoPlain = function(message, options) {
+  return inbuiltNotificationManager.info(message, options);
+};
+
+notifyPositivePlain = function(message, options) {
+  return inbuiltNotificationManager.positive(message, options);
+};
+
+notifyWarningPlain = function(message, options) {
+  return inbuiltNotificationManager.warning(message, options);
+};
+
+notifyNegativePlain = function(message, options) {
+  return inbuiltNotificationManager.negative(message, options);
+};
+
+notifyLoadingPlain = function(message) {
+  return inbuiltNotificationManager.loading(message);
+};
+
+notifyPlain = function(message, options) {
+  return inbuiltNotificationManager.notify(message, options);
+};
+
+exports.notifyDefaultTimeout = function(timeout) {
+  logger.deprecated('notifyDefaultTimeout', 'NotificationManager is replaced by AlertManager which does not require this method');
+  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
+};
+
 // XXX Deprecated: Remove in next major
-exports.notify.info = wrapDeprecated$1('hx.notify.info', 'notifyInfo', exports.notifyInfo);
+exports.notify = wrapDeprecated$1('notify', notifyPlain);
 
-exports.notify.positive = wrapDeprecated$1('hx.notify.positive', 'notifyPositive', exports.notifyPositive);
+exports.notifyInfo = wrapDeprecated$1('notifyInfo', notifyInfoPlain);
 
-exports.notify.warning = wrapDeprecated$1('hx.notify.warning', 'notifyWarning', exports.notifyWarning);
+exports.notifyPositive = wrapDeprecated$1('notifyPositive', notifyPositivePlain);
 
-exports.notify.negative = wrapDeprecated$1('hx.notify.negative', 'notifyNegative', exports.notifyNegative);
+exports.notifyWarning = wrapDeprecated$1('notifyWarning', notifyWarningPlain);
 
-exports.notify.loading = wrapDeprecated$1('hx.notify.loading', 'notifyLoading', exports.notifyLoading);
+exports.notifyNegative = wrapDeprecated$1('notifyNegative', notifyNegativePlain);
 
-exports.notify.defaultTimeout = wrapDeprecated$1('hx.notify.defaultTimeout', 'notifyDefaultTimeout', exports.notifyDefaultTimeout);
+exports.notifyLoading = wrapDeprecated$1('notifyLoading', notifyLoadingPlain);
+
+exports.notify.info = wrapDeprecated$1('hx.notify.info', notifyInfoPlain);
+
+exports.notify.positive = wrapDeprecated$1('hx.notify.positive', notifyPositivePlain);
+
+exports.notify.warning = wrapDeprecated$1('hx.notify.warning', notifyWarningPlain);
+
+exports.notify.negative = wrapDeprecated$1('hx.notify.negative', notifyNegativePlain);
+
+exports.notify.loading = wrapDeprecated$1('hx.notify.loading', notifyLoadingPlain);
+
+exports.notify.defaultTimeout = exports.notifyDefaultTimeout;
 
 var Collapsible = /*@__PURE__*/(function (EventEmitter) {
   function Collapsible(selector, options) {
@@ -5648,8 +6007,23 @@ var initializeCollapsibles = function(selector, options) {
   });
 };
 
-var calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
-  var direction, x, y;
+var calculateDropdownPosition = function(align, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
+  var alignQuad, alignments, direction, x, y;
+  alignQuad = (function() {
+    switch (align) {
+      case 'up':
+        return 'ltlb';
+      case 'down':
+        return 'lblt';
+      case 'left':
+        return 'ltrt';
+      case 'right':
+        return 'rtlt';
+      default:
+        return align;
+    }
+  })();
+  alignments = alignQuad.split('');
   // figure out the direction the drop-down should be revealed (for the animation)
   direction = alignments[1] === alignments[3] && alignments[0] !== alignments[2] ? alignments[0] === 'l' ? 'left' : 'right' : alignments[3] === 't' ? 'down' : 'up';
   // work out where the drop-down would go when there is ample space
@@ -5707,7 +6081,7 @@ var calculateDropdownPosition = function(alignments, selectionRect, dropdownRect
 
 var checkFixedPos, dropdownContentToSetupDropdown, positionDropdown;
 
-var config = {
+var config$1 = {
   attachToSelector: 'body',
   dropdownAnimateSlideDistance: 8
 };
@@ -5721,12 +6095,12 @@ checkFixedPos = function(node) {
 positionDropdown = function(ref, ref$1) {
   var assign;
 
-  var alignments = ref.alignments;
   var selection = ref.selection;
   var dropdown = ref.dropdown;
   var useScroll = ref.useScroll;
+  var align = ref$1.align;
   var matchWidth = ref$1.matchWidth;
-  var ddMaxHeight, dropdownRect, parentFixed, rect, x, y, zIndex;
+  var ddMaxHeight, direction, dropdownRect, parentFixed, rect, x, y, yPos, zIndex;
   dropdown.style('display', 'block');
   // extract measurements from the dom
   rect = selection.box();
@@ -5735,7 +6109,7 @@ positionDropdown = function(ref, ref$1) {
   parentFixed = checkParents(selection.node(), checkFixedPos);
   zIndex = parentZIndex(selection.node(), true);
   // calculate the position of the dropdown
-  ((assign = calculateDropdownPosition(alignments, {
+  ((assign = calculateDropdownPosition(dropdown.attr('data-direction') || align, {
     x: rect.left,
     y: rect.top,
     width: rect.width,
@@ -5746,10 +6120,15 @@ positionDropdown = function(ref, ref$1) {
   }, {
     width: window.innerWidth,
     height: window.innerHeight
-  }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y));
+  }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y, direction = assign.direction));
+  yPos = 'top';
   if (!parentFixed) {
     x += window.scrollX || window.pageXOffset;
     y += window.scrollY || window.pageYOffset;
+    if (direction === 'up') {
+      yPos = 'bottom';
+      y = document.body.clientHeight - y - dropdownRect.height;
+    }
   }
   // update the styles for the dropdown
   if (zIndex > 0) {
@@ -5764,7 +6143,7 @@ positionDropdown = function(ref, ref$1) {
   if (useScroll && (dropdown != null)) {
     dropdown.style('overflow-y', 'auto');
   }
-  return dropdown.style('left', x + 'px').style('top', y + 'px');
+  return dropdown.classed('hx-dropdown-up', direction === 'up').classed('hx-dropdown-down', direction === 'down').classed('hx-dropdown-left', direction === 'left').classed('hx-dropdown-right', direction === 'right').attr('data-direction', direction).style('top', 'auto').style('bottom', void 0).style(yPos, y + 'px').style('left', x + 'px');
 };
 
 dropdownContentToSetupDropdown = function(dropdownContent) {
@@ -5801,7 +6180,7 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
   function Dropdown(selector, dropdownContent, options) {
     var this$1 = this;
 
-    var alignQuad, alignments, clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
+    var clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
     EventEmitter.call(this);
     // XXX [2.0.0]: this should not be part of the public api (but should use setterGetter methods instead)
     // it has been documented so will have to stay here for the 1.x.x series (it should be removed in 2.0.0)
@@ -5816,21 +6195,6 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
     clickDetector.on('click', 'hx.dropdown', function () {
       return this$1.hide();
     });
-    alignQuad = (function() {
-      switch (this.options.align) {
-        case 'up':
-          return 'ltlb';
-        case 'down':
-          return 'lblt';
-        case 'left':
-          return 'ltrt';
-        case 'right':
-          return 'rtlt';
-        default:
-          return this.options.align;
-      }
-    }).call(this);
-    alignments = alignQuad.split('');
     onclick = function () {
       return this$1.toggle();
     };
@@ -5844,7 +6208,6 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
     this._ = {
       setupDropdown: setupDropdown,
       clickDetector: clickDetector,
-      alignments: alignments,
       onclick: onclick,
       onmouseover: onmouseover,
       onmouseout: onmouseout,
@@ -5915,7 +6278,7 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
       }
     } else {
       _.visible = true;
-      _.dropdown = select(config.attachToSelector).append('div').attr('class', 'hx-dropdown');
+      _.dropdown = select(config$1.attachToSelector).append('div').attr('class', 'hx-dropdown');
       if (this.options.ddClass.length > 0) {
         _.dropdown.classed(this.options.ddClass, true);
       }
@@ -5991,7 +6354,8 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
   return Dropdown;
 }(EventEmitter));
 
-var MenuItem, addItem, checkEvent, dealWithEvent, emitItem, getAllItems, moveSelectionDown, moveSelectionUp, populateNode, setActive, setupInner, toggleCollapsible;
+function objectWithoutProperties$1 (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
+var MenuBase, MenuItem, addItem, checkEvent, dealWithEvent, emitItem, getAllItems, moveSelectionDown, moveSelectionUp, populateNode, setActive, setupInner, toggleCollapsible;
 
 addItem = function(item, context, menu) {
   var it;
@@ -6043,7 +6407,7 @@ getAllItems = function(menu) {
 // If setActive is called on click, the dropdown is already hidden so
 // offsetParent checking doesn't work.
 setActive = function(menu, pos, up, click) {
-  var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, selectedItem, totalOffset;
+  var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, isParent, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, ref4, selectedItem, totalOffset;
   if ((ref = menu.dropdown._.dropdown) != null) {
     ref.selectAll('.hx-menu-item').classed('hx-menu-active', false);
   }
@@ -6052,14 +6416,15 @@ setActive = function(menu, pos, up, click) {
     node = allItems[pos].node;
     select(node).classed('hx-menu-active', true);
     content = (ref1 = allItems[pos]) != null ? ref1.content : void 0;
-    isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
+    isParent = ((ref2 = menu.options.featureFlags) != null ? ref2.useUpdatedStructure : void 0) && (content != null ? content.children : void 0);
+    isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0) && !isParent;
     while ((node.offsetParent === null || !isEnabled) && !click) {
       if (up) {
         pos -= 1;
       } else {
         pos += 1;
       }
-      content = (ref2 = allItems[pos]) != null ? ref2.content : void 0;
+      content = (ref3 = allItems[pos]) != null ? ref3.content : void 0;
       isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
       if (allItems[pos] != null) {
         node = allItems[pos].node;
@@ -6073,7 +6438,7 @@ setActive = function(menu, pos, up, click) {
       return void 0;
     } else {
       menu.cursorPos = pos;
-      if (((dNode = (ref3 = menu.dropdown._.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
+      if (((dNode = (ref4 = menu.dropdown._.dropdown) != null ? ref4.node() : void 0) != null) && !click) {
         menuNode = select(node).classed('hx-menu-active', true);
         mNode = menuNode.node();
         offset = mNode.offsetTop;
@@ -6198,11 +6563,21 @@ MenuItem = /*@__PURE__*/(function () {
     this._ = {};
   }
 
-  MenuItem.prototype.build = function build (container) {
-    var collapsibleNode, contentNode, headerNode, ref;
-    this.node = container;
-    container = select(container);
+  MenuItem.prototype.build = function build (selector) {
+    var children, collapsibleNode, container, contentNode, headerNode, ref, ref1;
+    this.node = selector;
+    container = select(selector);
     if (((ref = this._.menuItems) != null ? ref.length : void 0) > 0) {
+      if ((ref1 = this.menu.options.featureFlags) != null ? ref1.useUpdatedStructure : void 0) {
+        headerNode = div('hx-menu-item hx-menu-unselectable');
+        children = div('hx-menu-item-children');
+        container.class('hx-menu-item').set([headerNode, children]);
+        // XXX Breaking: Renderer
+        // headerNode.set(@menu.options.renderer(@content))
+        this.menu.options.renderer(headerNode, this.content);
+        populateNode(children, this._.menuItems);
+        return;
+      }
       container.view('.hx-collapsible').apply(this);
       collapsibleNode = container.select('.hx-collapsible');
       collapsibleNode.view('.hx-collapsible-heading').apply(this);
@@ -6229,20 +6604,26 @@ MenuItem = /*@__PURE__*/(function () {
   return MenuItem;
 }());
 
-var Menu = /*@__PURE__*/(function (EventEmitter) {
-  function Menu(selector, options) {
+MenuBase = /*@__PURE__*/(function (EventEmitter) {
+  function MenuBase(selector1, options) {
     var this$1 = this;
-    if ( options === void 0 ) options = {};
+    var assign, rest$1;
 
-    var colorClass, dropdownContainer, isInput, rawItems, selection, self, setup, targetElem;
+    if ( options === void 0 ) options = {};
+    var colorClass, dropdownContainer, extraContent, isInput, rawItems, ref, ref1, rest, selection, self, setup, targetElem;
     EventEmitter.call(this);
-    this.selector = selector;
+    this.selector = selector1;
+    // Suppress warning when trying to `merge` with a `Selection`
+    ((assign = options, extraContent = assign.extraContent, rest$1 = objectWithoutProperties$1( assign, ["extraContent"] ), rest = rest$1));
     this.options = exports.mergeDefined({
       dropdownOptions: {
         align: void 0,
         mode: 'click',
         ddClass: '',
-        disabled: false
+        disabled: false,
+        featureFlags: {
+          useUpdatedStructure: false
+        }
       },
       // XXX Breaking: Renderer
       // renderer: (data) -> span().text(data.text or data)
@@ -6250,7 +6631,8 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
         return select(node).text(data.text || data);
       },
       items: []
-    }, options);
+    }, rest);
+    this.options.extraContent = extraContent;
     self = this;
     this._ = {
       items: this.options.items,
@@ -6260,11 +6642,8 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     if ((this.options.dropdownOptions.ddClass != null) && this.options.dropdownOptions.ddClass.length === 0) {
       colorClass = palette$1.context(this.selector);
     }
-    this.options.dropdownOptions.ddClass = 'hx-menu ' + (colorClass != null ? 'hx-' + colorClass : this.options.dropdownOptions.ddClass);
+    this.options.dropdownOptions.ddClass = ((ref = this.options.featureFlags) != null ? ref.useUpdatedStructure : void 0) ? 'hx-menu hx-flag-menu' : 'hx-menu ' + (colorClass != null ? 'hx-' + colorClass : this.options.dropdownOptions.ddClass);
     dropdownContainer = div('hx-menu-items');
-    if (options.extraContent) {
-      dropdownContainer.add(options.extraContent);
-    }
     // Items as set by the user.
     rawItems = self._.items;
     setup = function(items) {
@@ -6284,11 +6663,18 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
       setup(rawItems);
     }
     this.dropdown = new Dropdown(this.selector, dropdownContainer, this.options.dropdownOptions);
-    this.dropdown.on('hideend', function() {
+    this.dropdown.on('hideend', 'hx.menu', function() {
       self.cursorPos = -1;
       return dropdownContainer.selectAll('.hx-menu-item').classed('hx-menu-active', false);
     });
-    this.dropdown.on('showend', function () {
+    if (((ref1 = this.options.featureFlags) != null ? ref1.useUpdatedStructure : void 0)) {
+      this.dropdown.on('showstart', 'hx.menu', function() {
+        return dropdownContainer.insertBefore(options.extraContent);
+      });
+    } else {
+      dropdownContainer.add(options.extraContent);
+    }
+    this.dropdown.on('showend', 'hx.menu', function () {
       var ddNode, node;
       if (this$1.dropdown._.dropdown != null) {
         node = this$1.dropdown._.dropdown.node();
@@ -6330,7 +6716,7 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
       targetElem = selection;
     }
     this.dropdown.on('showstart', 'hx.menu', function() {
-      var ref;
+      var ref2;
       self.cursorPos = -1;
       if (!isInput) {
         targetElem = self.dropdown._.dropdown;
@@ -6343,7 +6729,7 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
         }
         return self.emit('keydown', e);
       });
-      return (ref = self.dropdown._.dropdown) != null ? ref.on('click', 'hx.menu', function(e) {
+      return (ref2 = self.dropdown._.dropdown) != null ? ref2.on('click', 'hx.menu', function(e) {
         var allItems, i, index, t, target;
         // get the closest menu item - uses nodes as blank selection can be
         // returned if the target is a hx-menu-item
@@ -6374,15 +6760,15 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     }
   }
 
-  if ( EventEmitter ) Menu.__proto__ = EventEmitter;
-  Menu.prototype = Object.create( EventEmitter && EventEmitter.prototype );
-  Menu.prototype.constructor = Menu;
+  if ( EventEmitter ) MenuBase.__proto__ = EventEmitter;
+  MenuBase.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+  MenuBase.prototype.constructor = MenuBase;
 
-  Menu.prototype.render = function render () {
+  MenuBase.prototype.render = function render () {
     return this._.setup(this.items());
   };
 
-  Menu.prototype.renderer = function renderer (f) {
+  MenuBase.prototype.renderer = function renderer (f) {
     if (arguments.length > 0) {
       this.options.renderer = f;
       this.render();
@@ -6392,17 +6778,17 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  Menu.prototype.addException = function addException (element) {
+  MenuBase.prototype.addException = function addException (element) {
     this.dropdown.clickDetector.addException(element);
     return this;
   };
 
-  Menu.prototype.hide = function hide () {
+  MenuBase.prototype.hide = function hide () {
     this.dropdown.hide();
     return this;
   };
 
-  Menu.prototype.items = function items (items$1) {
+  MenuBase.prototype.items = function items (items$1) {
     if (arguments.length > 0) {
       if (items$1 == null) {
         items$1 = [];
@@ -6416,7 +6802,7 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  Menu.prototype.disabled = function disabled (disabled$1) {
+  MenuBase.prototype.disabled = function disabled (disabled$1) {
     if (disabled$1 != null) {
       this.options.disabled = disabled$1;
       select(this.selector).attr('disabled', disabled$1 ? true : void 0).classed('hx-disabled', disabled$1);
@@ -6429,8 +6815,21 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  return Menu;
+  return MenuBase;
 }(EventEmitter));
+
+exports.Menu = /*@__PURE__*/(function (MenuBase) {
+  function Menu(sel, opt) {
+    logger.deprecated('hx.Menu', 'Replaced by DropdownButton / MoreButton');
+    MenuBase.call(this, sel, opt);
+  }
+
+  if ( MenuBase ) Menu.__proto__ = MenuBase;
+  Menu.prototype = Object.create( MenuBase && MenuBase.prototype );
+  Menu.prototype.constructor = Menu;
+
+  return Menu;
+}(MenuBase));
 
 var buildAutocomplete, findTerm, showAutocomplete, sortActive;
 
@@ -6685,7 +7084,7 @@ exports.Autocomplete = /*@__PURE__*/(function (EventEmitter) {
         }) : void 0;
       }
       input = select(this.selector).api('autocomplete', this).api(this);
-      menu = new Menu(this.selector, {
+      menu = new MenuBase(this.selector, {
         dropdownOptions: {
           ddClass: 'hx-autocomplete-dropdown'
         }
@@ -8095,7 +8494,7 @@ var Preferences = /*@__PURE__*/(function (EventEmitter) {
         .add(saveButton);
     };
 
-    var modal = new exports.Modal(exports.userFacingText('preferences', 'preferences'), setupModal);
+    var modal = new ModalBase(exports.userFacingText('preferences', 'preferences'), setupModal);
     this._ = {
       timezoneOffsetLookup: useIntl ? IntlTZOffsetLookup : defaultTZOffsetLookup,
       preferences: {},
@@ -8984,12 +9383,90 @@ function spinnerWide() {
 // XXX Deprecated: Fluid
 spinner.wide = spinnerWide;
 
-var sortActive$1, sortItems, trimTrailingSpaces;
+var supportedTypes$1 = ['primary', 'secondary'];
+var supportedSizes = ['small', 'micro'];
+
+function dropdownButton(options) {
+  var text = options.text;
+  var type = options.type;
+  var size = options.size;
+
+  var forcedOptions = {
+    renderer: actionRenderWrapper,
+  };
+
+  var opts = exports.merge({
+    items: [],
+  }, options, forcedOptions);
+
+  if (!opts.items.length) {
+    throw new Error('dropdownButton: Items are required when creating a dropdown button');
+  }
+
+  var validType = supportedTypes$1.includes(type);
+  var validSize = supportedSizes.includes(size);
+
+  if (type && !validType) {
+    logger.warn(("dropdownButton: Called with an invalid type: '" + type + "'. Supported types: " + (supportedTypes$1.join(', '))));
+  }
+  if (size && !validSize) {
+    logger.warn(("dropdownButton: Called with an invalid size: '" + size + "'. Supported sizes: " + (supportedSizes.join(', '))));
+  }
+
+  var sel = button('hx-btn hx-dropdown-button hx-flag-button')
+    .classed(("hx-" + type), validType)
+    .classed(("hx-btn-" + size), validSize);
+
+  if (text) {
+    sel.text(text);
+  }
+
+  new MenuBase(sel, opts);
+  return sel;
+}
+
+var supportedSizes$1 = ['small', 'micro'];
+function moreButton(options) {
+  var text = options.text;
+  var size = options.size;
+
+  var forcedOptions = {
+    renderer: actionRenderWrapper,
+  };
+
+  var opts = exports.merge({
+    items: [],
+    dropdownOptions: {
+      align: 'rbrt',
+    },
+  }, options, forcedOptions);
+
+  if (!opts.items.length) {
+    throw new Error('moreButton: Items are required when creating a more button');
+  }
+
+  var validSize = supportedSizes$1.includes(size);
+
+  if (size && !validSize) {
+    logger.warn(("moreButton: Called with an invalid size: '" + size + "'. Supported sizes: " + (supportedSizes$1.join(', '))));
+  }
+
+  var sel = button('hx-btn hx-more-button hx-flag-button')
+    .classed(("hx-btn-" + size), validSize);
+
+  if (text) {
+    sel.text(text);
+  }
+
+  new MenuBase(sel, opts);
+  return sel;
+}
+
+var filterNested, sortActive$1, sortItems, trimTrailingSpaces;
 
 sortItems = function(valueLookup) {
-  if (valueLookup == null) {
-    valueLookup = exports.identity;
-  }
+  if ( valueLookup === void 0 ) valueLookup = exports.identity;
+
   return function(a, b) {
     return exports.compare(valueLookup(a), valueLookup(b));
   };
@@ -9012,6 +9489,27 @@ sortActive$1 = function(items) {
   active = groupedActive.get(true) || [];
   inactive = groupedActive.get(false) || [];
   return {active: active, inactive: inactive};
+};
+
+filterNested = function(items, term, filterName, filterOptions) {
+  if (items.some(function(item) {
+    var ref;
+    return (ref = item.children) != null ? ref.length : void 0;
+  })) {
+    return items.reduce(function(acc, item) {
+      var children, filterSingle;
+      if (item.children) {
+        children = filterNested(item.children, term, filterName, filterOptions);
+        if (children.length) {
+          return acc.concat( [Object.assign({}, item, {children: children})]);
+        }
+      }
+      filterSingle = filter[filterName]([item], term, filterOptions);
+      return acc.concat( filterSingle);
+    }, []);
+  } else {
+    return filter[filterName](items, term, filterOptions);
+  }
 };
 
 exports.AutocompleteFeed = /*@__PURE__*/(function () {
@@ -9045,7 +9543,7 @@ exports.AutocompleteFeed = /*@__PURE__*/(function () {
 
         var active, filterName, filtered, inactive;
         filterName = 'filter' + resolvedOptions.matchType[0].toUpperCase() + resolvedOptions.matchType.slice(1);
-        filtered = filter[filterName](items, term, resolvedOptions.filterOptions);
+        filtered = filterNested(items, term, filterName, resolvedOptions.filterOptions);
         ((assign = sortActive$1(filtered), active = assign.active, inactive = assign.inactive));
         return active.concat( inactive);
       };
@@ -9470,7 +9968,7 @@ exports.buttonGroup = function(options) {
   return selection;
 };
 
-var setValue$1;
+var PickerBase, pickerBase, setValue$1;
 
 exports.userFacingText({
   picker: {
@@ -9506,8 +10004,8 @@ setValue$1 = function(picker, value, items, cause) {
   }
 };
 
-var Picker = /*@__PURE__*/(function (EventEmitter) {
-  function Picker(selector, options) {
+PickerBase = /*@__PURE__*/(function (EventEmitter) {
+  function PickerBase(selector, options) {
     var this$1 = this;
     if ( options === void 0 ) options = {};
 
@@ -9524,7 +10022,7 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }, options);
     selectedText = span('hx-picker-text');
     this.selection = select(selector).classed('hx-picker hx-btn', true).classed('hx-picker-full-width', resolvedOptions.fullWidth).add(span('hx-picker-inner').attr('type', 'button').add(selectedText).add(span('hx-picker-icon').add(i('hx-icon hx-icon-caret-down')))).api('picker', this).api(this);
-    menu = new Menu(selector, {
+    menu = new MenuBase(selector, {
       dropdownOptions: resolvedOptions.dropdownOptions,
       items: resolvedOptions.items,
       disabled: resolvedOptions.disabled
@@ -9563,11 +10061,11 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }
   }
 
-  if ( EventEmitter ) Picker.__proto__ = EventEmitter;
-  Picker.prototype = Object.create( EventEmitter && EventEmitter.prototype );
-  Picker.prototype.constructor = Picker;
+  if ( EventEmitter ) PickerBase.__proto__ = EventEmitter;
+  PickerBase.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+  PickerBase.prototype.constructor = PickerBase;
 
-  Picker.prototype.renderer = function renderer (f) {
+  PickerBase.prototype.renderer = function renderer (f) {
     if (f != null) {
       this._.renderer = f;
       return this;
@@ -9576,7 +10074,7 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  Picker.prototype.items = function items (items$1) {
+  PickerBase.prototype.items = function items (items$1) {
     if (items$1 != null) {
       this._.items = items$1;
       this._.menu.items(items$1);
@@ -9587,7 +10085,7 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  Picker.prototype.value = function value (value$1) {
+  PickerBase.prototype.value = function value (value$1) {
     var this$1 = this;
 
     var loading;
@@ -9608,7 +10106,7 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  Picker.prototype.disabled = function disabled (disable) {
+  PickerBase.prototype.disabled = function disabled (disable) {
     var menuDisable;
     menuDisable = this._.menu.disabled(disable);
     // menu.disabled returns the wrong 'this' so we return the correct things below
@@ -9619,14 +10117,35 @@ var Picker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  return Picker;
+  return PickerBase;
 }(EventEmitter));
 
-var picker = function(options) {
+exports.Picker = /*@__PURE__*/(function (PickerBase) {
+  function Picker(selector, options) {
+    logger.deprecated('Picker', 'Deprecated in favour of the SingleSelect component');
+    PickerBase.call(this, selector, options);
+  }
+
+  if ( PickerBase ) Picker.__proto__ = PickerBase;
+  Picker.prototype = Object.create( PickerBase && PickerBase.prototype );
+  Picker.prototype.constructor = Picker;
+
+  return Picker;
+}(PickerBase));
+
+pickerBase = function(options) {
   var selection;
   // XXX [2.0.0] added options.class
   selection = button(options.class);
-  new Picker(selection, options);
+  new PickerBase(selection, options);
+  return selection;
+};
+
+exports.picker = function(options) {
+  var selection;
+  // XXX [2.0.0] added options.class
+  selection = button(options.class);
+  new exports.Picker(selection, options);
   return selection;
 };
 
@@ -10149,7 +10668,7 @@ function noticeBody() {
 notice.head = noticeHead;
 notice.body = noticeBody;
 
-var debounceDuration, enterKeyCode, setPickerValue, validateItems;
+var AutocompletePickerBase, debounceDuration, enterKeyCode, setPickerValue, validateItems;
 
 exports.userFacingText({
   autocompletePicker: {
@@ -10192,8 +10711,8 @@ setPickerValue = function(picker, results, cause) {
   }
 };
 
-exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
-  function AutocompletePicker(selector, items, options) {
+AutocompletePickerBase = /*@__PURE__*/(function (EventEmitter) {
+  function AutocompletePickerBase(selector, items, options) {
     var this$1 = this;
     if ( options === void 0 ) options = {};
 
@@ -10286,7 +10805,7 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
         }
       }
     });
-    menu = new Menu(selector, {
+    menu = new MenuBase(selector, {
       dropdownOptions: {
         ddClass: 'hx-autocomplete-picker-dropdown'
       },
@@ -10355,21 +10874,21 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
     selection.api('autocomplete-picker', this).api(this);
   }
 
-  if ( EventEmitter ) AutocompletePicker.__proto__ = EventEmitter;
-  AutocompletePicker.prototype = Object.create( EventEmitter && EventEmitter.prototype );
-  AutocompletePicker.prototype.constructor = AutocompletePicker;
+  if ( EventEmitter ) AutocompletePickerBase.__proto__ = EventEmitter;
+  AutocompletePickerBase.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+  AutocompletePickerBase.prototype.constructor = AutocompletePickerBase;
 
-  AutocompletePicker.prototype.clearCache = function clearCache () {
+  AutocompletePickerBase.prototype.clearCache = function clearCache () {
     this._.feed.clearCache();
     return this;
   };
 
-  AutocompletePicker.prototype.hide = function hide () {
+  AutocompletePickerBase.prototype.hide = function hide () {
     this._.menu.hide();
     return this;
   };
 
-  AutocompletePicker.prototype.disabled = function disabled (disable) {
+  AutocompletePickerBase.prototype.disabled = function disabled (disable) {
     var menuDisable;
     menuDisable = this._.menu.disabled(disable);
     // menu.disabled returns the wrong 'this' so we return the correct things below
@@ -10380,7 +10899,7 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  AutocompletePicker.prototype.items = function items (items$1) {
+  AutocompletePickerBase.prototype.items = function items (items$1) {
     if (arguments.length) {
       if (validateItems(this._.feed, items$1)) {
         this._.feed.items(items$1);
@@ -10392,7 +10911,7 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  AutocompletePicker.prototype.value = function value (value$1, callback) {
+  AutocompletePickerBase.prototype.value = function value (value$1, callback) {
     var this$1 = this;
 
     var _;
@@ -10409,7 +10928,7 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  AutocompletePicker.prototype.renderer = function renderer (f) {
+  AutocompletePickerBase.prototype.renderer = function renderer (f) {
     if (f != null) {
       this._.renderer = f;
       return this;
@@ -10418,8 +10937,21 @@ exports.AutocompletePicker = /*@__PURE__*/(function (EventEmitter) {
     }
   };
 
-  return AutocompletePicker;
+  return AutocompletePickerBase;
 }(EventEmitter));
+
+exports.AutocompletePicker = /*@__PURE__*/(function (AutocompletePickerBase) {
+  function AutocompletePicker(selector, options) {
+    logger.deprecated('AutocompletePicker', 'Deprecated in favour of the SingleSelect component');
+    AutocompletePickerBase.call(this, selector, options);
+  }
+
+  if ( AutocompletePickerBase ) AutocompletePicker.__proto__ = AutocompletePickerBase;
+  AutocompletePicker.prototype = Object.create( AutocompletePickerBase && AutocompletePickerBase.prototype );
+  AutocompletePicker.prototype.constructor = AutocompletePicker;
+
+  return AutocompletePicker;
+}(AutocompletePickerBase));
 
 exports.autocompletePicker = function(items, options) {
   var selection;
@@ -10710,6 +11242,234 @@ exports.StickyTableHeaders = /*@__PURE__*/(function () {
 
   return StickyTableHeaders;
 }());
+
+var defaultCalculateMessageDurationOptions = {
+  minMessageDuration: 2000,
+  maxMessageDuration: 7000,
+};
+function calculateMessageDuration(
+  title,
+  body,
+  ref
+) {
+  if ( title === void 0 ) title = '';
+  if ( body === void 0 ) body = '';
+  if ( ref === void 0 ) ref = defaultCalculateMessageDurationOptions;
+  var minMessageDuration = ref.minMessageDuration; if ( minMessageDuration === void 0 ) minMessageDuration = 2000;
+  var maxMessageDuration = ref.maxMessageDuration; if ( maxMessageDuration === void 0 ) maxMessageDuration = 7000;
+
+  var length = title.length + body.length;
+  var readingDuration = length * 50;
+  return Math.min(Math.max(readingDuration, minMessageDuration), maxMessageDuration);
+}
+
+var Alert = function Alert(id, closeAction, options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  this.id = id;
+  this.closeAction = closeAction;
+  this.options = options;
+
+  if (this.options.duration) {
+    this.activeTimeout = window.setTimeout(
+      function () { return this$1.close(); },
+      this.options.duration
+    );
+  }
+};
+
+Alert.prototype.render = function render () {
+    var this$1 = this;
+
+  var ref = this.options;
+    var title = ref.title;
+    var body = ref.body;
+    var type = ref.type;
+    var duration = ref.duration;
+
+  var titleSpan = title
+    ? span('hx-alert-title').text((title + " "))
+    : undefined;
+
+  var bodySpan = body
+    ? span('hx-alert-body').text(body)
+    : undefined;
+
+  var closeDiv = !duration
+    ? div('hx-alert-close')
+      .add(i('hx-alert-icon fas fa-times'))
+      .on('click', function () { return this$1.close(); })
+    : undefined;
+
+  return div('hx-alert')
+    .classed(("hx-alert-" + type), type)
+    .add(div('hx-alert-content')
+      .add(titleSpan)
+      .add(bodySpan))
+    .add(closeDiv);
+};
+
+Alert.prototype.close = function close () {
+  window.clearTimeout(this.activeTimeout);
+  delete this.activeTimeout;
+  this.closeAction(this.id);
+  return this;
+};
+
+var AlertManager = function AlertManager(selector, options) {
+  if ( selector === void 0 ) selector = 'body';
+  if ( options === void 0 ) options = {};
+
+  this.options = exports.merge({
+    animationInDuration: 200,
+    animationOutDuration: 200,
+  }, defaultCalculateMessageDurationOptions, options);
+
+  this._ = {
+    container: undefined,
+    currentId: 0,
+    alerts: [],
+  };
+
+  this.selection = select(selector);
+};
+
+AlertManager.prototype.message = function message (options) {
+  if (!options) {
+    throw new Error('AlertManager::message - No options were provided. An object with title or body should be provided');
+  }
+
+  var title = options.title;
+    var body = options.body;
+    var type = options.type;
+    var duration = options.duration;
+
+  var types = ['success'];
+  if (type && !types.includes(type)) {
+    throw new Error(("AlertManager::message - Invalid message type provided: '" + type + "'.\nAccepted types: ['" + (types.join('\', \'')) + "']"));
+  }
+  return this.addAlert({
+    title: title,
+    body: body,
+    duration: duration || calculateMessageDuration(title, body, this.options),
+    type: type,
+  });
+};
+
+AlertManager.prototype.alert = function alert (options) {
+  if (!options) {
+    throw new Error('AlertManager::alert - No options were provided. An object with title or body should be provided');
+  }
+
+  var title = options.title;
+    var body = options.body;
+    var type = options.type;
+    var duration = options.duration;
+
+  var types = ['success', 'warning', 'danger'];
+  if (type && !types.includes(type)) {
+    throw new Error(("AlertManager::alert - Invalid alert type provided: '" + type + "'.\nAccepted types: ['" + (types.join('\', \'')) + "']"));
+  }
+  if (duration) {
+    logger.warn('AlertManager::alert called with "duration" but can only be closed by user interaction. Ignoring passed in duration');
+  }
+  return this.addAlert({
+    title: title,
+    body: body,
+    duration: undefined,
+    type: type,
+  });
+};
+
+AlertManager.prototype.render = function render () {
+  var container = this.createOrGetContainer();
+
+  container.api('_alerts-view')
+    .apply(this._.alerts, function (d) { return d.id; });
+
+  return this;
+};
+
+AlertManager.prototype.addAlert = function addAlert (options) {
+    var this$1 = this;
+
+  var nextId = "alert-" + (exports.randomId());
+  var alertToAdd = new Alert(nextId, function (id) { return this$1.closeAlert(id); }, options);
+  this._.alerts.unshift(alertToAdd);
+  this.render();
+  return alertToAdd;
+};
+
+AlertManager.prototype.closeAlert = function closeAlert (idToClose) {
+  var alertToClose = this._.alerts.find(function (ref) {
+      var id = ref.id;
+
+      return id === idToClose;
+    });
+  var index = this._.alerts.indexOf(alertToClose);
+  if (index >= 0) {
+    this._.alerts.splice(index, 1);
+    this.render();
+  }
+};
+
+AlertManager.prototype.createOrGetContainer = function createOrGetContainer () {
+  var alertMgr = this;
+  var ref = alertMgr._;
+    var container = ref.container;
+
+  if (!container) {
+    var newContainer = alertMgr.selection.append(div('hx-alert-container'));
+    var view = newContainer.view('.hx-alert')
+      .enter(function enter(thisAlert) {
+        var nSel = thisAlert.render();
+
+        this.prepend(nSel);
+
+        nSel
+          .style('opacity', 0)
+          .style('height', 0)
+          .style('padding-top', 0)
+          .style('padding-bottom', 0)
+          .morph()
+          .with('fadein', alertMgr.options.animationInDuration)
+          .and('expandv', alertMgr.options.animationInDuration)
+          .then(function () { return nSel
+            .style('padding-top', undefined)
+            .style('padding-bottom', undefined)
+            .style('height', undefined)
+            .style('opacity', undefined); })
+          .go();
+
+        return nSel.node();
+      })
+      .exit(function exit() {
+          var this$1 = this;
+
+        this.style('opacity', '1')
+          .morph()
+          .with('collapsev', alertMgr.options.animationOutDuration)
+          .and('fadeout', alertMgr.options.animationOutDuration)
+          .then(function () { return this$1.remove(); })
+          .go();
+      });
+
+    newContainer.api('_alerts-view', view);
+    alertMgr._.container = newContainer;
+  }
+  return alertMgr._.container;
+};
+
+var inbuiltAlertManager = new AlertManager();
+
+function message(options) {
+  return inbuiltAlertManager.message(options);
+}
+
+function alert(options) {
+  return inbuiltAlertManager.alert(options);
+}
 
 var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, svgCurve;
 
@@ -17217,7 +17977,7 @@ createPaginationBlock = function(table) {
   var back, container, dtPicker, forward, pickerNode, totalRows;
   container = div('hx-data-table-paginator');
   pickerNode = container.append('button').class('hx-data-table-paginator-picker hx-btn hx-btn-invisible').node();
-  dtPicker = new Picker(pickerNode, {
+  dtPicker = new PickerBase(pickerNode, {
     dropdownOptions: {
       align: 'rbrt'
     }
@@ -17250,7 +18010,7 @@ createPageSizeBlock = function(table, options) {
   container = div('hx-data-table-page-size');
   container.append('span').text(options.rowsPerPageText + ': ');
   node = container.append('button').class('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node();
-  dtPicker = new Picker(node, {
+  dtPicker = new PickerBase(node, {
     dropdownOptions: {
       align: 'rbrt'
     }
@@ -17288,7 +18048,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         ],
         fullWidth: true
       };
-      typePickerSel = picker(typePickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-type hx-section hx-fixed', true);
+      typePickerSel = pickerBase(typePickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-type hx-section hx-fixed', true);
       typePickerSel.api('picker').on('change', function(data) {
         var assign, assign$1, assign$2, assign$3;
 
@@ -17327,7 +18087,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         renderer: columnRenderer,
         fullWidth: true
       };
-      columnPickerSel = picker(columnPickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-column hx-section hx-fixed', true);
+      columnPickerSel = pickerBase(columnPickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-column hx-section hx-fixed', true);
       columnPickerSel.api('picker').on('change', function(data) {
         var assign, assign$1;
 
@@ -17350,7 +18110,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         items: toCriteriaItems(['contains' ].concat( advancedSearchCriteriaValidate(options.advancedSearchCriteria))),
         fullWidth: true
       };
-      criteriaPickerSel = picker(criteriaPickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
+      criteriaPickerSel = pickerBase(criteriaPickerOptions).classed('hx-btn-outline hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
       criteriaPickerSel.api('picker').on('change', function(data) {
         var assign, assign$1;
 
@@ -17537,7 +18297,7 @@ exports.DataTable = (function() {
       controlPanelInner = div('hx-data-table-control-panel-inner');
       // compact sort - always on the page, only visible in compact mode (so we can just change the class and everything will work)
       compactSort = div('hx-data-table-sort').classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled).add(span().text(resolvedOptions.sortByText + ': '));
-      sortColPicker = new Picker(compactSort.append('button').class('hx-btn hx-btn-invisible').node());
+      sortColPicker = new PickerBase(compactSort.append('button').class('hx-btn hx-btn-invisible').node());
       sortColPicker.on('change', 'hx.data-table', function (d) {
         if (d.cause === 'user') {
           return this$1.sort({
@@ -19534,16 +20294,354 @@ var fileInput = function(options) {
   return selection;
 };
 
+exports.userFacingText({
+  singleSelect: {
+    chooseValue: 'Choose a value...',
+    search: 'Search...',
+    loading: 'Loading...',
+    noResults: 'No Results Found',
+    otherResults: 'Other Results',
+    pleaseSelectAValueText: 'Please select a value from the list',
+  },
+});
+
+var enterKeyCode$1 = 13;
+var debounceDuration$1 = 200;
+
+function validateItems$1(feed, items) {
+  if (!feed.validateItems(items)) {
+    logger.warn(("SingleSelect: the items was expected to be an array of items or a function, you supplied: " + items));
+    return false;
+  }
+  return true;
+}
+
+function setValue$2(ss, value, cause) {
+  var assign;
+
+  var _ = ss._;
+  _.valueInput.value('');
+  _.current = undefined;
+  if (value) {
+    if (value.children) {
+      (assign = value.children, _.current = assign[0]);
+    } else {
+      _.current = value;
+    }
+  }
+  _.valueInput.value(_.current ? _.valueLookup(_.current) : '');
+  ss.emit('change', { cause: cause, value: _.current });
+}
+
+var SingleSelect = /*@__PURE__*/(function (EventEmitter) {
+  function SingleSelect(selector, items, options) {
+    var this$1 = this;
+    if ( options === void 0 ) options = {};
+
+    EventEmitter.call(this);
+    var defaultOptions = {
+      // Options passed to the feed - defaultOptions defined there
+      filter: undefined,
+      filterOptions: undefined,
+      matchType: undefined,
+      useCache: undefined,
+      trimTrailingSpaces: undefined,
+
+      // Options used by the ss
+      disabled: false,
+      valueLookup: function (item) { return (item ? (item.value || item) : undefined); },
+      renderer: function (element, item) {
+        var sel = select(element);
+        if (item && item.children) {
+          sel.text(item.text);
+        } else {
+          sel.text(this$1._.options.valueLookup(item));
+        }
+      },
+      value: undefined,
+      showSearch: false,
+      required: false,
+      chooseValueText: exports.userFacingText('singleSelect', 'chooseValue'),
+      searchText: exports.userFacingText('singleSelect', 'search'),
+      loadingText: exports.userFacingText('singleSelect', 'loading'),
+      noResultsText: exports.userFacingText('singleSelect', 'noResults'),
+      pleaseSelectAValueText: exports.userFacingText('singleSelect', 'pleaseSelectAValueText'),
+    };
+
+    var resolvedOptions = exports.merge({}, defaultOptions, options);
+
+    var filter = resolvedOptions.filter;
+    var filterOptions = resolvedOptions.filterOptions;
+    var matchType = resolvedOptions.matchType;
+    var showOtherResults = resolvedOptions.showOtherResults;
+    var trimTrailingSpaces = resolvedOptions.trimTrailingSpaces;
+    var valueLookup = resolvedOptions.valueLookup;
+    var useCache = resolvedOptions.useCache;
+    var chooseValueText = resolvedOptions.chooseValueText;
+    var required = resolvedOptions.required;
+    var pleaseSelectAValueText = resolvedOptions.pleaseSelectAValueText;
+    var noResultsText = resolvedOptions.noResultsText;
+    var showSearch = resolvedOptions.showSearch;
+    var searchText = resolvedOptions.searchText;
+    var loadingText = resolvedOptions.loadingText;
+    var renderer = resolvedOptions.renderer;
+    var value = resolvedOptions.value;
+    var disabled = resolvedOptions.disabled;
+
+    var selection = select(selector);
+
+    var valueInput = input('hx-input hx-single-select-value')
+      .attr('placeholder', chooseValueText)
+      .attr('tabindex', -1)
+      .attr('required', required ? true : undefined);
+
+    var setValidity = function (val) {
+      var node = valueInput.node();
+      if (val === undefined) {
+        node.setCustomValidity(pleaseSelectAValueText);
+      } else {
+        node.setCustomValidity('');
+      }
+    };
+
+    var shouldDebounce = exports.isFunction(items);
+
+    var feed = new exports.AutocompleteFeed({
+      filter: filter,
+      filterOptions: filterOptions,
+      matchType: matchType,
+      showOtherResults: showOtherResults,
+      trimTrailingSpaces: trimTrailingSpaces,
+      valueLookup: valueLookup,
+      useCache: useCache,
+    });
+
+    var noResultsItem = {
+      text: noResultsText,
+      unselectable: true,
+    };
+
+    var loadingItem = {
+      text: loadingText,
+      unselectable: true,
+    };
+
+    this._ = {
+      selection: selection,
+      options: resolvedOptions,
+      valueInput: valueInput,
+      feed: feed,
+      valueLookup: valueLookup,
+    };
+    if (!validateItems$1(feed, items)) {
+      return;
+    }
+    feed.items(items);
+    // XXX Breaking: Renderer
+    var renderWrapper = function (element, item) {
+      var sel = select(element);
+      sel.classed('hx-single-select-heading', item.heading);
+      if (item.unselectable || item.heading) {
+        sel.text(item.text);
+        return;
+      }
+      this$1._.renderer(element, item);
+    };
+
+    var searchInput = detached('input').class('hx-input hx-single-select-input')
+      .attr('placeholder', searchText);
+
+    var menu = new MenuBase(selection, {
+      dropdownOptions: {
+        ddClass: 'hx-single-select-dropdown',
+      },
+      featureFlags: {
+        useUpdatedStructure: true,
+      },
+      extraContent: showSearch ? div('hx-single-select-input-container').add(searchInput) : undefined,
+    });
+
+    var renderMenuItems = function (itemsToRender) {
+      menu.items(itemsToRender);
+      menu.render();
+    };
+
+    var filterAndRenderMenu = function (term) { return (
+      feed.filter(term, function (results) {
+        if (results.length === 0) {
+          results.push(noResultsItem);
+        }
+        renderMenuItems(results);
+      })
+    ); };
+
+    var debouncedPopulate = exports.debounce(debounceDuration$1, filterAndRenderMenu);
+
+    var setValueAndHide = function (item) {
+      setValue$2(this$1, item, 'user');
+      menu.hide();
+    };
+
+    searchInput
+      .on('input', function (e) {
+        if (shouldDebounce) {
+          renderMenuItems([loadingItem]);
+          debouncedPopulate(e.target.value);
+          return;
+        }
+        filterAndRenderMenu(e.target.value);
+      })
+      .on('keydown', function (e) {
+        if (searchInput.value().length) {
+          if ((e.which || e.keyCode) === enterKeyCode$1 && menu.cursorPos === -1) {
+            var ref = menu.items();
+            var topItem = ref[0];
+            if (!topItem.unselectable) {
+              setValueAndHide(topItem);
+            }
+          }
+        }
+      });
+
+    this._.renderer = renderer || menu.renderer();
+    this._.menu = menu;
+
+    menu
+      .renderer(renderWrapper)
+      .on('change', function (item) {
+        if ((item != null) && (item.content != null)) {
+          setValueAndHide(item.content);
+        }
+      })
+      .on('highlight', 'hx.single-select', function (ref) {
+        var content = ref.content;
+        var eventType = ref.eventType;
+
+        return this$1.emit('highlight', {
+        cause: 'user',
+        value: {
+          item: content,
+          eventType: eventType,
+        },
+      });
+    });
+
+    menu.dropdown
+      .on('showstart', function () {
+        searchInput.value('');
+        renderMenuItems([loadingItem]);
+        filterAndRenderMenu(searchInput.value());
+        searchInput.node().focus();
+      })
+      .on('showend', function () { return searchInput.node().focus(); });
+
+    menu.dropdown.pipe(this, 'dropdown');
+
+    if (value) {
+      this.value(value);
+    }
+    if (disabled) {
+      this.disabled(disabled);
+    }
+
+    if (required) {
+      setValidity();
+      this.on('change', 'hx.single-select', function (event) { return setValidity(event.value); });
+    }
+
+    selection
+      .add(valueInput)
+      .add(span('hx-single-select-icon').add(i('hx-icon hx-icon-caret-down')))
+      .classed('hx-single-select', true)
+      .api('single-select', this)
+      .api(this);
+  }
+
+  if ( EventEmitter ) SingleSelect.__proto__ = EventEmitter;
+  SingleSelect.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+  SingleSelect.prototype.constructor = SingleSelect;
+
+  SingleSelect.prototype.clearCache = function clearCache () {
+    this._.feed.clearCache();
+    return this;
+  };
+
+  SingleSelect.prototype.hide = function hide () {
+    this._.menu.hide();
+    return this;
+  };
+
+  SingleSelect.prototype.disabled = function disabled (disable) {
+    var menuDisable = this._.menu.disabled(disable);
+    // menu.disabled returns the wrong 'this' so we return the correct things below
+    if (disable != null) {
+      this._.valueInput.attr('disabled', disable ? 'disabled' : undefined);
+      return this;
+    }
+    return menuDisable;
+  };
+
+  SingleSelect.prototype.items = function items (items$1) {
+    if (arguments.length) {
+      if (validateItems$1(this._.feed, items$1)) {
+        this._.feed.items(items$1);
+        this.value(this._.current);
+      }
+      return this;
+    }
+    return this._.feed.items();
+  };
+
+  SingleSelect.prototype.value = function value (value$1, callback) {
+    var this$1 = this;
+
+    var ref = this;
+    var _ = ref._;
+    if (arguments.length) {
+      if (value$1) {
+        _.valueInput.value(_.options.loadingText);
+        _.feed.filter(_.valueLookup(value$1), function (results) {
+          var retVal = results[0];
+          setValue$2(this$1, retVal, 'api');
+          return typeof callback === 'function' ? callback(retVal) : undefined;
+        });
+      } else {
+        setValue$2(this, undefined, 'api');
+      }
+      return this;
+    }
+    return _.current;
+  };
+
+  SingleSelect.prototype.renderer = function renderer (renderer$1) {
+    if (renderer$1 != null) {
+      this._.renderer = renderer$1;
+      return this;
+    }
+    return this._.renderer;
+  };
+
+  return SingleSelect;
+}(EventEmitter));
+
+function singleSelect(items, options) {
+  var selection = div();
+  new SingleSelect(selection, items, options);
+  return selection;
+}
+
 var getButtons,
   hasProp = {}.hasOwnProperty,
   boundMethodCheck$1 = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
 // XXX: Refactor into constructor in next major
-getButtons = function(form) {
+getButtons = function(form, createIfEmpty) {
+  if ( createIfEmpty === void 0 ) createIfEmpty = true;
+
   var buttons, sel, selection;
   selection = select(form.selector);
   sel = selection.select('.hx-form-buttons');
-  return buttons = sel.empty() ? selection.append('div').class('hx-form-buttons') : sel;
+  return buttons = createIfEmpty && sel.empty() ? selection.append('div').class('hx-form-buttons') : sel;
 };
 
 var Form = /*@__PURE__*/(function (EventEmitter) {
@@ -19704,7 +20802,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     formSel = select(this.selector);
     entry = formSel.append('div').classed('hx-form-group', this.options.featureFlags.useUpdatedStructure);
     // Append buttons container to the end of the form
-    formSel.append(getButtons(this));
+    formSel.append(getButtons(this, false));
     entry.append('label').classed('hx-form-label', this.options.featureFlags.useUpdatedStructure).attr('for', id).text(name);
     prop = f.call(this) || {};
     key = prop.key || name;
@@ -20066,7 +21164,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       if (values.length > 0) {
         pickerOptions.items = values;
       }
-      component = new Picker(componentElem, pickerOptions);
+      component = new exports.Picker(componentElem, pickerOptions);
       hiddenInput = detached('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
       if (typeof options.required !== 'boolean') {
         component.value(values[0]);
@@ -20319,6 +21417,32 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       return {
         key: options.key,
         elem: div().add(componentElem),
+        component: component,
+        disable: function(disabled) {
+          return component.disabled(disabled);
+        },
+        options: {
+          hidden: options.hidden,
+          disabled: options.disabled
+        }
+      };
+    });
+  };
+
+  Form.prototype.addSingleSelect = function addSingleSelect (name, items, options) {
+    if ( options === void 0 ) options = {};
+
+    return this.add(name, 'select', function() {
+      var assign;
+
+      var component, componentElem, required, singleSelectOptions;
+      componentElem = div();
+      ((assign = options, required = assign.required));
+      singleSelectOptions = exports.merge({required: required}, options.singleSelectOptions);
+      component = new SingleSelect(componentElem, items, singleSelectOptions);
+      return {
+        key: options.key,
+        elem: componentElem,
         component: component,
         disable: function(disabled) {
           return component.disabled(disabled);
@@ -22253,7 +23377,7 @@ exports.Drawing = (function() {
 
       var container, node;
       EventEmitter.call(this);
-      logger.warn('hx.Drawing', 'N/A - This module will be removed in the next major release');
+      logger.deprecated('hx.Drawing', 'N/A - This module will be removed in the next major release');
       container = select(selector).classed('hx-drawing', true).api('drawing', this).api(this);
       this.canvas = container.append('canvas');
       this.overlay = container.append('div').class('hx-drawing-overlay');
@@ -22819,7 +23943,7 @@ var InlinePicker = (function() {
       pickerNode = detached('button').class('hx-btn ' + resolvedOptions.contextClass).node();
       selectedText = selection.append('a').class('hx-morph-toggle');
       selection.append('div').class('hx-morph-content hx-input-group').add(pickerNode).add(detached('button').class('hx-btn hx-positive hx-confirm').add(detached('i').class('hx-icon hx-icon-check')));
-      picker = new Picker(pickerNode, {
+      picker = new PickerBase(pickerNode, {
         renderer: resolvedOptions.renderer,
         items: resolvedOptions.items,
         ddClass: resolvedOptions.ddClass,
@@ -22991,6 +24115,7 @@ if (!doctypeIsValid) {
 
 theme(currentTheme);
 
+exports.AlertManager = AlertManager;
 exports.AutoComplete = exports.Autocomplete;
 exports.Collapsible = Collapsible;
 exports.DateTimePicker = DateTimePicker;
@@ -23003,16 +24128,16 @@ exports.InlineMorphSection = InlineMorphSection;
 exports.InlinePicker = InlinePicker;
 exports.List = List;
 exports.Map = Map;
-exports.Menu = Menu;
 exports.Meter = Meter;
 exports.MorphSection = MorphSection;
 exports.NotificationManager = NotificationManager;
 exports.NumberPicker = NumberPicker;
-exports.Picker = Picker;
 exports.Selection = Selection;
 exports.Set = Set;
 exports.Sidebar = Sidebar;
+exports.SingleSelect = SingleSelect;
 exports.TitleBar = TitleBar;
+exports.alert = alert;
 exports.autoComplete = exports.autocomplete;
 exports.badge = badge;
 exports.button = button;
@@ -23026,6 +24151,7 @@ exports.dateTimeLocalizer = dateTimeLocalizer;
 exports.dateTimePicker = dateTimePicker;
 exports.detached = detached;
 exports.div = div;
+exports.dropdownButton = dropdownButton;
 exports.ease = ease;
 exports.errorPage = errorPage;
 exports.fileInput = fileInput;
@@ -23048,7 +24174,12 @@ exports.json = json;
 exports.label = label;
 exports.logger = logger;
 exports.loop = loop;
+exports.message = message;
 exports.meter = meter;
+exports.modalCenter = modalCenter;
+exports.modalFullScreen = modalFullScreen;
+exports.modalRight = modalRight;
+exports.moreButton = moreButton;
 exports.notice = notice;
 exports.noticeBody = noticeBody;
 exports.noticeHead = noticeHead;
@@ -23056,13 +24187,13 @@ exports.numberPicker = numberPicker;
 exports.palette = palette$1;
 exports.parentZIndex = parentZIndex;
 exports.parseHTML = parseHTML;
-exports.picker = picker;
 exports.preferences = preferences;
 exports.request = request;
 exports.scrollbarSize = scrollbarSize;
 exports.section = section;
 exports.select = select;
 exports.selectAll = selectAll;
+exports.singleSelect = singleSelect;
 exports.span = span;
 exports.spinner = spinner;
 exports.spinnerWide = spinnerWide;

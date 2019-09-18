@@ -16,7 +16,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "cpx": "^1.5.0",
-    "hexagon-js": "2.2.0",
+    "hexagon-js": "2.3.1",
     "npm-run-all": "^4.1.5",
     "quantum-api": "^2.0.1",
     "quantum-code-highlight": "^2.0.0",
