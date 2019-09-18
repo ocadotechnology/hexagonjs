@@ -9,6 +9,8 @@
 
 
 @contentSection
+  @requiresFA5
+
   @topic About
     Alerts and messages are essentially the same, with messages being a sub-type of alerts.
     The key difference between messages and alerts is that messages will auto-dismiss themselves

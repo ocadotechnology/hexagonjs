@@ -9,6 +9,8 @@
 
 
 @contentSection
+  @requiresFA5
+
   @topic Examples
     @examples
       @versioned
