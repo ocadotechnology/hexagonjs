@@ -1863,7 +1863,144 @@ img.hx-logo:before {
   border-color: var(--drag-container-placeholder-border-color);
 }
 
-.hx-progress-bar {
+.hx-status-bar-segments {
+  min-height: 30px;
+}
+
+.hx-status-bar-section-bar {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 5px;
+  min-width: 100%;
+  font-weight: bold;
+}
+
+.hx-status-bar-section:first-child .hx-status-bar-section-bar {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.hx-status-bar-section:last-child .hx-status-bar-section-bar {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.hx-status-bar-section-text {
+  padding: 0 10px;
+}
+
+.hx-status-bar-section-percent,
+.hx-status-bar-section-label {
+  font-size: 12px;
+}
+
+.hx-status-bar-section-percent {
+  margin: 0 5px;
+}
+
+.hx-status-bar-section + .hx-status-bar-section .hx-status-bar-section-bar:before {
+  width: 2px;
+  background: white;
+  left: -1px;
+}
+
+.hx-status-bar-disabled * {
+  color: #C9C9C9 !important;
+}
+
+.hx-status-bar-disabled .hx-status-bar-segments {
+  border: 1px solid #C9C9C9;
+  border-radius: 3px;
+}
+
+.hx-status-bar-title:not(:empty) {
+  margin-bottom: 10px;
+}
+
+.hx-status-bar-breakdown:not(:empty) {
+  margin-top: 10px;
+}
+
+.hx-status-bar-compact .hx-status-bar-title-section {
+  font-weight: bold;
+}
+
+.hx-status-bar-compact .hx-status-bar-segments {
+  height: 10px;
+  min-height: 10px;
+}
+
+.hx-status-bar-compact .hx-status-bar-plan:not(:empty) {
+  line-height: 10px;
+  margin-left: 15px;
+}
+
+.hx-status-bar-compact .hx-status-bar-section-bar {
+  height: 10px;
+  min-height: 10px;
+}
+
+.hx-status-bar-section {
+  min-width: 80px;
+  flex-shrink: 1;
+}
+
+.hx-status-bar-section-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.hx-table .hx-status-bar {
+  margin: 10px 0;
+}
+
+.hx-status-bar-section-bar {
+  background: var(--status-bar-default-background-color);
+  color: var(--status-bar-default-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-todo {
+  background: var(--status-bar-todo-background-color);
+  color: var(--status-bar-todo-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-light {
+  background: var(--status-bar-light-background-color);
+  color: var(--status-bar-light-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-medium {
+  background: var(--status-bar-medium-background-color);
+  color: var(--status-bar-medium-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-dark {
+  background: var(--status-bar-dark-background-color);
+  color: var(--status-bar-dark-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-danger {
+  background: var(--status-bar-danger-background-color);
+  color: var(--status-bar-danger-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-warning {
+  background: var(--status-bar-warning-background-color);
+  color: var(--status-bar-warning-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-done {
+  background: var(--status-bar-done-background-color);
+  color: var(--status-bar-done-text-color);
+}
+
+.hx-status-bar-section-bar.hx-status-bar-in-progress {
+  background: var(--status-bar-progress-background-color);
+  color: var(--status-bar-progress-text-color);
+}
+
+.hx-progress-bar:not(.hx-flag-progress-bar) {
   border-color: var(--progress-bar-border-color);
   border-width: var(--progress-bar-border-width);
   background-color: var(--progress-bar-background-color);

@@ -803,7 +803,125 @@
     hx.progressBar({ value: 0.5 }).classed('hx-warning', true),
     hx.progressBar({ value: 0.58 }).classed('hx-negative', true),
     hx.progressBar({ value: 0.67 }).classed('hx-complement', true),
-    hx.progressBar({ value: 0.75 }).classed('hx-contrast', true) ]; }
+    hx.progressBar({ value: 0.75 }).classed('hx-contrast', true),
+    hx.div('hx-pad'),
+    hx.div('hx-pad'),
+    hx.div('hx-flag-typography').set([
+      hx.div('hx-header-medium').text('Updated Progress Bars (feature flag)'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Title here',
+        breakdown: 'Breakdown Text can go here',
+        plan: 78,
+        done: 38,
+      }),
+      hx.detached('note').text('Not started state'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Title here',
+        breakdown: 'Breakdown Text can go here',
+        plan: 80,
+      }),
+      hx.detached('note').text('Not applicable state (disabled)'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Title here',
+        breakdown: 'Breakdown Text can go here',
+        disabled: true,
+      }),
+      hx.detached('note').text('In Progress state'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Buffering Containers',
+        breakdown: 'Ambient: 27 / 50\nChill: 10 / 25\nFreezer: 0 / 5',
+        plan: 78,
+        inProgress: 2,
+        done: 38,
+      }),
+      hx.div('hx-header-medium').text('Secondary progress bars (compact)'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Freezer (eaches)',
+        breakdown: 'Breakdown Text can go here',
+        done: 5,
+        plan: 10,
+        compact: true,
+      }),
+      hx.detached('note').text('Disabled'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Freezer (eaches)',
+        breakdown: 'Breakdown Text can go here',
+        done: 5,
+        plan: 10,
+        compact: true,
+        disabled: true,
+      }),
+      hx.detached('note').text('In table'),
+      hx.detached('table').class('hx-table hx-flag-table')
+        .add(hx.detached('thead')
+          .add(hx.detached('tr')
+            .add(hx.detached('th').text('Title'))
+            .add(hx.detached('th').text('Title'))))
+        .add(hx.detached('tbody')
+          .add(hx.detached('tr')
+            .add(hx.detached('td').text('Something'))
+            .add(hx.detached('td').add(hx.progressBar({
+              featureFlags: { useUpdatedClass: true },
+              done: 9,
+              plan: 10,
+              compact: true,
+            }))))
+          .add(hx.detached('tr')
+            .add(hx.detached('td').text('Something'))
+            .add(hx.detached('td').add(hx.progressBar({
+              featureFlags: { useUpdatedClass: true },
+              done: 9,
+              plan: 10,
+              compact: true,
+              disabled: true,
+            }))))),
+      hx.div('hx-header-medium').text('Edge Cases'),
+      hx.detached('note').text('No plan'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Freezer (units)',
+        breakdown: 'Breakdown Text can go here',
+        done: 900,
+      }),
+      hx.detached('note').text('MVP: show position without planning capabilities yet'),
+      hx.progressBar({
+        featureFlags: { useUpdatedClass: true },
+        title: 'Freezer (units)',
+        breakdown: 'Breakdown Text can go here',
+        done: 900,
+        hidePlan: true,
+      }),
+      hx.div('hx-card')
+        .add(hx.div('hx-card-section hx-card-header')
+          .add(hx.div('hx-header-medium').text('Usage in a card')))
+        .add(hx.div('hx-card-section hx-no-border')
+          .add(hx.progressBar({
+            featureFlags: { useUpdatedClass: true },
+            title: 'Ambient (units)',
+            done: 80,
+            plan: 5000,
+          })))
+        .add(hx.div('hx-card-section hx-no-border')
+          .add(hx.progressBar({
+            featureFlags: { useUpdatedClass: true },
+            title: 'Chill (units)',
+            done: 2200,
+            inProgress: 100,
+            plan: 2100,
+          })))
+        .add(hx.div('hx-card-section hx-no-border')
+          .add(hx.progressBar({
+            featureFlags: { useUpdatedClass: true },
+            title: 'Freezer (units)',
+            done: 900,
+            plan: 1200,
+          }))) ]) ]; }
 
   function sidebarExamples () {
     var html = "\n    <div class=\"hx-heading example-heading\">\n      <div class=\"hx-titlebar\">\n        <div class=\"hx-titlebar-container\">\n          <div class=\"hx-titlebar-header example-titlebar\">\n            <a class=\"hx-titlebar-icon\" href=\"#\"><img class=\"hx-logo\"></img></a>\n            <div class=\"hx-titlebar-title\">Title</div>\n            <div class=\"hx-titlebar-subtitle\">Subtitle</div>\n            <div class=\"hx-titlebar-menu-icon-mobile\"><i class=\"fa fa-reorder\"></i></div>\n          </div>\n          <div class=\"hx-titlebar-menu-icons\">\n            <div class=\"hx-titlebar-menu-icons-container\">\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-tags\"></i><span class=\"hx-titlebar-menu-text\">Tags</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-life-ring\"></i><span class=\"hx-titlebar-menu-text\">Help</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-cog\"></i><span class=\"hx-titlebar-menu-text\">Settings</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-power-off\"></i><span class=\"hx-titlebar-menu-text\">Sign out</span></a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"hx-sidebar\">\n      <div class=\"hx-sidebar-title\">Docs</div>\n      <div id=\"collapsible1\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-book\"></i> Intro</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Getting Started</div>\n          <div class=\"hx-sidebar-section\">FAQs</div>\n        </div>\n      </div>\n      <div id=\"collapsible2\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-book\"></i> Components</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Titlebar</div>\n          <div class=\"hx-sidebar-section\">Buttons</div>\n          <div class=\"hx-sidebar-section\">Collapsible</div>\n          <div class=\"hx-sidebar-section\">Sidebar</div>\n          <div class=\"hx-sidebar-section\">Notifications</div>\n        </div>\n      </div>\n      <div id=\"collapsible3\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-chart\"></i> Drawing & Graphs</div>\n        <div class=\"hx-collapsible-content\">\n          <a href=\"#\" class=\"hx-positive\"><i class=\"fa fa-fw fa-users\"></i>&nbsp; Users</a>\n          <div class=\"hx-sidebar-section\">Drawing</div>\n          <div class=\"hx-sidebar-section\">Plot</div>\n        </div>\n      </div>\n      <div id=\"collapsible4\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-spanner\"></i> Utils</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Color</div>\n          <div class=\"hx-sidebar-section\">Util</div>\n          <div class=\"hx-sidebar-section\">Request</div>\n          <div class=\"hx-sidebar-section\">Map</div>\n          <div class=\"hx-sidebar-section\">Set</div>\n          <div class=\"hx-sidebar-section\">List</div>\n        </div>\n      </div>\n      <div class=\"hx-sidebar-title\">Examples</div>\n      <div class=\"hx-sidebar-section\">Components</div>\n      <div class=\"hx-sidebar-section hx-selected\">Dashboard</div>\n      <div class=\"hx-sidebar-section\">Graphs</div>\n      <div class=\"hx-sidebar-title\">Links</div>\n      <a href=\"#\" class=\"hx-positive\"><i class=\"fa fa-fw fa-users\"></i>&nbsp; Users</a>\n      <a href=\"#\" class=\"hx-warning\"><i class=\"fa fa-fw fa-key\"></i>&nbsp; Keys</a>\n      <a href=\"#\" class=\"hx-negative\"><i class=\"fa fa-fw fa-book\"></i>&nbsp; Docs</a>\n      <a href=\"#\" class=\"hx-info\"><i class=\"fa fa-fw fa-heartbeat\"></i>&nbsp; Health</a>\n      <div class=\"hx-sidebar-title\">Dashboard states</div>\n      <button id=\"default-btn\" class=\"hx-btn\">Default State</button>\n      <button id=\"positive-btn\" class=\"hx-btn hx-positive\">Positive State</button>\n      <button id=\"warning-btn\" class=\"hx-btn hx-warning\">Warning State</button>\n      <button id=\"negative-btn\" class=\"hx-btn hx-negative\">Negative State</button>\n      <button id=\"info-btn\" class=\"hx-btn hx-info\">Info State</button>\n    </div>\n    <div class=\"hx-content example-content\"></div>\n    ";
@@ -1473,6 +1591,90 @@
               }))))) ];
   }
 
+  function visualizationBarExamples () { return hx.div('hx-flag-typography').set([
+    hx.visualizationBar({
+      segments: [
+        {
+          id: 'late',
+          label: 'Late',
+          count: 11,
+          type: 'danger',
+        },
+        {
+          id: 'predictedDelays',
+          label: 'Predicted Delays',
+          count: 17,
+          type: 'warning',
+        },
+        {
+          id: 'onTime',
+          label: 'On Time',
+          count: 52,
+        } ],
+    }),
+    hx.detached('note').text('With title / breakdown'),
+    hx.visualizationBar({
+      title: 'Title',
+      breakdown: 'Breakdown text can go here',
+      segments: [
+        {
+          id: 'late',
+          label: 'Late',
+          count: 11,
+          type: 'danger',
+        },
+        {
+          id: 'predictedDelays',
+          label: 'Predicted Delays',
+          count: 17,
+          type: 'warning',
+        },
+        {
+          id: 'onTime',
+          label: 'On Time',
+          count: 52,
+        } ],
+    }),
+    hx.detached('note').text('Alternate colour schemes'),
+    hx.visualizationBar({
+      title: 'Three segments',
+      segments: [
+        {
+          id: 'healthy-used',
+          label: 'Healthy and used',
+          count: 22,
+          type: 'dark',
+        },
+        {
+          id: 'healthy-unused',
+          label: 'Healthy and not in use',
+          count: 3,
+          type: 'medium',
+        },
+        {
+          id: 'not-in-use',
+          label: 'Unavailable',
+          count: 99,
+          type: 'light',
+        } ],
+    }),
+    hx.visualizationBar({
+      title: 'Two segments',
+      segments: [
+        {
+          id: 'healthy-used',
+          label: 'Healthy and used',
+          count: 5,
+          type: 'medium',
+        },
+        {
+          id: 'healthy-unused',
+          label: 'Healthy and not in use',
+          count: 0,
+          type: 'light',
+        } ],
+    }) ]); }
+
   var select = hx.select;
   var selectAll = hx.selectAll;
   var div = hx.div;
@@ -1591,6 +1793,7 @@
     example('Pivot Table').add(tryDemo(pivotTableExamples)),
     example('Plot').add(tryDemo(plotExamples)),
     example('Progress Bar').add(tryDemo(progressBarExamples)),
+    example('Visualization Bar').add(tryDemo(visualizationBarExamples)),
     example('Side Collapsible').add(tryDemo(sideCollapsibleExamples)),
     example('Sidebar').add(tryDemo(sidebarExamples)),
     example('Slider').add(tryDemo(sliderExamples)),
