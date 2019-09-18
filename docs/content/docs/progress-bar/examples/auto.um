@@ -99,7 +99,7 @@
         new hx.ProgressBar('#pb7', {value: 0.75})
 
 
-@version nextReleaseVersion
+@version 2.4.0
   @examples
     @example
       @@html
