@@ -4,7 +4,7 @@
     Updated the progressbar background color to add more contrast
 
 @prototype ProgressBarV1
-  @deprecated nextReleaseVersion
+  @deprecated 2.4.0
     @description
       Replaced by @code[ProgressBarV2].
 
@@ -180,7 +180,7 @@
           false
 
 @prototype ProgressBarV2
-  @added nextReleaseVersion
+  @added 2.4.0
 
   @description
     This prototype is not exposed directly. Use @code[hx.ProgressBar] with the @code[featureFlags.useUpdatedClass: true] option.
@@ -393,7 +393,7 @@
         The other available options differ for each of the two prototypes. See their constructors for details.
 
       @property featureFlags [Object]
-        @added nextReleaseVersion
+        @added 2.4.0
           @description
             Added featureFlags to enable a new progress bar class
         @collapsed false
@@ -501,7 +501,7 @@
       The other available options differ for each of the two prototypes. See their constructors for details.
 
     @property featureFlags [Object]
-      @added nextReleaseVersion
+      @added 2.4.0
         @description
           Added featureFlags to enable a new progress bar class
       @collapsed false

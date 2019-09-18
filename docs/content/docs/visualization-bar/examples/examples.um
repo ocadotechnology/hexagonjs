@@ -1,4 +1,4 @@
-@version nextReleaseVersion
+@version 2.4.0
   @example
     @@html
       <div id="visualizationBar" class="hx-flag-typography"></div>
