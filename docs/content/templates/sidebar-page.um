@@ -1,3 +1,18 @@
+@define requiresFA5
+  @notice [Module Requirements]
+    This module requires the @code["Font Awesome 5 Free"] font to be available on the page
+
+    The @code[npm] package used for a given release can be found in @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/package.json)[package.json]
+    under @code[optionalDependencies]
+
+@define optionRequiresFA5
+  @notice [Option Requirements]
+    This option requires the @code["Font Awesome 5 Free"] font to be available on the page
+
+    The @code[npm] package used for a given release can be found in @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/package.json)[package.json]
+    under @code[optionalDependencies]
+
+
 @template
   @contentEntityName templateContent
   @content
@@ -104,6 +119,7 @@
             @page /docs/toggle-button/: Toggle Button
             @page /docs/toggle/: Toggle
             @page /docs/tree/: Tree
+            @page /docs/visualization-bar/: Visualization Bar
 
           @section Utilities
             @page /docs/animate/: Animate

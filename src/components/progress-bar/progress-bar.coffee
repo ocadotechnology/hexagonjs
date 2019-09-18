@@ -1,8 +1,11 @@
+import logger from 'utils/logger'
 import { select, div } from 'utils/selection'
 import { mergeDefined } from 'utils/utils'
 
 class ProgressBar
   constructor: (@selector, options) ->
+    logger.deprecated 'ProgressBar: This version of progress bar is deprecated. Please add "featureFlags: { useUpdatedClass: true }" to the options when creating your progress bar'
+
     options = mergeDefined {
       segments: undefined
       value: 0
@@ -83,9 +86,6 @@ class ProgressBar
     else
       @progressSegments
 
-progressBar = (options) ->
-  selection = div()
-  new ProgressBar(selection.node(), options)
-  selection
-
-export { progressBar, ProgressBar }
+export {
+  ProgressBar
+}

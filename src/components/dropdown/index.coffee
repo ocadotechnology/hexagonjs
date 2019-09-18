@@ -159,7 +159,8 @@ export class Dropdown extends EventEmitter
     this
 
   render: ->
-    @_.setupDropdown(@_.dropdown.node())
+    if @_.dropdown
+      @_.setupDropdown(@_.dropdown.node())
     @emit('render')
     this
 

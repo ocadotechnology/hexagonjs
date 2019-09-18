@@ -3,20 +3,18 @@
 
 @topSection
   @source [{{editPageUrl}}]: Edit Page
-  @title Dropdown Button
+  @title Visualization Bar
   @description
-    A dropdown containing a list of selectable items.
+    A component for showing a collection of status segments
 
 
 @contentSection
-  @requiresFA5
-
   @topic Examples
     @examples
       @versioned
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/dropdown-button/changelog)[Change Log]
+    @hyperlink(/docs/visualization-bar/changelog)[Change Log]
 
     @inline api.um

@@ -61,6 +61,8 @@
       @property featureFlags [Object]
         @property useUpdatedStructure [Boolean]
           @description
+            @optionRequiresFA5
+
             Whether to use the updated form structure
 
           @default: false
