@@ -48,6 +48,7 @@ import moreButtonExamples from './examples/more-button';
 import dropdownButtonExamples from './examples/dropdown-button';
 import singleSelectExamples from './examples/single-select';
 import visualizationBarExamples from './examples/visualization-bar';
+import stepperExamples from './examples/stepper';
 
 const {
   select, selectAll, div, detached, debounce,
@@ -171,6 +172,7 @@ const examples = [
   example('Time Slider').add(tryDemo(timeSliderExamples)),
   example('Toggle').add(tryDemo(toggleExamples)),
   example('Tree').add(tryDemo(treeExamples)),
+  example('Stepper').add(tryDemo(stepperExamples)),
 ];
 
 select('body')

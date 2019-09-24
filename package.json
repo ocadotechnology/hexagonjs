@@ -35,7 +35,7 @@
     "lint": "eslint src test *.config.js rollup.configs.js",
     "prewatch": "npm run clean",
     "watch:browser-test-runner": "browser-test-runner start .",
-    "watch:js": "node --max-old-space-size=4096 node_modules/.bin/rollup -w -c rollup.dev.config.js",
+    "watch:js": "npx rollup -w -c rollup.dev.config.js",
     "watch:assets": "npm run dist:assets -- -w",
     "watch:favicons": "npm run dist:favicons -- -w",
     "watch:css:bundle": "npm run dist:css:bundle -- -w",

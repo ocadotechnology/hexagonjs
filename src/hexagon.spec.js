@@ -72,6 +72,7 @@ import dropdownButtonTests from 'components/dropdown-button/spec';
 import moreButtonTests from 'components/more-button/spec';
 import statusBarTests from 'components/status-bar/spec';
 import visualizationBarTests from 'components/visualization-bar/spec';
+import stepperTests from 'components/stepper/spec';
 
 window.hx = hx;
 
@@ -453,6 +454,7 @@ describe('HexagonJS Test Suite', () => {
   dropdownButtonTests();
   moreButtonTests();
   visualizationBarTests();
+  stepperTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //

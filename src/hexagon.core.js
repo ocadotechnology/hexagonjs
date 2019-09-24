@@ -89,6 +89,7 @@ export {
   sort, sortBy, compare, compareNullsLast, localeCompare,
 } from 'utils/sort';
 export { ClickDetector } from 'utils/click-detector';
+export { Stepper } from 'components/stepper';
 export {
   filterExact,
   filterStartsWith,
