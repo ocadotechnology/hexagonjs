@@ -17,10 +17,8 @@ export default () => {
       chaiSandbox.restore();
     });
 
-    function newStepper(_steps) {
-      return new Stepper(div(), {
-        steps: _steps,
-      });
+    function newStepper(stepTitles) {
+      return new Stepper(div(), stepTitles);
     }
 
     const Errors = {
@@ -53,6 +51,14 @@ export default () => {
         stepper.selectedStep().should.equal(1);
       });
 
+      it('the first step state is default', () => {
+        stepper.state(1).should.equal('default');
+      });
+
+      it('the second step state is default', () => {
+        stepper.state(2).should.equal('default');
+      });
+
       describe('when the selected step is set to 0', () => {
         it('throws an error', () => {
           (() => stepper.selectedStep(0)).should.throw(Errors.stepNumberOutOfRange);
@@ -69,6 +75,62 @@ export default () => {
       describe('when the selected step is set to 3', () => {
         it('throws an error', () => {
           (() => stepper.selectedStep(3)).should.throw(Errors.stepNumberOutOfRange);
+        });
+      });
+
+      describe('when the first step state is set as filled', () => {
+        beforeEach(() => {
+          stepper.state(1, 'filled');
+        });
+
+        it('the first step state is filled', () => {
+          stepper.state(1).should.equal('filled');
+        });
+
+        it('the second step state is default', () => {
+          stepper.state(2).should.equal('default');
+        });
+
+        describe('when the first step state is set as default', () => {
+          beforeEach(() => {
+            stepper.state(1, 'default');
+          });
+
+          it('the first step state is default', () => {
+            stepper.state(1).should.equal('default');
+          });
+
+          it('the second step state is default', () => {
+            stepper.state(2).should.equal('default');
+          });
+        });
+
+        describe('when the second step state is set as filled', () => {
+          beforeEach(() => {
+            stepper.state(2, 'filled');
+          });
+
+          it('the first step state is filled', () => {
+            stepper.state(1).should.equal('filled');
+          });
+
+          it('the second step state is filled', () => {
+            stepper.state(2).should.equal('filled');
+          });
+        });
+
+        describe('when the second step state is set as error', () => {
+          beforeEach(() => {
+            stepper.state(2, 'error');
+          });
+
+          it('the first step state is filled', () => {
+            stepper.state(1).should.equal('filled');
+          });
+
+          it('the second step state is error', () => {
+            stepper.state(2).should.equal('error');
+          });
         });
       });
     });
