@@ -1,5 +1,6 @@
 .hx-tooltip {
     box-shadow: none;
+    margin-bottom: 7px;
     border: none;
     background-color: #686868;
     font-size: 12px;
@@ -7,8 +8,17 @@
     font-weight: 600;
     padding: 10px 15px;
     border-radius: 3px;
+    overflow: visible;
 }
 
 .hx-tooltip:before {
-
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    border: 8px solid #686868;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid transparent;
 }
