@@ -116,14 +116,14 @@ export class Dropdown extends EventEmitter
       .api(this)
 
     @_ = {
-      setupDropdown: setupDropdown,
-      clickDetector: clickDetector,
-      onclick: onclick,
-      onmouseover: onmouseover,
-      onmouseout: onmouseout,
+      setupDropdown,
+      clickDetector,
+      onclick,
+      onmouseover,
+      onmouseout,
       visible: false,
       dropdown: undefined,
-      selection: selection,
+      selection,
       useScroll: false # XXX: used by autocomplete - this should be part of the public api if it is used by other modules
     }
 
