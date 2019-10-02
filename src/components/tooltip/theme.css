@@ -11,14 +11,39 @@
     overflow: visible;
 }
 
+/* Centre aligned arrow */
+/* .hx-tooltip:before {
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    width: 0;
+    left: 50%;
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+} */
+
+/* Left aligned arrow */
+/* .hx-tooltip:before {
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    width: 0;
+    left: 14px;
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+} */
+
+/* Right aligned arrow */
 .hx-tooltip:before {
     font-size: 0;
     content: ' ';
     position: absolute;
-    top: 100%;
-    left: 10px;
-    border: 8px solid #686868;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid transparent;
+    width: 0;
+    left: calc(100% - 14px);
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
 }
+
