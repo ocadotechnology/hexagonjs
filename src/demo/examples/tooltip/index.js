@@ -1,6 +1,6 @@
 import { tooltip } from 'hexagon-js';
 
 export default () => [
-  tooltip({ text: 'test', label: 'new tooltip' }),
-  tooltip({ text: 'test', icon: 'fab fa-angellist' }),
+  tooltip({ text: 'A little bit more information', label: 'Text tooltip label' }),
+  tooltip({ text: 'A little bit more information', icon: 'fab fa-angellist' }),
 ];
