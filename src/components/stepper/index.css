@@ -1,4 +1,76 @@
-.hx-badge {
+.hx-stepper {
+  display: flex;
+}
+
+.hx-stepper-step {
+  width: 100%;
+}
+
+.hx-stepper-progress-row {
+  display: flex;
+  align-items: center;
+}
+
+.hx-stepper-progress-spacer,
+.hx-stepper-progress-complete,
+.hx-stepper-progress-incomplete {
   display: inline-block;
-  box-sizing: border-box;
+  flex: 1 1 auto;
+  height: 1px;
+}
+
+.hx-stepper-progress-complete {
+  background-color: blue;
+}
+
+.hx-stepper-progress-incomplete {
+  background-color: grey;
+}
+
+.hx-stepper-number-default,
+.hx-stepper-number-selected,
+.hx-stepper-number-complete,
+.hx-stepper-number-error {
+  display: inline-block;
+  border: solid 1px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.hx-stepper-number-default {
+  background-color: grey;
+  color: white;
+}
+
+.hx-stepper-number-selected {
+  background-color: blue;
+  color: white;
+}
+
+.hx-stepper-number-complete {
+  background-color: white;
+  border-color: blue;
+  color: blue;
+}
+
+.hx-stepper-number-error {
+  background-color: pink;
+  border-color: transparent;
+  color: red;
+}
+
+.hx-stepper-title-normal,
+.hx-stepper-title-error {
+  text-align: center;
+  padding: 5px 10px;
+}
+
+.hx-stepper-title-error {
+  color: red;
+}
+
+.hx-stepper-title-hidden {
+  display: none;
 }

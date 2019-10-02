@@ -1,13 +1,18 @@
 import chai from 'chai';
-import { Selection } from 'utils/selection';
-import { div } from 'utils/selection';
+import { div, select } from 'utils/selection';
 import logger from 'utils/logger';
 
 import { Stepper } from './index';
 
 export default () => {
   describe('stepper', () => {
+    const fixture = div('hx-test-stepper');
+
     const chaiSandbox = chai.spy.sandbox();
+
+    before(() => {
+      select('body').add(fixture);
+    });
 
     beforeEach(() => {
       chaiSandbox.on(logger, 'warn', () => {});
@@ -17,13 +22,16 @@ export default () => {
       chaiSandbox.restore();
     });
 
+    after(() => {
+      fixture.remove();
+    });
+
     function newStepper(stepTitles) {
-      return new Stepper(div(), stepTitles);
+      return new Stepper(fixture, stepTitles);
     }
 
     const Errors = {
       tooFewSteps: 'Stepper: Expected at least two steps to display',
-      stepNumberOutOfRange: 'Stepper: Step number out of range',
     };
 
     const Warnings = {
@@ -31,172 +39,105 @@ export default () => {
       noNextStep: 'Stepper: There is no next step',
     };
 
-    describe('when given fewer than two steps', () => {
-      it('throws an error for no steps', () => {
+    describe('when given no steps', () => {
+      it('throws an error', () => {
         (() => newStepper([])).should.throw(Errors.tooFewSteps);
       });
+    });
 
-      it('throws an error for one step', () => {
+    describe('when given one step', () => {
+      it('throws an error', () => {
         (() => newStepper(['Step 1'])).should.throw(Errors.tooFewSteps);
       });
     });
 
-    describe('when given exactly two steps', () => {
+    describe('when given two steps', () => {
       let stepper;
       beforeEach(() => {
         stepper = newStepper(['Step 1', 'Step 2']);
       });
 
-      it('selected step number is initially 1', () => {
+      it('the first step selected', () => {
         stepper.selectedStep().should.equal(1);
       });
 
-      it('the first step state is default', () => {
-        stepper.state(1).should.equal('default');
-      });
+      describe('then the prevStep() method is called', () => {
+        beforeEach(() => {
+          stepper.prevStep();
+        });
 
-      it('the second step state is default', () => {
-        stepper.state(2).should.equal('default');
-      });
+        it('the first step is still selected', () => {
+          stepper.selectedStep().should.equal(1);
+        });
 
-      describe('when the selected step is set to 0', () => {
-        it('throws an error', () => {
-          (() => stepper.selectedStep(0)).should.throw(Errors.stepNumberOutOfRange);
+        it('logs a warning', () => {
+          logger.warn.should.have.been.called.with(Warnings.noPrevStep);
         });
       });
 
-      describe('when the selected step is set to 2', () => {
-        it('correctly updates the selectedStep property', () => {
-          (() => stepper.selectedStep(2)).should.not.throw(Errors.stepNumberOutOfRange);
+      describe('then the nextStep() method is called', () => {
+        beforeEach(() => {
+          stepper.nextStep();
+        });
+
+        it('the second step is selected', () => {
           stepper.selectedStep().should.equal(2);
         });
-      });
 
-      describe('when the selected step is set to 3', () => {
-        it('throws an error', () => {
-          (() => stepper.selectedStep(3)).should.throw(Errors.stepNumberOutOfRange);
-        });
-      });
-
-      describe('when the first step state is set as filled', () => {
-        beforeEach(() => {
-          stepper.state(1, 'filled');
-        });
-
-        it('the first step state is filled', () => {
-          stepper.state(1).should.equal('filled');
-        });
-
-        it('the second step state is default', () => {
-          stepper.state(2).should.equal('default');
-        });
-
-        describe('when the first step state is set as default', () => {
+        describe('then the nextStep() method is called again', () => {
           beforeEach(() => {
-            stepper.state(1, 'default');
+            stepper.nextStep();
           });
 
-          it('the first step state is default', () => {
-            stepper.state(1).should.equal('default');
+          it('the second step is still selected', () => {
+            stepper.selectedStep().should.equal(2);
           });
 
-          it('the second step state is default', () => {
-            stepper.state(2).should.equal('default');
-          });
-        });
-
-        describe('when the second step state is set as filled', () => {
-          beforeEach(() => {
-            stepper.state(2, 'filled');
-          });
-
-          it('the first step state is filled', () => {
-            stepper.state(1).should.equal('filled');
-          });
-
-          it('the second step state is filled', () => {
-            stepper.state(2).should.equal('filled');
-          });
-        });
-
-        describe('when the second step state is set as error', () => {
-          beforeEach(() => {
-            stepper.state(2, 'error');
-          });
-
-          it('the first step state is filled', () => {
-            stepper.state(1).should.equal('filled');
-          });
-
-          it('the second step state is error', () => {
-            stepper.state(2).should.equal('error');
+          it('logs a warning', () => {
+            logger.warn.should.have.been.called.with(Warnings.noNextStep);
           });
         });
       });
     });
 
-    describe('when given exactly four steps', () => {
+    describe('when given three steps to test rendering', () => {
       let stepper;
       beforeEach(() => {
-        stepper = newStepper(['Step 1', 'Step 2', 'Step 3', 'Step 4']);
+        stepper = newStepper(['Step 1', 'Step 2', 'Step 3']);
       });
 
-      describe('when the first step is selected', () => {
+      describe('then the nextStep() method is called', () => {
         beforeEach(() => {
-          stepper.selectedStep(1);
+          stepper.nextStep();
         });
 
-        describe('then the prevStep() method is called', () => {
+        it('the first step is rendered as completed', () => {
+          true.should.equal(false);
+        });
+
+        it('the second step is rendered as selected', () => {
+          true.should.equal(false);
+        });
+
+        it('the third step is rendered as default', () => {
+          true.should.equal(false);
+        });
+
+        describe('then the showError(true) method is called', () => {
           beforeEach(() => {
-            stepper.prevStep();
+            stepper.showError();
           });
 
-          it('the first step is still selected', () => {
-            stepper.selectedStep().should.equal(1);
+          it('the first step is rendered as completed', () => {
+            true.should.equal(false);
           });
 
-          it('logs a warning', () => {
-            logger.warn.should.have.been.called.with(Warnings.noPrevStep);
-          });
-        });
-
-        describe('then the nextStep() method is called', () => {
-          beforeEach(() => {
-            stepper.nextStep();
+          it('the second step is rendered as an error', () => {
+            true.should.equal(false);
           });
 
-          it('the second step is selected', () => {
-            stepper.selectedStep().should.equal(2);
-          });
-        });
-      });
-
-      describe('when the fourth step is selected', () => {
-        beforeEach(() => {
-          stepper.selectedStep(4);
-        });
-
-        describe('then the prevStep() method is called', () => {
-          beforeEach(() => {
-            stepper.prevStep();
-          });
-
-          it('the third step is selected', () => {
-            stepper.selectedStep().should.equal(3);
-          });
-        });
-
-        describe('then the nextStep() method is called', () => {
-          beforeEach(() => {
-            stepper.nextStep();
-          });
-
-          it('the fourth step is still selected', () => {
-            stepper.selectedStep().should.equal(4);
-          });
-
-          it('logs a warning', () => {
-            logger.warn.should.have.been.called.with(Warnings.noNextStep);
+          it('the third step is rendered as default', () => {
+            true.should.equal(false);
           });
         });
       });

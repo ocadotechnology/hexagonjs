@@ -1,13 +1,15 @@
-import { select, div } from 'utils/selection';
+import { div, select, } from 'utils/selection';
 import logger from 'utils/logger';
 import { mergeDefined } from 'utils/utils';
 
 class Stepper {
   constructor(selector, titles, options) {
+    this.selection = select(selector).classed('hx-stepper', true);
+
     this._ = {
-      steps: [],
+      titles: [],
       selectedStep: -1,
-      selection: select(selector),
+      showError: false,
     };
 
     this.options = mergeDefined({
@@ -15,14 +17,6 @@ class Stepper {
     }, options);
 
     this.titles(titles);
-    this.showTitles(this.options.showTitles);
-  }
-
-  _getStep(stepNo) {
-    if (stepNo < 1 || stepNo > this.titles().length) {
-      throw new Error('Stepper: Step number out of range');
-    }
-    return this._.steps[stepNo - 1];
   }
 
   titles(titles) {
@@ -30,35 +24,15 @@ class Stepper {
       if (titles.length < 2) {
         throw new Error('Stepper: Expected at least two steps to display');
       }
-      this._.steps = titles.map(t => ({
-        title: t,
-        state: 'default',
-      }));
-      this.selectedStep(1);
+      this._.titles = titles;
+      this._.selectedStep = 1;
       this.render();
       return this;
     }
-    return this._.steps.map(step => step.title);
+    return this._.titles;
   }
 
-  state(stepNo, state) {
-    if (arguments.length >= 2) {
-      this._getStep(stepNo).state = state;
-      this.render();
-      return this;
-    }
-    return this._getStep(stepNo).state;
-  }
-
-  selectedStep(selectedStep) {
-    if (arguments.length) {
-      if (selectedStep !== this.selectedStep()) {
-        this._getStep(selectedStep);
-        this._.selectedStep = selectedStep;
-        this.render();
-      }
-      return this;
-    }
+  selectedStep() {
     return this._.selectedStep;
   }
 
@@ -75,22 +49,71 @@ class Stepper {
 
   prevStep() {
     if (this.selectedStep() > 1) {
-      this.selectedStep(this.selectedStep() - 1);
+      this._.selectedStep -= 1;
+      this._.showError = false;
+      this.render();
     } else {
       logger.warn('Stepper: There is no previous step');
     }
+    return this;
   }
 
   nextStep() {
     if (this.selectedStep() < this.titles().length) {
-      this.selectedStep(this.selectedStep() + 1);
+      this._.selectedStep += 1;
+      this._.showError = false;
+      this.render();
     } else {
       logger.warn('Stepper: There is no next step');
     }
+    return this;
+  }
+
+  showError(showError) {
+    if (arguments.length) {
+      if (this._.showError !== showError) {
+        this._.showError = showError;
+        this.render();
+      }
+      return this;
+    }
+    return this._.showError;
   }
 
   render() {
-    this._.selection.text(JSON.stringify(this));
+    const numSteps = this.titles().length;
+    const selectedStep = this.selectedStep();
+    const showError = this.showError();
+    const showTitles = this.showTitles();
+
+    this.selection.set(
+      this.titles().map((title, index) => {
+        const stepNo = index + 1;
+        return div()
+          .classed('hx-stepper-step', true)
+          .add(div()
+            .classed('hx-stepper-progress-row', true)
+            .add(div()
+              .classed('hx-stepper-progress-spacer', stepNo === 1)
+              .classed('hx-stepper-progress-incomplete', stepNo > 1 && stepNo > selectedStep)
+              .classed('hx-stepper-progress-complete', stepNo > 1 && stepNo <= selectedStep))
+            .add(div()
+              .classed('hx-stepper-number-default', stepNo > selectedStep)
+              .classed('hx-stepper-number-selected', stepNo === selectedStep && !showError)
+              .classed('hx-stepper-number-error', stepNo === selectedStep && showError)
+              .classed('hx-stepper-number-complete', stepNo < selectedStep)
+              .text((stepNo < selectedStep) ? 'X' : stepNo))
+            .add(div()
+              .classed('hx-stepper-progress-spacer', stepNo === numSteps)
+              .classed('hx-stepper-progress-incomplete', stepNo < numSteps && stepNo >= selectedStep)
+              .classed('hx-stepper-progress-complete', stepNo < numSteps && stepNo < selectedStep)))
+          .add(div()
+            .classed('hx-stepper-title-normal', showTitles && !(stepNo === selectedStep && showError))
+            .classed('hx-stepper-title-hidden', !showTitles)
+            .classed('hx-stepper-title-error', stepNo === selectedStep && showTitles && showError)
+            .text(title));
+      }),
+    );
   }
 }
 
