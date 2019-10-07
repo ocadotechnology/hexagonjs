@@ -44,9 +44,9 @@
 
   @method hide
     @description
-      Shows the modal.
+      Hides the modal.
 
-      Alias for @code[isOpen(true)]
+      Alias for @code[isOpen(false)]
 
     @arg? callback [Function]
       @description
