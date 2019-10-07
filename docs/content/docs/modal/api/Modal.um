@@ -46,7 +46,7 @@
     @description
       Shows the modal.
 
-      Alias for @code[isOpen(true)]
+      Alias for @code[isOpen(false)]
 
     @arg? callback [Function]
       @description
