@@ -118,6 +118,7 @@
             @page /docs/titlebar/: Titlebar
             @page /docs/toggle-button/: Toggle Button
             @page /docs/toggle/: Toggle
+            @page /docs/tooltip/: Tooltip
             @page /docs/tree/: Tree
             @page /docs/visualization-bar/: Visualization Bar
 
