@@ -1,0 +1,69 @@
+@version 2.4.0
+  @example
+    @@html
+      <div id="visualizationBar" class="hx-flag-typography"></div>
+
+    @@js
+      hx.select('#visualizationBar').set([
+        hx.visualizationBar({
+          segments: [
+            {
+              id: 'late',
+              label: 'Late',
+              count: 11,
+              type: 'danger',
+            },
+            {
+              id: 'predictedDelays',
+              label: 'Predicted Delays',
+              count: 17,
+              type: 'warning',
+            },
+            {
+              id: 'onTime',
+              label: 'On Time',
+              count: 52,
+            },
+          ],
+        }),
+        hx.visualizationBar({
+          title: 'Three segments',
+          segments: [
+            {
+              id: 'healthy-used',
+              label: 'Healthy and used',
+              count: 22,
+              type: 'dark',
+            },
+            {
+              id: 'healthy-unused',
+              label: 'Healthy and not in use',
+              count: 3,
+              type: 'medium',
+            },
+            {
+              id: 'not-in-use',
+              label: 'Unavailable',
+              count: 99,
+              type: 'light',
+            },
+          ],
+        }),
+        hx.visualizationBar({
+          title: 'Two segments',
+          segments: [
+            {
+              id: 'healthy-used',
+              label: 'Healthy and used',
+              count: 5,
+              type: 'medium',
+            },
+            {
+              id: 'healthy-unused',
+              label: 'Healthy and not in use',
+              count: 0,
+              type: 'light',
+            },
+          ],
+        }),
+      ]);
