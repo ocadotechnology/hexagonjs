@@ -11,17 +11,17 @@ function tooltip({ icon, label, text } = {}) {
     throw new Error('tooltip: You can only use an icon or a label when creating a tooltip');
   }
 
-  const sel = span(label ? 'hx-tooltip-label' : 'hx-tooltip-icon');
+  const tooltipParent = span(label ? 'hx-tooltip-label' : 'hx-tooltip-icon');
   const iconElement = icon ? i(icon) : undefined;
 
 
-  sel.text(label);
-  sel.add(iconElement);
+  tooltipParent.text(label);
+  tooltipParent.add(iconElement);
 
 
-  new Dropdown(sel, text, {  align: 'up', ddClass: 'hx-tooltip' });
+  new Dropdown(tooltipParent, text, { align: 'up', ddClass: 'hx-tooltip', mode: 'hover' });
 
-  return sel;
+  return tooltipParent;
 }
 
 export { tooltip };
