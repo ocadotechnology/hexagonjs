@@ -1,0 +1,22 @@
+@prototype hx.VisualizationBar
+  @collapsed false
+  @added 2.4.0
+  @description
+
+  @constructor
+    @collapsed false
+    @arg selector [String/HTMLElement/Selection]
+      The selector to create the visualization bar inside
+
+    @arg options [Object]
+      @collapsed false
+      @inline ./options/*.um
+
+@function hx.visualizationBar
+  @collapsed false
+  @added 2.4.0
+  @description
+    Create a visualization bar component wrapped in a selection
+
+  @arg options [Object]
+    @inline ./options/*.um
