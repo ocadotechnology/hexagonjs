@@ -4236,7 +4236,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.3.1";
+var version = "2.4.0";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -6261,7 +6261,9 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
   };
 
   Dropdown.prototype.render = function render () {
-    this._.setupDropdown(this._.dropdown.node());
+    if (this._.dropdown) {
+      this._.setupDropdown(this._.dropdown.node());
+    }
     this.emit('render');
     return this;
   };
@@ -10439,9 +10441,12 @@ exports.dragContainer = function(options) {
   return selection;
 };
 
-exports.ProgressBar = /*@__PURE__*/(function () {
+var ProgressBar;
+
+ProgressBar = /*@__PURE__*/(function () {
   function ProgressBar(selector, options) {
     this.selector = selector;
+    logger.deprecated('ProgressBar: This version of progress bar is deprecated. Please add "featureFlags: { useUpdatedClass: true }" to the options when creating your progress bar');
     options = exports.mergeDefined({
       segments: void 0,
       value: 0,
@@ -10531,12 +10536,366 @@ exports.ProgressBar = /*@__PURE__*/(function () {
   return ProgressBar;
 }());
 
-exports.progressBar = function(options) {
-  var selection;
-  selection = div();
-  new exports.ProgressBar(selection.node(), options);
-  return selection;
+var toMultilineSelection$1 = exports.userFacingText.toMultilineSelection;
+
+var segmentTypes = [
+  'default',
+  'light',
+  'medium',
+  'dark',
+  'danger',
+  'warning',
+  'done',
+  'in-progress',
+  'todo' ];
+
+function optionSetterGetter(name, fn, statusBar, defaultVal) {
+  if ( fn === void 0 ) fn = exports.identity;
+
+  return function inner(value) {
+    if (arguments.length) {
+      this.options[name] = value || defaultVal;
+      fn();
+      if (statusBar) {
+        statusBar[name](value);
+      } else {
+        this.render();
+      }
+      return this;
+    }
+    return this.options[name];
+  };
+}
+
+var StatusBar = function StatusBar(selector, options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  this.options = exports.mergeDefined({
+    segments: [],
+    title: undefined,
+    breakdown: undefined,
+    plan: undefined,
+    compact: false,
+    disabled: false,
+  }, options);
+
+  this._ = {};
+
+  this.segments = optionSetterGetter('segments', function () {
+    this$1._.segmentTotal = this$1.options.segments.reduce(function (tot, ref) {
+      var count = ref.count;
+
+      return tot + count;
+    }, 0);
+  }, undefined, []).bind(this);
+
+  this.title = optionSetterGetter('title').bind(this);
+  this.breakdown = optionSetterGetter('breakdown').bind(this);
+  this.plan = optionSetterGetter('plan').bind(this);
+  this.compact = optionSetterGetter('compact').bind(this);
+  this.disabled = optionSetterGetter('disabled').bind(this);
+
+  this.selection = select(selector)
+    .classed('hx-status-bar', true);
+
+  this._.titleGroupSel = group({ compact: true }).classed('hx-status-bar-title-section', true);
+  this._.titleSel = div('hx-status-bar-title');
+  this._.planSel = div('hx-status-bar-plan');
+  this._.segmentsSel = div('hx-status-bar-segments');
+  this._.breakdownSel = div('hx-status-bar-breakdown');
+
+  this.selection
+    .add(this._.titleGroupSel
+      .add(section().add(this._.titleSel))
+      .add(section({ fixed: true }).add(this._.planSel)))
+    .add(this._.segmentsSel)
+    .add(this._.breakdownSel);
+
+  this.createView();
+  this.segments(this.options.segments, false);
 };
+
+StatusBar.prototype.render = function render () {
+  var ref = this._;
+    var view = ref.view;
+    var titleGroupSel = ref.titleGroupSel;
+    var titleSel = ref.titleSel;
+    var planSel = ref.planSel;
+    var breakdownSel = ref.breakdownSel;
+    var segmentsSel = ref.segmentsSel;
+
+  var ref$1 = this.options;
+    var segments = ref$1.segments;
+    var title = ref$1.title;
+    var breakdown = ref$1.breakdown;
+    var plan = ref$1.plan;
+    var compact = ref$1.compact;
+    var disabled = ref$1.disabled;
+
+  this.selection
+    .classed('hx-status-bar-compact', compact)
+    .classed('hx-status-bar-disabled', disabled);
+
+  titleGroupSel.classed('hx-header-small', !compact);
+  titleSel.text(title);
+  planSel.text(plan);
+  breakdownSel.set(breakdown ? toMultilineSelection$1(breakdown, 'p', true) : []);
+
+  if (compact) {
+    segmentsSel.insertAfter(planSel);
+  } else {
+    titleGroupSel.append(planSel);
+  }
+
+  view.apply(segments);
+};
+
+StatusBar.prototype.createView = function createView () {
+  var self = this;
+  this._.view = this._.segmentsSel.view('.hx-status-bar-section')
+    .enter(function enterView() {
+      var sel = div('hx-status-bar-section')
+        .add(div('hx-status-bar-section-bar'))
+        .add(div('hx-status-bar-section-text')
+          .add(div('hx-status-bar-section-label'))
+          .add(div('hx-status-bar-section-percent')));
+
+      return this.append(sel).node();
+    })
+    .update(function (ref, e) {
+        var id = ref.id;
+        var count = ref.count;
+        var type = ref.type;
+        var label = ref.label;
+
+      if (!id) {
+        throw new Error('StatusBar: an "id" is required for each segment');
+      }
+
+      if (typeof count === 'undefined') {
+        throw new Error('StatusBar: a count must be defined for each segment');
+      }
+
+      var ref$1 = self._;
+        var segmentTotal = ref$1.segmentTotal;
+
+      var ref$2 = self.options;
+        var compact = ref$2.compact;
+
+      var percent = segmentTotal === 0
+        ? 0
+        : Math.round((count / segmentTotal) * 100);
+
+      var sel = select(e);
+
+      sel.style('flex-grow', percent || 1);
+
+      var bar = sel.select('.hx-status-bar-section-bar')
+        .class('hx-status-bar-section-bar')
+        .text(compact ? undefined : count);
+
+      if (type && segmentTypes.includes(type)) {
+        bar.classed(("hx-status-bar-" + type), true);
+      }
+
+      if (type && !segmentTypes.includes(type)) {
+        logger.warn(("StatusBar: invalid segment type provided \"" + type + "\", expected one of [" + (segmentTypes.join(', ')) + "]"));
+      }
+
+      sel.select('.hx-status-bar-section-text')
+        .classed('hx-status-bar-section-hidden', !label);
+
+      sel.select('.hx-status-bar-section-label')
+        .text(label);
+
+      sel.select('.hx-status-bar-section-percent')
+        .text(("(" + percent + "%)"));
+    });
+};
+
+var ProgressBar$1 = function ProgressBar(selector, options) {
+  this.options = exports.mergeDefined({
+    title: undefined,
+    breakdown: undefined,
+    plan: 0,
+    inProgress: 0,
+    done: 0,
+    hidePlan: false,
+    compact: false,
+    disabled: false,
+  }, options);
+
+  var ref = this.options;
+  var compact = ref.compact;
+  var disabled = ref.disabled;
+  var title = ref.title;
+  var breakdown = ref.breakdown;
+
+  this.selection = select(selector)
+    .classed('hx-progress-bar hx-flag-progress-bar', true)
+    .api('progress-bar', this)
+    .api(this);
+
+  this.selection = select(selector);
+
+  this._ = {};
+
+  this._.segments = {
+    done: {
+      id: 'done',
+      count: 0,
+      type: 'done',
+    },
+    inProgress: {
+      id: 'inProgress',
+      count: 0,
+      type: 'in-progress',
+    },
+    todo: {
+      id: 'todo',
+      count: 0,
+      type: 'todo',
+    },
+  };
+
+  this._.bar = new StatusBar(this.selection, {
+    title: title,
+    breakdown: breakdown,
+    compact: compact,
+    disabled: disabled,
+  });
+
+  this.title = optionSetterGetter('title', undefined, this._.bar).bind(this);
+  this.breakdown = optionSetterGetter('breakdown', undefined, this._.bar).bind(this);
+  this.disabled = optionSetterGetter('disabled', undefined, this._.bar).bind(this);
+  this.compact = optionSetterGetter('compact', undefined, this._.bar).bind(this);
+
+  this.render();
+};
+
+ProgressBar$1.prototype.render = function render () {
+  var ref = this._;
+    var bar = ref.bar;
+    var segments = ref.segments;
+
+  var ref$1 = this.options;
+    var plan = ref$1.plan; if ( plan === void 0 ) plan = 0;
+    var done = ref$1.done; if ( done === void 0 ) done = 0;
+    var inProgress = ref$1.inProgress; if ( inProgress === void 0 ) inProgress = 0;
+    var disabled = ref$1.disabled;
+    var hidePlan = ref$1.hidePlan;
+
+  var inProgressAndDone = done + inProgress;
+  var todo = Math.max(0, plan - inProgressAndDone);
+
+  if (hidePlan) {
+    bar.options.plan = !disabled ? done : undefined;
+  } else {
+    bar.options.plan = !disabled ? (done + " / " + (plan || '-')) : undefined;
+  }
+
+  segments.done.count = done;
+  segments.inProgress.count = inProgress;
+  segments.todo.count = todo;
+
+  bar.segments([
+    segments.done,
+    segments.inProgress,
+    segments.todo ].filter(function (ref) {
+      var count = ref.count;
+
+      return count;
+    }));
+};
+
+ProgressBar$1.prototype.hidePlan = function hidePlan (hide) {
+  if (arguments.length) {
+    this.options.hidePlan = hide;
+    this.render();
+  }
+  return this.options.hidePlan;
+};
+
+ProgressBar$1.prototype.done = function done (count) {
+  if (arguments.length) {
+    this.options.done = count;
+    this.render();
+  }
+  return this.options.done;
+};
+
+ProgressBar$1.prototype.inProgress = function inProgress (count) {
+  if (arguments.length) {
+    this.options.inProgress = count;
+    this.render();
+  }
+  return this.options.inProgress;
+};
+
+ProgressBar$1.prototype.plan = function plan (count) {
+  if (arguments.length) {
+    this.options.plan = count;
+    this.render();
+  }
+  return this.options.plan;
+};
+
+function ProgressBar$2(selector, options) {
+  if ( options === void 0 ) options = {};
+
+  if (options.featureFlags && options.featureFlags.useUpdatedClass) {
+    return new ProgressBar$1(selector, options);
+  }
+  return new ProgressBar(selector, options);
+}
+
+function progressBar(options) {
+  if ( options === void 0 ) options = {};
+
+  var sel = div();
+  if (options.featureFlags && options.featureFlags.useUpdatedClass) {
+    new ProgressBar$1(sel, options);
+  } else {
+    new ProgressBar(sel, options);
+  }
+  return sel;
+}
+
+var VisualizationBar = function VisualizationBar(selector, options) {
+  this.options = exports.mergeDefined({
+    title: undefined,
+    breakdown: undefined,
+    segments: [],
+  }, options);
+
+  this.selection = select(selector)
+    .classed('hx-visualization-bar', true)
+    .api('visualization-bar', this)
+    .api(this);
+
+  this._ = {};
+
+  if (!this.options.segments.length) {
+    throw new Error('VisualizationBar: Expected at least one segment to display');
+  }
+
+  this._.bar = new StatusBar(this.selection, {
+    title: this.options.title,
+    breakdown: this.options.breakdown,
+    segments: this.options.segments,
+  });
+
+  this.title = optionSetterGetter('title', undefined, this._.bar).bind(this);
+  this.breakdown = optionSetterGetter('breakdown', undefined, this._.bar).bind(this);
+  this.segments = optionSetterGetter('segments', undefined, this._.bar).bind(this);
+};
+
+function visualizationBar(options) {
+  var sel = div();
+  new VisualizationBar(sel, options);
+  return sel;
+}
 
 exports.Toggle = /*@__PURE__*/(function (EventEmitter) {
   function Toggle(selector, options) {
@@ -11471,7 +11830,7 @@ function alert(options) {
   return inbuiltAlertManager.alert(options);
 }
 
-var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, svgCurve;
+var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter$1, populateLegendSeries, search, splitAndFeather, splitData, svgCurve;
 
 doCollisionDetection = function(nodesRaw) {
   var distance, nodes, reductor;
@@ -11880,7 +12239,7 @@ populateLegendSeries = function(selection, series) {
   return selection;
 };
 
-optionSetterGetter = function(name) {
+optionSetterGetter$1 = function(name) {
   return function(value) {
     if (arguments.length > 0) {
       this._.options[name] = value;
@@ -12041,19 +12400,19 @@ Series = (function() {
     ];
   };
 
-  Series.prototype.title = optionSetterGetter('title');
+  Series.prototype.title = optionSetterGetter$1('title');
 
-  Series.prototype.data = optionSetterGetter('data');
+  Series.prototype.data = optionSetterGetter$1('data');
 
-  Series.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+  Series.prototype.labelsEnabled = optionSetterGetter$1('labelsEnabled');
 
-  Series.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+  Series.prototype.labelRenderer = optionSetterGetter$1('labelRenderer');
 
-  Series.prototype.labelInterpolated = optionSetterGetter('labelInterpolated');
+  Series.prototype.labelInterpolated = optionSetterGetter$1('labelInterpolated');
 
-  Series.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
+  Series.prototype.labelValuesExtractor = optionSetterGetter$1('labelValuesExtractor');
 
-  Series.prototype.class = optionSetterGetter('class');
+  Series.prototype.class = optionSetterGetter$1('class');
 
   return Series;
 
@@ -12225,23 +12584,23 @@ exports.LineSeries = (function() {
     return results;
   };
 
-  LineSeries.prototype.strokeEnabled = optionSetterGetter('strokeEnabled');
+  LineSeries.prototype.strokeEnabled = optionSetterGetter$1('strokeEnabled');
 
-  LineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
+  LineSeries.prototype.strokeColor = optionSetterGetter$1('strokeColor');
 
-  LineSeries.prototype.fillEnabled = optionSetterGetter('fillEnabled');
+  LineSeries.prototype.fillEnabled = optionSetterGetter$1('fillEnabled');
 
-  LineSeries.prototype.fillColor = optionSetterGetter('fillColor');
+  LineSeries.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  LineSeries.prototype.markersEnabled = optionSetterGetter('markersEnabled');
+  LineSeries.prototype.markersEnabled = optionSetterGetter$1('markersEnabled');
 
-  LineSeries.prototype.markerRadius = optionSetterGetter('markerRadius');
+  LineSeries.prototype.markerRadius = optionSetterGetter$1('markerRadius');
 
-  LineSeries.prototype.markerFillColor = optionSetterGetter('markerFillColor');
+  LineSeries.prototype.markerFillColor = optionSetterGetter$1('markerFillColor');
 
-  LineSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
+  LineSeries.prototype.sampleThreshold = optionSetterGetter$1('sampleThreshold');
 
-  LineSeries.prototype.group = optionSetterGetter('group');
+  LineSeries.prototype.group = optionSetterGetter$1('group');
 
   // usage for line series
   lineSeriesDataInterpolator = function(x, d1, d2, yInterp) {
@@ -12360,9 +12719,9 @@ exports.BandSeries = (function() {
     return results;
   };
 
-  BandSeries.prototype.fillColor = optionSetterGetter('fillColor');
+  BandSeries.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  BandSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
+  BandSeries.prototype.sampleThreshold = optionSetterGetter$1('sampleThreshold');
 
   bandSeriesDataInterpolator = function(x, d1, d2, yInterp) {
     if ((d1.y1 != null) && (d2.y1 != null) && (d1.y2 != null) && (d2.y2 != null)) {
@@ -12463,9 +12822,9 @@ exports.ScatterSeries = (function() {
     return results;
   };
 
-  ScatterSeries.prototype.fillColor = optionSetterGetter('fillColor');
+  ScatterSeries.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  ScatterSeries.prototype.radius = optionSetterGetter('radius');
+  ScatterSeries.prototype.radius = optionSetterGetter$1('radius');
 
   return ScatterSeries;
 
@@ -12571,9 +12930,9 @@ exports.BarSeries = (function() {
 
     return BarSeries;
   }(Series));
-  BarSeries.prototype.fillColor = optionSetterGetter('fillColor');
+  BarSeries.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  BarSeries.prototype.group = optionSetterGetter('group');
+  BarSeries.prototype.group = optionSetterGetter$1('group');
 
   return BarSeries;
 
@@ -12649,7 +13008,7 @@ exports.StraightLineSeries = (function() {
 
     return StraightLineSeries;
   }(Series));
-  StraightLineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
+  StraightLineSeries.prototype.strokeColor = optionSetterGetter$1('strokeColor');
 
   endpoints = function() {
     var data, domX1, domX2, domY1, domY2, domdx, domdy, dx, dy, i, j, len, len1, p1, p2, quotient, ref, ref1, results, results1, t, x, x0, x1, y, y0, y1;
@@ -14076,19 +14435,19 @@ exports.Graph = (function() {
 
     return Graph;
   }(EventEmitter));
-  Graph.prototype.zoomRangeStart = optionSetterGetter('zoomRangeStart');
+  Graph.prototype.zoomRangeStart = optionSetterGetter$1('zoomRangeStart');
 
-  Graph.prototype.zoomRangeEnd = optionSetterGetter('zoomRangeEnd');
+  Graph.prototype.zoomRangeEnd = optionSetterGetter$1('zoomRangeEnd');
 
-  Graph.prototype.zoomEnabled = optionSetterGetter('zoomEnabled');
+  Graph.prototype.zoomEnabled = optionSetterGetter$1('zoomEnabled');
 
-  Graph.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+  Graph.prototype.labelsEnabled = optionSetterGetter$1('labelsEnabled');
 
-  Graph.prototype.legendEnabled = optionSetterGetter('legendEnabled');
+  Graph.prototype.legendEnabled = optionSetterGetter$1('legendEnabled');
 
-  Graph.prototype.legendLocation = optionSetterGetter('legendLocation');
+  Graph.prototype.legendLocation = optionSetterGetter$1('legendLocation');
 
-  Graph.prototype.redrawOnResize = optionSetterGetter('redrawOnResize');
+  Graph.prototype.redrawOnResize = optionSetterGetter$1('redrawOnResize');
 
   getClosestMeta = function(graph, x, y) {
     var bestDistance, bestMeta, distance, i, l, labels, len, xx, yy;
@@ -14419,35 +14778,35 @@ exports.PieChart = (function() {
 
   defaultLabelFormatter = exports.si;
 
-  PieChart.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+  PieChart.prototype.labelsEnabled = optionSetterGetter$1('labelsEnabled');
 
-  PieChart.prototype.legendEnabled = optionSetterGetter('legendEnabled');
+  PieChart.prototype.legendEnabled = optionSetterGetter$1('legendEnabled');
 
-  PieChart.prototype.legendLocation = optionSetterGetter('legendLocation');
+  PieChart.prototype.legendLocation = optionSetterGetter$1('legendLocation');
 
-  PieChart.prototype.fillColor = optionSetterGetter('fillColor');
+  PieChart.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  PieChart.prototype.segmentTextEnabled = optionSetterGetter('segmentTextEnabled');
+  PieChart.prototype.segmentTextEnabled = optionSetterGetter$1('segmentTextEnabled');
 
-  PieChart.prototype.segmentTextFormatter = optionSetterGetter('segmentTextFormatter');
+  PieChart.prototype.segmentTextFormatter = optionSetterGetter$1('segmentTextFormatter');
 
-  PieChart.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
+  PieChart.prototype.labelValuesExtractor = optionSetterGetter$1('labelValuesExtractor');
 
-  PieChart.prototype.labelFormatter = optionSetterGetter('labelFormatter');
+  PieChart.prototype.labelFormatter = optionSetterGetter$1('labelFormatter');
 
-  PieChart.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+  PieChart.prototype.labelRenderer = optionSetterGetter$1('labelRenderer');
 
-  PieChart.prototype.segmentPadding = optionSetterGetter('segmentPadding');
+  PieChart.prototype.segmentPadding = optionSetterGetter$1('segmentPadding');
 
-  PieChart.prototype.innerPadding = optionSetterGetter('innerPadding');
+  PieChart.prototype.innerPadding = optionSetterGetter$1('innerPadding');
 
-  PieChart.prototype.ringPadding = optionSetterGetter('ringPadding');
+  PieChart.prototype.ringPadding = optionSetterGetter$1('ringPadding');
 
-  PieChart.prototype.totalAngle = optionSetterGetter('totalAngle');
+  PieChart.prototype.totalAngle = optionSetterGetter$1('totalAngle');
 
-  PieChart.prototype.startAngle = optionSetterGetter('startAngle');
+  PieChart.prototype.startAngle = optionSetterGetter$1('startAngle');
 
-  PieChart.prototype.data = optionSetterGetter('data');
+  PieChart.prototype.data = optionSetterGetter$1('data');
 
   calculateTotal = function(segments) {
     var allZero, preTotal, total;
@@ -14640,7 +14999,7 @@ exports.Sparkline = (function() {
 
   Sparkline.prototype.redrawOnResize = function redrawOnResize (value) {
     this._.graph.redrawOnResize(value);
-    return optionSetterGetter('redrawOnResize').apply(this, arguments);
+    return optionSetterGetter$1('redrawOnResize').apply(this, arguments);
   };
 
   Sparkline.prototype.render = function render () {
@@ -14653,13 +15012,13 @@ exports.Sparkline = (function() {
     }
     return this._.graph.render();
   };
-  Sparkline.prototype.data = optionSetterGetter('data');
+  Sparkline.prototype.data = optionSetterGetter$1('data');
 
-  Sparkline.prototype.fillColor = optionSetterGetter('fillColor');
+  Sparkline.prototype.fillColor = optionSetterGetter$1('fillColor');
 
-  Sparkline.prototype.strokeColor = optionSetterGetter('strokeColor');
+  Sparkline.prototype.strokeColor = optionSetterGetter$1('strokeColor');
 
-  Sparkline.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+  Sparkline.prototype.labelRenderer = optionSetterGetter$1('labelRenderer');
 
   return Sparkline;
 
@@ -24132,11 +24491,13 @@ exports.Meter = Meter;
 exports.MorphSection = MorphSection;
 exports.NotificationManager = NotificationManager;
 exports.NumberPicker = NumberPicker;
+exports.ProgressBar = ProgressBar$2;
 exports.Selection = Selection;
 exports.Set = Set;
 exports.Sidebar = Sidebar;
 exports.SingleSelect = SingleSelect;
 exports.TitleBar = TitleBar;
+exports.VisualizationBar = VisualizationBar;
 exports.alert = alert;
 exports.autoComplete = exports.autocomplete;
 exports.badge = badge;
@@ -24188,6 +24549,7 @@ exports.palette = palette$1;
 exports.parentZIndex = parentZIndex;
 exports.parseHTML = parseHTML;
 exports.preferences = preferences;
+exports.progressBar = progressBar;
 exports.request = request;
 exports.scrollbarSize = scrollbarSize;
 exports.section = section;
@@ -24203,3 +24565,4 @@ exports.titleBar = titleBar;
 exports.transition = transition;
 exports.validateForm = validateForm;
 exports.version = version;
+exports.visualizationBar = visualizationBar;
