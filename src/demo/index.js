@@ -47,8 +47,8 @@ import radioExamples from './examples/radio';
 import moreButtonExamples from './examples/more-button';
 import dropdownButtonExamples from './examples/dropdown-button';
 import singleSelectExamples from './examples/single-select';
+import visualizationBarExamples from './examples/visualization-bar';
 import tooltipExamples from './examples/tooltip';
-
 
 const {
   select, selectAll, div, detached, debounce,
