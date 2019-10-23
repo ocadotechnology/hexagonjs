@@ -61,7 +61,6 @@ export default () => {
       beforeEach(() => {
         thisTooltip = tooltip({ label, text: 'hello' });
         fixture.add(thisTooltip);
-        
       });
 
       it('sets the text on the span', () => {
@@ -82,7 +81,7 @@ export default () => {
       });
 
       it('returns a selection', () => {
-        thisTooltip.should.be.an.instanceOf(Selection)
+        thisTooltip.should.be.an.instanceOf(Selection);
       });
 
       it('does not set text on the selection', () => {
@@ -126,7 +125,7 @@ export default () => {
     describe('when given an icon and label', () => {
       it('throws an error', () => {
         function fn() {
-          tooltip({ icon: 'something', label: 'label', text: 'tooltip text' })
+          tooltip({ icon: 'something', label: 'label', text: 'tooltip text' });
         }
         fn.should.throw('tooltip: You can only use an icon or a label when creating a tooltip');
       });
@@ -147,6 +146,5 @@ export default () => {
         fn.should.throw('tooltip: No text provided for the tooltip');
       });
     });
-
   });
 };
