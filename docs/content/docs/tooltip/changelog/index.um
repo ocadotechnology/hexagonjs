@@ -1,7 +1,7 @@
 @inline /templates/sidebar-page.um
 
 @topSection
-  @title View Changelog
+  @title Tooltip Changelog
 
 @contentSection
   @changelogList
