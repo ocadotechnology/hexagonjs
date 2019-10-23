@@ -358,6 +358,7 @@ describe('HexagonJS Test Suite', () => {
         'titleBar',
         'Toggle',
         'toggle',
+        'tooltip',
         'transition',
         'transpose',
         'Tree',
