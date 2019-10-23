@@ -9,6 +9,12 @@
 
 
 @contentSection
+  @notice [Tooltip Alignment]
+    The alignment will be updated in a later release to be centred above the label/icon
+    (or below if there is not enough space).
+
+    The current alignment is MVP and slightly off for icons.
+
   @topic Examples
     @examples
       @versioned

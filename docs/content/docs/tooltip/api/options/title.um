@@ -1,3 +1,0 @@
-@property? title [String]
-  @description
-    The title to display above the visualization bar

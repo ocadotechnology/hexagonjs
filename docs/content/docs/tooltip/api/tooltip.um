@@ -1,0 +1,9 @@
+@function hx.tooltip
+  @collapsed false
+  @added nextReleaseVersion
+  @description
+    Creates a small panel on hover, with supporting information elaborating content on screen.
+
+  @arg options [Object]
+    @collapsed false
+    @inline ./options/*.um

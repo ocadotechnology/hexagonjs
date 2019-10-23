@@ -1,4 +1,0 @@
-@property? breakdown [String]
-  @description
-    The 'breakdown text' to display below the visualization bar. This can be used
-    to explain what each segment is, or how the calculation is performed.
