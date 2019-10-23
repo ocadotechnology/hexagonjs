@@ -24,7 +24,7 @@
 } */
 
 /* Left aligned arrow */
-/* .hx-tooltip:before {
+.hx-tooltip:before {
     font-size: 0;
     content: ' ';
     position: absolute;
@@ -33,10 +33,10 @@
     border: 8px solid transparent;
     border-top: 8px solid #686868;
     transform: translate(-50%, calc(100% + 10px));
-} */
+}
 
 /* Right aligned arrow */
-.hx-tooltip:before {
+/*.hx-tooltip:before {
     font-size: 0;
     content: ' ';
     position: absolute;
@@ -45,4 +45,4 @@
     border: 8px solid transparent;
     border-top: 8px solid #686868;
     transform: translate(-50%, calc(100% + 10px));
-}
+}*/
