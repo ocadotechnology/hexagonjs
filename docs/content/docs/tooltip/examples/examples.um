@@ -1,69 +1,22 @@
-@version 2.4.0
+@version nextReleaseVersion
   @example
     @@html
-      <div id="visualizationBar" class="hx-flag-typography"></div>
+      <div id="tooltip"></div>
 
     @@js
-      hx.select('#visualizationBar').set([
-        hx.visualizationBar({
-          segments: [
-            {
-              id: 'late',
-              label: 'Late',
-              count: 11,
-              type: 'danger',
-            },
-            {
-              id: 'predictedDelays',
-              label: 'Predicted Delays',
-              count: 17,
-              type: 'warning',
-            },
-            {
-              id: 'onTime',
-              label: 'On Time',
-              count: 52,
-            },
-          ],
-        }),
-        hx.visualizationBar({
-          title: 'Three segments',
-          segments: [
-            {
-              id: 'healthy-used',
-              label: 'Healthy and used',
-              count: 22,
-              type: 'dark',
-            },
-            {
-              id: 'healthy-unused',
-              label: 'Healthy and not in use',
-              count: 3,
-              type: 'medium',
-            },
-            {
-              id: 'not-in-use',
-              label: 'Unavailable',
-              count: 99,
-              type: 'light',
-            },
-          ],
-        }),
-        hx.visualizationBar({
-          title: 'Two segments',
-          segments: [
-            {
-              id: 'healthy-used',
-              label: 'Healthy and used',
-              count: 5,
-              type: 'medium',
-            },
-            {
-              id: 'healthy-unused',
-              label: 'Healthy and not in use',
-              count: 0,
-              type: 'light',
-            },
-          ],
-        }),
-      ]);
+      hx.select('#tooltip')
+        .set(hx.tooltip({
+          text: 'A little bit more information',
+          label: 'Text tooltip label'
+        }));
+
+  @example
+    @@html
+      <div id="tooltip-icon"></div>
+
+    @@js
+      hx.select('#tooltip-icon')
+        .set(hx.tooltip({
+          icon: 'fas fa-info-circle',
+          text: 'A little bit more information',
+        }));

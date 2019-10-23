@@ -1,0 +1,5 @@
+@property? label [String]
+  @description
+    The text for the user to hover over to display the tooltip.
+
+    You can only use a label or an icon, not both.
