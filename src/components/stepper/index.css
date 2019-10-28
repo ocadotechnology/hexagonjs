@@ -4,6 +4,7 @@
 
 .hx-stepper-step {
   width: 100%;
+  text-align: center;
 }
 
 .hx-stepper-progress-row {
@@ -11,9 +12,8 @@
   align-items: center;
 }
 
-.hx-stepper-progress-spacer,
-.hx-stepper-progress-complete,
-.hx-stepper-progress-incomplete {
+.hx-stepper-progress-before,
+.hx-stepper-progress-after {
   display: inline-block;
   flex: 1 1 auto;
   height: 1px;
@@ -27,19 +27,12 @@
   background-color: grey;
 }
 
-.hx-stepper-number-default,
-.hx-stepper-number-selected,
-.hx-stepper-number-complete,
-.hx-stepper-number-error {
+.hx-stepper-number {
   display: inline-block;
   border: solid 1px;
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  text-align: center;
-}
-
-.hx-stepper-number-default {
   background-color: grey;
   color: white;
 }
@@ -61,9 +54,7 @@
   color: red;
 }
 
-.hx-stepper-title-normal,
-.hx-stepper-title-error {
-  text-align: center;
+.hx-stepper-title {
   padding: 5px 10px;
 }
 
