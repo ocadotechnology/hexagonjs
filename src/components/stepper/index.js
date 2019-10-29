@@ -1,4 +1,4 @@
-import { div, select, } from 'utils/selection';
+import { div, select } from 'utils/selection';
 import logger from 'utils/logger';
 import { mergeDefined } from 'utils/utils';
 
@@ -28,7 +28,7 @@ class Stepper {
           .classed('hx-stepper-number-selected', step.number === selectedStep && !showError)
           .classed('hx-stepper-number-error', step.number === selectedStep && showError)
           .classed('hx-stepper-number-complete', step.number < selectedStep)
-          .text((step.number < selectedStep) ? 'B' : step.number);
+          .text((step.number < selectedStep) ? 'X' : step.number);
 
         stepNode.select('.hx-stepper-progress-before')
           .classed('hx-stepper-progress-incomplete', step.number > 1 && step.number > selectedStep)
@@ -124,8 +124,8 @@ class Stepper {
       this.titles().map((title, index) => ({
         number: index + 1,
         title,
-      }))
-    )
+      })),
+    );
   }
 }
 

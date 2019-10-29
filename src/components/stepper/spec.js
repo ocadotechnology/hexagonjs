@@ -26,9 +26,39 @@ export default () => {
       fixture.remove();
     });
 
-    function newStepper(stepTitles) {
-      return new Stepper(fixture, stepTitles);
-    }
+    const setupStepper = (stepTitles) => {
+      const stepper = new Stepper(fixture, stepTitles);
+
+      const numberDivs = stepper.selection.selectAll('.hx-stepper-number');
+      const progressBeforeDivs = stepper.selection.selectAll('.hx-stepper-progress-before');
+      const progressAfterDivs = stepper.selection.selectAll('.hx-stepper-progress-after');
+      const titleDivs = stepper.selection.selectAll('.hx-stepper-title');
+
+      const steps = numberDivs.map((numberDiv, i) => ({
+        number: i + 1,
+        numberDiv: hx.select(numberDiv),
+        progressBeforeDiv: hx.select(progressBeforeDivs.node(i)),
+        progressAfterDiv: hx.select(progressAfterDivs.node(i)),
+        titleDiv: hx.select(titleDivs.node(i)),
+      }));
+
+      return { stepper, steps };
+    };
+
+    const assertStepsWithAppliedClasses = (steps, expected) => {
+      const doAssert = (selection, classToMatch, stepNos = []) => steps
+        .filter(s => selection(s).classed(classToMatch)).map(s => s.number).should.eql(stepNos);
+
+      doAssert(s => s.numberDiv, 'hx-stepper-number-selected', expected.numberSelected);
+      doAssert(s => s.numberDiv, 'hx-stepper-number-complete', expected.numberComplete);
+      doAssert(s => s.numberDiv, 'hx-stepper-number-error', expected.numberError);
+      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-complete', expected.progressBeforeComplete);
+      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-incomplete', expected.progressBeforeIncomplete);
+      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-complete', expected.progressAfterComplete);
+      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-incomplete', expected.progressAfterIncomplete);
+      doAssert(s => s.titleDiv, 'hx-stepper-title-error', expected.titleError);
+      doAssert(s => s.titleDiv, 'hx-stepper-title-hidden', expected.titleHidden);
+    };
 
     const Errors = {
       tooFewSteps: 'Stepper: Expected at least two steps to display',
@@ -41,24 +71,34 @@ export default () => {
 
     describe('when given no steps', () => {
       it('throws an error', () => {
-        (() => newStepper([])).should.throw(Errors.tooFewSteps);
+        (() => setupStepper([])).should.throw(Errors.tooFewSteps);
       });
     });
 
     describe('when given one step', () => {
       it('throws an error', () => {
-        (() => newStepper(['Step 1'])).should.throw(Errors.tooFewSteps);
+        (() => setupStepper(['Step 1'])).should.throw(Errors.tooFewSteps);
       });
     });
 
     describe('when given two steps', () => {
       let stepper;
+      let steps;
+
       beforeEach(() => {
-        stepper = newStepper(['Step 1', 'Step 2']);
+        ({ stepper, steps } = setupStepper(['Step 1', 'Step 2']));
       });
 
       it('the first step selected', () => {
         stepper.selectedStep().should.equal(1);
+      });
+
+      it('the correct classes are applied', () => {
+        assertStepsWithAppliedClasses(steps, {
+          numberSelected: [1],
+          progressBeforeIncomplete: [2],
+          progressAfterIncomplete: [1],
+        });
       });
 
       describe('then the prevStep() method is called', () => {
@@ -75,69 +115,69 @@ export default () => {
         });
       });
 
-      describe('then the nextStep() method is called', () => {
+      describe('then the nextStep() method is called twice', () => {
         beforeEach(() => {
-          stepper.nextStep();
+          stepper.nextStep().nextStep();
         });
 
         it('the second step is selected', () => {
           stepper.selectedStep().should.equal(2);
         });
 
-        describe('then the nextStep() method is called again', () => {
+        it('logs a warning', () => {
+          logger.warn.should.have.been.called.with(Warnings.noNextStep);
+        });
+      });
+
+      describe('then the step error flag is set', () => {
+        beforeEach(() => {
+          stepper.showError(true);
+        });
+
+        it('the correct classes are applied to show the error state', () => {
+          assertStepsWithAppliedClasses(steps, {
+            numberError: [1],
+            progressBeforeIncomplete: [2],
+            progressAfterIncomplete: [1],
+            titleError: [1],
+          });
+        });
+
+        describe('then the nextStep() method is called', () => {
           beforeEach(() => {
             stepper.nextStep();
           });
 
-          it('the second step is still selected', () => {
+          it('the second step is selected', () => {
             stepper.selectedStep().should.equal(2);
           });
 
-          it('logs a warning', () => {
-            logger.warn.should.have.been.called.with(Warnings.noNextStep);
+          it('the step error flag is cleared', () => {
+            stepper.showError().should.equal(false);
+          });
+
+          it('the correct classes are applied', () => {
+            assertStepsWithAppliedClasses(steps, {
+              numberComplete: [1],
+              numberSelected: [2],
+              progressBeforeComplete: [2],
+              progressAfterComplete: [1],
+            });
           });
         });
       });
-    });
 
-    describe('when given three steps to test rendering', () => {
-      let stepper;
-      beforeEach(() => {
-        stepper = newStepper(['Step 1', 'Step 2', 'Step 3']);
-      });
-
-      describe('then the nextStep() method is called', () => {
+      describe('then the step titles are set to be hidden', () => {
         beforeEach(() => {
-          stepper.nextStep();
+          stepper.showTitles(false);
         });
 
-        it('the first step is rendered as completed', () => {
-          true.should.equal(false);
-        });
-
-        it('the second step is rendered as selected', () => {
-          true.should.equal(false);
-        });
-
-        it('the third step is rendered as default', () => {
-          true.should.equal(false);
-        });
-
-        describe('then the showError(true) method is called', () => {
-          beforeEach(() => {
-            stepper.showError();
-          });
-
-          it('the first step is rendered as completed', () => {
-            true.should.equal(false);
-          });
-
-          it('the second step is rendered as an error', () => {
-            true.should.equal(false);
-          });
-
-          it('the third step is rendered as default', () => {
-            true.should.equal(false);
+        it('the correct classes are applied to hide the titles', () => {
+          assertStepsWithAppliedClasses(steps, {
+            numberSelected: [1],
+            progressBeforeIncomplete: [2],
+            progressAfterIncomplete: [1],
+            titleHidden: [1, 2],
           });
         });
       });
