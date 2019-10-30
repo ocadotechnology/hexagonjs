@@ -1,9 +1,21 @@
-.hx-tooltip-label  {
-    border-bottom: 1px dotted red;
+.hx-tooltip {
+    box-shadow: none;
+    border: none;
+    overflow: visible;
 }
 
-.hx-tooltip-icon, 
+.hx-tooltip-label  {
+    border-bottom: 1px dotted transparent;
+}
+
+.hx-tooltip-icon,
 .hx-tooltip-label {
     cursor: pointer;
 }
 
+.hx-tooltip:before {
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    width: 0;
+}

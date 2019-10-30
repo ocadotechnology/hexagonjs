@@ -1,22 +1,19 @@
 .hx-tooltip {
-    box-shadow: none;
-    margin-bottom: 7px;
-    border: none;
-    background-color: #686868;
-    font-size: 12px;
-    color: white;
-    font-weight: 600;
-    padding: 10px 15px;
-    border-radius: 3px;
-    overflow: visible;
+    margin-bottom: var(--tooltip-space);
+    background-color: var(--tooltip-background-color);
+    font-size: var(--tooltip-font-size);
+    color: var(--tooltip-text-color);
+    font-weight: var(--tooltip-font-weight);
+    padding: var(--tooltip-padding);
+    border-radius: var(--tooltip-border-radius);
+}
+
+.hx-tooltip-label  {
+    border-bottom-color: var(--tooltip-label-underline-color);
 }
 
 /* Centre aligned arrow */
 /* .hx-tooltip:before {
-    font-size: 0;
-    content: ' ';
-    position: absolute;
-    width: 0;
     left: 50%;
     border: 8px solid transparent;
     border-top: 8px solid #686868;
@@ -25,22 +22,14 @@
 
 /* Left aligned arrow */
 .hx-tooltip:before {
-    font-size: 0;
-    content: ' ';
-    position: absolute;
-    width: 0;
-    left: 14px;
-    border: 8px solid transparent;
-    border-top: 8px solid #686868;
-    transform: translate(-50%, calc(100% + 10px));
+    left: calc(var(--tooltip-arrow-spacing) + (0.5 * var(--tooltip-arrow-size)));
+    border: var(--tooltip-arrow-size) solid transparent;
+    border-top: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
+    transform: translate(-50%, calc(100% + var(--tooltip-arrow-spacing)));
 }
 
 /* Right aligned arrow */
 /*.hx-tooltip:before {
-    font-size: 0;
-    content: ' ';
-    position: absolute;
-    width: 0;
     left: calc(100% - 14px);
     border: 8px solid transparent;
     border-top: 8px solid #686868;
