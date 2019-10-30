@@ -27,7 +27,11 @@ export default () => {
     });
 
     const setupStepper = (stepTitles) => {
-      const stepper = new Stepper(fixture, stepTitles);
+      return new Stepper(fixture, stepTitles);
+    };
+
+    const assertStepsWithAppliedClasses = (stepTitles, expected) => {
+      const stepper = setupStepper(stepTitles);
 
       const numberDivs = stepper.selection.selectAll('.hx-stepper-number');
       const progressBeforeDivs = stepper.selection.selectAll('.hx-stepper-progress-before');
@@ -35,27 +39,31 @@ export default () => {
       const titleDivs = stepper.selection.selectAll('.hx-stepper-title');
 
       const steps = numberDivs.map((numberDiv, i) => ({
-        number: i + 1,
-        numberDiv: hx.select(numberDiv),
-        progressBeforeDiv: hx.select(progressBeforeDivs.node(i)),
-        progressAfterDiv: hx.select(progressAfterDivs.node(i)),
-        titleDiv: hx.select(titleDivs.node(i)),
+        stepNo: i + 1,
+        numberDiv: select(numberDiv),
+        progressBeforeDiv: select(progressBeforeDivs.node(i)),
+        progressAfterDiv: select(progressAfterDivs.node(i)),
+        titleDiv: select(titleDivs.node(i)),
       }));
 
-      return { stepper, steps };
-    };
-
-    const assertStepsWithAppliedClasses = (steps, expected) => {
-      const doAssert = (selection, classToMatch, stepNos = []) => steps
-        .filter(s => selection(s).classed(classToMatch)).map(s => s.number).should.eql(stepNos);
+      const doAssert = (selection, classToMatch, stepNos = [], appliedOn = '') => {
+        const on = appliedOn.length ? `on "${appliedOn}" ` : '';
+        const description = stepNos.length
+          ? `class ${classToMatch} is applied ${on}for step ${stepNos.join(', ')}`
+          : `class ${classToMatch} is not applied ${on}`;
+        it(description, () => {
+          steps.filter(s => selection(s).classed(classToMatch))
+            .map(s => s.stepNo).should.eql(stepNos);
+        });
+      };
 
       doAssert(s => s.numberDiv, 'hx-stepper-number-selected', expected.numberSelected);
       doAssert(s => s.numberDiv, 'hx-stepper-number-complete', expected.numberComplete);
       doAssert(s => s.numberDiv, 'hx-stepper-number-error', expected.numberError);
-      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-complete', expected.progressBeforeComplete);
-      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-incomplete', expected.progressBeforeIncomplete);
-      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-complete', expected.progressAfterComplete);
-      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-incomplete', expected.progressAfterIncomplete);
+      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-complete', expected.progressBeforeComplete, 'progress before');
+      doAssert(s => s.progressBeforeDiv, 'hx-stepper-progress-incomplete', expected.progressBeforeIncomplete, 'progress before');
+      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-complete', expected.progressAfterComplete, 'progress after');
+      doAssert(s => s.progressAfterDiv, 'hx-stepper-progress-incomplete', expected.progressAfterIncomplete, 'progress after');
       doAssert(s => s.titleDiv, 'hx-stepper-title-error', expected.titleError);
       doAssert(s => s.titleDiv, 'hx-stepper-title-hidden', expected.titleHidden);
     };
@@ -82,23 +90,29 @@ export default () => {
     });
 
     describe('when given two steps', () => {
+      const stepTitles = ['Step 1', 'Step 2'];
       let stepper;
-      let steps;
 
       beforeEach(() => {
-        ({ stepper, steps } = setupStepper(['Step 1', 'Step 2']));
+        stepper = setupStepper(stepTitles);
       });
 
       it('the first step selected', () => {
         stepper.selectedStep().should.equal(1);
       });
 
-      it('the correct classes are applied', () => {
-        assertStepsWithAppliedClasses(steps, {
-          numberSelected: [1],
-          progressBeforeIncomplete: [2],
-          progressAfterIncomplete: [1],
-        });
+      it('calling showTitles(...) with its current value is a no-op (for coverage)', () => {
+        stepper.showTitles(stepper.showTitles()).showTitles().should.equal(true);
+      });
+
+      it('calling showError(...) with its current value is a no-op (for coverage)', () => {
+        stepper.showError(stepper.showError()).showError().should.equal(false);
+      });
+
+      assertStepsWithAppliedClasses(stepTitles, {
+        numberSelected: [1],
+        progressBeforeIncomplete: [2],
+        progressAfterIncomplete: [1],
       });
 
       describe('then the prevStep() method is called', () => {
@@ -127,6 +141,30 @@ export default () => {
         it('logs a warning', () => {
           logger.warn.should.have.been.called.with(Warnings.noNextStep);
         });
+
+        describe('then the step error flag is set', () => {
+          beforeEach(() => {
+            stepper.showError(true);
+          });
+
+          it('the step error flag is set', () => {
+            stepper.showError().should.equal(true);
+          });
+
+          describe('then the prevStep() method is called', () => {
+            beforeEach(() => {
+              stepper.prevStep();
+            });
+
+            it('the first step is selected', () => {
+              stepper.selectedStep().should.equal(1);
+            });
+
+            it('the step error flag is cleared', () => {
+              stepper.showError().should.equal(false);
+            });
+          });
+        });
       });
 
       describe('then the step error flag is set', () => {
@@ -134,13 +172,11 @@ export default () => {
           stepper.showError(true);
         });
 
-        it('the correct classes are applied to show the error state', () => {
-          assertStepsWithAppliedClasses(steps, {
-            numberError: [1],
-            progressBeforeIncomplete: [2],
-            progressAfterIncomplete: [1],
-            titleError: [1],
-          });
+        assertStepsWithAppliedClasses(stepTitles, {
+          numberError: [1],
+          progressBeforeIncomplete: [2],
+          progressAfterIncomplete: [1],
+          titleError: [1],
         });
 
         describe('then the nextStep() method is called', () => {
@@ -156,13 +192,11 @@ export default () => {
             stepper.showError().should.equal(false);
           });
 
-          it('the correct classes are applied', () => {
-            assertStepsWithAppliedClasses(steps, {
-              numberComplete: [1],
-              numberSelected: [2],
-              progressBeforeComplete: [2],
-              progressAfterComplete: [1],
-            });
+          assertStepsWithAppliedClasses(stepTitles, {
+            numberComplete: [1],
+            numberSelected: [2],
+            progressBeforeComplete: [2],
+            progressAfterComplete: [1],
           });
         });
       });
@@ -172,13 +206,15 @@ export default () => {
           stepper.showTitles(false);
         });
 
-        it('the correct classes are applied to hide the titles', () => {
-          assertStepsWithAppliedClasses(steps, {
-            numberSelected: [1],
-            progressBeforeIncomplete: [2],
-            progressAfterIncomplete: [1],
-            titleHidden: [1, 2],
-          });
+        it('the titles are hidden', () => {
+          stepper.showTitles().should.equal(false);
+        });
+
+        assertStepsWithAppliedClasses(stepTitles, {
+          numberSelected: [1],
+          progressBeforeIncomplete: [2],
+          progressAfterIncomplete: [1],
+          titleHidden: [1, 2],
         });
       });
     });
