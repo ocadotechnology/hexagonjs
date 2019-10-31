@@ -51,9 +51,13 @@ export default () => {
         const description = stepNos.length
           ? `class ${classToMatch} is applied ${on}for step ${stepNos.join(', ')}`
           : `class ${classToMatch} is not applied ${on}`;
+
         it(description, () => {
-          steps.filter(s => selection(s).classed(classToMatch))
-            .map(s => s.stepNo).should.eql(stepNos);
+          steps.filter(s => selection(s)
+            .classed(classToMatch))
+            .map(s => s.stepNo)
+            .should
+            .eql(stepNos);
         });
       };
 
@@ -132,6 +136,11 @@ export default () => {
       describe('then the nextStep() method is called twice', () => {
         beforeEach(() => {
           stepper.nextStep().nextStep();
+        });
+
+        it('the completed step is rendered with a check icon', () => {
+          stepper.selection.selectAll('.hx-stepper-number-complete i.hx-icon-check')
+            .nodes.length.should.equal(1);
         });
 
         it('the second step is selected', () => {
