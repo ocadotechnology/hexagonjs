@@ -971,6 +971,19 @@
   --status-bar-progress-background-color: var(--theme-accent-hover-color);
   --status-bar-progress-text-color: white;
 
+  /* Stepper */
+  --stepper-number-complete-background-color: var(--theme-accent-text-color);
+  --stepper-number-complete-color: var(--theme-accent-color);
+  --stepper-number-default-background-color: var(--theme-contrast-color);
+  --stepper-number-default-color: var(--theme-default-color);
+  --stepper-number-diameter: 24px;
+  --stepper-number-error-background-color: var(--theme-error-background-color);
+  --stepper-number-error-color: var(--theme-error-text-color);
+  --stepper-number-selected-background-color: var(--theme-accent-color);
+  --stepper-number-selected-color: var(--theme-accent-text-color);
+  --stepper-title-color: var(--theme-text-color);
+  --stepper-title-error-color: var(--theme-error-outline-color);
+  --stepper-title-padding: 5px 10px;
 
   /* Sticky Table Headers */
   --sticky-table-headers-scroll-indicator-shadow-color: rgba(0, 0, 0, 0.5);

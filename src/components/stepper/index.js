@@ -1,4 +1,4 @@
-import { div, select } from 'utils/selection';
+import { div, i, select } from 'utils/selection';
 import logger from 'utils/logger';
 import { mergeDefined } from 'utils/utils';
 
@@ -18,17 +18,22 @@ class Stepper {
         return this.append(stepNode).node();
       })
       .update((step, node) => {
-        const stepNode = hx.select(node);
+        const stepNode = select(node);
         const numSteps = self.titles().length;
         const selectedStep = self.selectedStep();
         const showError = self.showError();
         const showTitles = self.showTitles();
 
-        stepNode.select('.hx-stepper-number')
+        const stepperNumber = stepNode.select('.hx-stepper-number')
           .classed('hx-stepper-number-selected', step.number === selectedStep && !showError)
           .classed('hx-stepper-number-error', step.number === selectedStep && showError)
-          .classed('hx-stepper-number-complete', step.number < selectedStep)
-          .text((step.number < selectedStep) ? 'X' : step.number);
+          .classed('hx-stepper-number-complete', step.number < selectedStep);
+
+        if (step.number < selectedStep) {
+          stepperNumber.set([i('hx-icon hx-icon-check')]);
+        } else {
+          stepperNumber.text(step.number);
+        }
 
         stepNode.select('.hx-stepper-progress-before')
           .classed('hx-stepper-progress-incomplete', step.number > 1 && step.number > selectedStep)
