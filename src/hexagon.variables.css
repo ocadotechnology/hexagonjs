@@ -1121,6 +1121,7 @@
   --tooltip-border-radius: 3px;
   --tooltip-font-size: 1em;
   --tooltip-font-weight: 600;
+  --tooltip-label-text-color: var(--theme-accent-color);
   --tooltip-label-underline-color:  var(--theme-accent-color);
   --tooltip-padding: 10px 15px;
   --tooltip-space: 7px;

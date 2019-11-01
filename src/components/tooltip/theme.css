@@ -10,6 +10,7 @@
 
 .hx-tooltip-label  {
     border-bottom-color: var(--tooltip-label-underline-color);
+    color: var(--tooltip-label-text-color);
 }
 
 /* Centre aligned arrow */
