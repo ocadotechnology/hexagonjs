@@ -2,7 +2,6 @@ import chai from 'chai';
 import { div, select, Selection } from 'utils/selection';
 import logger from 'utils/logger';
 
-import installFakeTimers from 'test/utils/fake-time';
 import emit from 'test/utils/fake-event';
 
 import { tooltip } from 'components/tooltip';
@@ -10,7 +9,6 @@ import { config as dropdownConfig } from 'components/dropdown';
 
 export default () => {
   describe('tooltip', () => {
-    let clock;
     const chaiSandbox = chai.spy.sandbox();
     const fixture = div('hx-test-tooltip');
     const origAttachToSelector = dropdownConfig.attachToSelector;
@@ -21,13 +19,11 @@ export default () => {
     });
 
     beforeEach(() => {
-      clock = installFakeTimers();
       fixture.clear();
       chaiSandbox.on(logger, 'warn');
     });
 
     afterEach(() => {
-      clock.restore();
       chaiSandbox.restore();
     });
 
@@ -97,7 +93,6 @@ export default () => {
 
         beforeEach(() => {
           emit(thisTooltip.node(), 'mouseover');
-          clock.tick(200);
           thisDropdown = fixture.select('.hx-dropdown');
         });
 

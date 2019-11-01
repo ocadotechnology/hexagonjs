@@ -19,7 +19,12 @@ function tooltip({ icon, label, text } = {}) {
   tooltipParent.add(iconElement);
 
 
-  new Dropdown(tooltipParent, text, { align: 'up', ddClass: 'hx-tooltip', mode: 'hover' });
+  new Dropdown(tooltipParent, text,
+    {
+      align: 'up',
+      ddClass: 'hx-tooltip',
+      mode: 'hover',
+    });
 
   return tooltipParent;
 }
