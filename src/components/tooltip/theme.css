@@ -21,14 +21,6 @@
     transform: translate(-50%, calc(100% + 10px));
 } */
 
-/* Left aligned arrow ORIGINAL*/
-/* .hx-tooltip:before {
-    left: calc(var(--tooltip-arrow-spacing) + (0.5 * var(--tooltip-arrow-size)));
-    border: var(--tooltip-arrow-size) solid transparent;
-    border-top: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
-    transform: translate(-50%, calc(100% + var(--tooltip-arrow-spacing)));
-} */
-
 /* Left aligned arrow */
 .hx-tooltip:before {
     left: var(--tooltip-arrow-spacing);
