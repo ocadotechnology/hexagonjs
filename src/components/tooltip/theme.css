@@ -6,6 +6,12 @@
     font-weight: var(--tooltip-font-weight);
     padding: var(--tooltip-padding);
     border-radius: var(--tooltip-border-radius);
+    max-width: var(--tooltip-max-width);
+}
+
+.hx-tooltip.hx-dropdown-down {
+  margin-bottom: 0;
+  margin-top: var(--tooltip-space);
 }
 
 .hx-tooltip-label  {

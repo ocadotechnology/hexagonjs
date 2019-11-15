@@ -1126,6 +1126,7 @@
   --tooltip-padding: 10px 15px;
   --tooltip-space: 7px;
   --tooltip-text-color: #FFF;
+  --tooltip-max-width: 250px;
 
 
   /* Tree */
