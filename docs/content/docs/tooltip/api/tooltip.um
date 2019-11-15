@@ -1,6 +1,6 @@
 @function hx.tooltip
   @collapsed false
-  @added nextReleaseVersion
+  @added 2.5.0
   @description
     Creates a small panel on hover, with supporting information elaborating content on screen.
 

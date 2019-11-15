@@ -392,10 +392,6 @@ select:disabled {
   margin-top: 1em;
 }
 
-.hx-form:not(.hx-flag-form) .hx-form-error {
-  color: red;
-}
-
 .hx-form:not(.hx-flag-form) .hx-form-error > div {
   padding-top: 0 !important;
 }
@@ -4316,4 +4312,32 @@ a.hx-menu-item:hover {
 
 .hx-single-select-input {
   width: 100%;
+}
+
+.hx-tooltip {
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+}
+
+.hx-tooltip-label  {
+    border-bottom: 1px dotted transparent;
+}
+
+.hx-tooltip-icon,
+.hx-tooltip-label {
+    cursor: pointer;
+}
+
+.hx-tooltip:before {
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    width: 0;
+}
+
+/* TODO: Fix alignment properly so the arrow is always above the middle of the label/icon */
+
+.hx-tooltip.hx-tooltip-from-icon {
+  margin-left: -10px;
 }

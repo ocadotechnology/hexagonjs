@@ -392,10 +392,6 @@ select:disabled {
   margin-top: 1em;
 }
 
-.hx-form:not(.hx-flag-form) .hx-form-error {
-  color: red;
-}
-
 .hx-form:not(.hx-flag-form) .hx-form-error > div {
   padding-top: 0 !important;
 }
@@ -4318,6 +4314,34 @@ a.hx-menu-item:hover {
   width: 100%;
 }
 
+.hx-tooltip {
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+}
+
+.hx-tooltip-label  {
+    border-bottom: 1px dotted transparent;
+}
+
+.hx-tooltip-icon,
+.hx-tooltip-label {
+    cursor: pointer;
+}
+
+.hx-tooltip:before {
+    font-size: 0;
+    content: ' ';
+    position: absolute;
+    width: 0;
+}
+
+/* TODO: Fix alignment properly so the arrow is always above the middle of the label/icon */
+
+.hx-tooltip.hx-tooltip-from-icon {
+  margin-left: -10px;
+}
+
 :root {
   /* theme colours - private variables just to reduce duplication in this theme */
   --theme-text-alternate-color: #F3F3F3;
@@ -4771,6 +4795,7 @@ a.hx-menu-item:hover {
   --form-message-font-style: italic;
   --form-message-label-font-weight: normal;
   --form-message-text-color: var(--theme-negative-color);
+  --form-message-warning-text-color: var(--theme-warning-color);
 
   --form-optional-label-font-style: italic;
   --form-optional-label-font-weight: 300;
@@ -5434,6 +5459,21 @@ a.hx-menu-item:hover {
   --toggle-toggle-on-color: var(--theme-accent-color);
 
 
+  /* Tooltip */
+  --tooltip-arrow-size: 8px;
+  --tooltip-arrow-spacing: 10px;
+  --tooltip-background-color: var(--theme-contrast-hover-color);
+  --tooltip-border-radius: 3px;
+  --tooltip-font-size: 1em;
+  --tooltip-font-weight: 600;
+  --tooltip-label-text-color: var(--theme-accent-color);
+  --tooltip-label-underline-color:  var(--theme-accent-color);
+  --tooltip-padding: 10px 15px;
+  --tooltip-space: 7px;
+  --tooltip-text-color: #FFF;
+  --tooltip-max-width: 250px;
+
+
   /* Tree */
   --tree-background-color: var(--theme-container-background-color);
   --tree-icon-background-color: var(--theme-accent-color);
@@ -5923,7 +5963,9 @@ h3.hx-flag-typography,
 }
 
 .hx-input-radio:invalid::after,
-.hx-input-checkbox:invalid::after {
+.hx-input-radio.hx-input-invalid::after,
+.hx-input-checkbox:invalid::after,
+.hx-input-checkbox.hx-input-invalid::after {
   color: #EC3A65;
   color: var(--input-invalid-border-color);
 }
@@ -5935,7 +5977,9 @@ h3.hx-flag-typography,
 }
 
 .hx-input:invalid,
-.hx-input-textarea:invalid {
+.hx-input.hx-input-invalid,
+.hx-input-textarea:invalid,
+.hx-input-textarea.hx-input-invalid {
   border-width: 1px;
   border-width: var(--input-invalid-border-width);
   border-style: solid;
@@ -6900,6 +6944,17 @@ h3.hx-flag-typography,
   font-weight: var(--form-message-label-font-weight);
   color: #EC3A65;
   color: var(--form-message-text-color);
+  margin-top: 10px;
+  margin-top: var(--form-label-spacing);
+}
+
+.hx-form-message-warning {
+  font-style: italic;
+  font-style: var(--form-message-font-style);
+  font-weight: normal;
+  font-weight: var(--form-message-label-font-weight);
+  color: #D69B24;
+  color: var(--form-message-warning-text-color);
   margin-top: 10px;
   margin-top: var(--form-label-spacing);
 }
@@ -9571,6 +9626,81 @@ img.hx-logo:before {
   color: #939393;
   color: var(--single-select-arrow-color);
 }
+
+.hx-tooltip {
+    margin-bottom: 7px;
+    margin-bottom: var(--tooltip-space);
+    background-color: #636868;
+    background-color: var(--tooltip-background-color);
+    font-size: 1em;
+    font-size: var(--tooltip-font-size);
+    color: #FFF;
+    color: var(--tooltip-text-color);
+    font-weight: 600;
+    font-weight: var(--tooltip-font-weight);
+    padding: 10px 15px;
+    padding: var(--tooltip-padding);
+    border-radius: 3px;
+    border-radius: var(--tooltip-border-radius);
+    max-width: 250px;
+    max-width: var(--tooltip-max-width);
+}
+
+.hx-tooltip.hx-dropdown-down {
+  margin-bottom: 0;
+  margin-top: 7px;
+  margin-top: var(--tooltip-space);
+}
+
+.hx-tooltip-label  {
+    border-bottom-color: #00ADA8;
+    border-bottom-color: var(--tooltip-label-underline-color);
+    color: #00ADA8;
+    color: var(--tooltip-label-text-color);
+}
+
+/* Centre aligned arrow */
+
+/* .hx-tooltip:before {
+    left: 50%;
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+} */
+
+/* Left aligned arrow */
+
+.hx-tooltip:before {
+    left: 10px;
+    left: var(--tooltip-arrow-spacing);
+    top: 100%;
+    border: 8px solid transparent;
+    border: var(--tooltip-arrow-size) solid transparent;
+    border-top: 8px solid #636868;
+    border-top: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
+}
+
+/* Left aligned arrow - DOWN */
+
+.hx-tooltip.hx-dropdown-down:before {
+    left: 10px;
+    left: var(--tooltip-arrow-spacing);
+    top: calc(-2 * 8px);
+    top: calc(-2 * var(--tooltip-arrow-size));
+    border: 8px solid transparent;
+    border: var(--tooltip-arrow-size) solid transparent;
+    border-bottom: 8px solid #636868;
+    border-bottom: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
+}
+
+/* Right aligned arrow */
+
+/*.hx-tooltip:before {
+    left: calc(100% - 14px);
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+}*/
 
 @font-face {
   font-family: 'Open Sans';

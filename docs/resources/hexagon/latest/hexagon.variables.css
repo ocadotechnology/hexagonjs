@@ -451,6 +451,7 @@
   --form-message-font-style: italic;
   --form-message-label-font-weight: normal;
   --form-message-text-color: var(--theme-negative-color);
+  --form-message-warning-text-color: var(--theme-warning-color);
 
   --form-optional-label-font-style: italic;
   --form-optional-label-font-weight: 300;
@@ -1112,6 +1113,21 @@
   --toggle-background-on-color: #D5D5D5;
   --toggle-toggle-off-color: #ABABAB;
   --toggle-toggle-on-color: var(--theme-accent-color);
+
+
+  /* Tooltip */
+  --tooltip-arrow-size: 8px;
+  --tooltip-arrow-spacing: 10px;
+  --tooltip-background-color: var(--theme-contrast-hover-color);
+  --tooltip-border-radius: 3px;
+  --tooltip-font-size: 1em;
+  --tooltip-font-weight: 600;
+  --tooltip-label-text-color: var(--theme-accent-color);
+  --tooltip-label-underline-color:  var(--theme-accent-color);
+  --tooltip-padding: 10px 15px;
+  --tooltip-space: 7px;
+  --tooltip-text-color: #FFF;
+  --tooltip-max-width: 250px;
 
 
   /* Tree */
