@@ -451,6 +451,7 @@
   --form-message-font-style: italic;
   --form-message-label-font-weight: normal;
   --form-message-text-color: var(--theme-negative-color);
+  --form-message-warning-text-color: var(--theme-warning-color);
 
   --form-optional-label-font-style: italic;
   --form-optional-label-font-weight: 300;
