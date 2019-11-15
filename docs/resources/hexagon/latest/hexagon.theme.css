@@ -371,7 +371,9 @@ h3.hx-flag-typography,
 }
 
 .hx-input-radio:invalid::after,
-.hx-input-checkbox:invalid::after {
+.hx-input-radio.hx-input-invalid::after,
+.hx-input-checkbox:invalid::after,
+.hx-input-checkbox.hx-input-invalid::after {
   color: var(--input-invalid-border-color);
 }
 
@@ -381,7 +383,9 @@ h3.hx-flag-typography,
 }
 
 .hx-input:invalid,
-.hx-input-textarea:invalid {
+.hx-input.hx-input-invalid,
+.hx-input-textarea:invalid,
+.hx-input-textarea.hx-input-invalid {
   border-width: var(--input-invalid-border-width);
   border-style: var(--input-invalid-border-style);
   border-color: var(--input-invalid-border-color);
@@ -1101,6 +1105,13 @@ h3.hx-flag-typography,
   font-style: var(--form-message-font-style);
   font-weight: var(--form-message-label-font-weight);
   color: var(--form-message-text-color);
+  margin-top: var(--form-label-spacing);
+}
+
+.hx-form-message-warning {
+  font-style: var(--form-message-font-style);
+  font-weight: var(--form-message-label-font-weight);
+  color: var(--form-message-warning-text-color);
   margin-top: var(--form-label-spacing);
 }
 
@@ -3144,3 +3155,60 @@ img.hx-logo:before {
 .hx-single-select-icon {
   color: var(--single-select-arrow-color);
 }
+
+.hx-tooltip {
+    margin-bottom: var(--tooltip-space);
+    background-color: var(--tooltip-background-color);
+    font-size: var(--tooltip-font-size);
+    color: var(--tooltip-text-color);
+    font-weight: var(--tooltip-font-weight);
+    padding: var(--tooltip-padding);
+    border-radius: var(--tooltip-border-radius);
+    max-width: var(--tooltip-max-width);
+}
+
+.hx-tooltip.hx-dropdown-down {
+  margin-bottom: 0;
+  margin-top: var(--tooltip-space);
+}
+
+.hx-tooltip-label  {
+    border-bottom-color: var(--tooltip-label-underline-color);
+    color: var(--tooltip-label-text-color);
+}
+
+/* Centre aligned arrow */
+
+/* .hx-tooltip:before {
+    left: 50%;
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+} */
+
+/* Left aligned arrow */
+
+.hx-tooltip:before {
+    left: var(--tooltip-arrow-spacing);
+    top: 100%;
+    border: var(--tooltip-arrow-size) solid transparent;
+    border-top: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
+}
+
+/* Left aligned arrow - DOWN */
+
+.hx-tooltip.hx-dropdown-down:before {
+    left: var(--tooltip-arrow-spacing);
+    top: calc(-2 * var(--tooltip-arrow-size));
+    border: var(--tooltip-arrow-size) solid transparent;
+    border-bottom: var(--tooltip-arrow-size) solid var(--tooltip-background-color);
+}
+
+/* Right aligned arrow */
+
+/*.hx-tooltip:before {
+    left: calc(100% - 14px);
+    border: 8px solid transparent;
+    border-top: 8px solid #686868;
+    transform: translate(-50%, calc(100% + 10px));
+}*/

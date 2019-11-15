@@ -4236,7 +4236,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.4.0";
+var version = "2.5.0";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -9462,6 +9462,44 @@ function moreButton(options) {
 
   new MenuBase(sel, opts);
   return sel;
+}
+
+function tooltip(ref) {
+  if ( ref === void 0 ) ref = {};
+  var icon = ref.icon;
+  var label = ref.label;
+  var text = ref.text;
+
+  if (!text) {
+    throw new Error('tooltip: No text provided for the tooltip');
+  }
+
+  if (icon && label) {
+    throw new Error('tooltip: You can only use an icon or a label when creating a tooltip');
+  }
+
+  var tooltipParent = span(label ? 'hx-tooltip-label' : 'hx-tooltip-icon');
+  var iconElement = icon ? i(icon) : undefined;
+
+
+  tooltipParent.text(label);
+  tooltipParent.add(iconElement);
+
+  var ddText = div().text(text);
+
+  var ddClass = icon
+    ? 'hx-tooltip hx-tooltip-from-icon'
+    : 'hx-tooltip hx-tooltip-from-label';
+
+  new Dropdown(tooltipParent, ddText,
+    {
+      ddClass: ddClass,
+      align: 'up',
+      mode: 'hover',
+      matchWidth: false,
+    });
+
+  return tooltipParent;
 }
 
 var filterNested, sortActive$1, sortItems, trimTrailingSpaces;
@@ -24562,6 +24600,7 @@ exports.spinnerWide = spinnerWide;
 exports.text = text;
 exports.theme = theme;
 exports.titleBar = titleBar;
+exports.tooltip = tooltip;
 exports.transition = transition;
 exports.validateForm = validateForm;
 exports.version = version;

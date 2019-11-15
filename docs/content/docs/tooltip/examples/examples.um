@@ -1,4 +1,4 @@
-@version nextReleaseVersion
+@version 2.5.0
   @example
     @@html
       <div id="tooltip"></div>

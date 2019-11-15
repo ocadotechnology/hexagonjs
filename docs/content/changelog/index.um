@@ -585,3 +585,9 @@
 
         Resolved a few documentation issues where modules requiring Font Awesome 5 did not state this by adding a warning at
         the top of the page.
+
+    @version 2.5.0
+      @description
+        Added a tooltip component to provide additional information for icons or text.
+
+        Resolved an issue in the form styles for error messages.

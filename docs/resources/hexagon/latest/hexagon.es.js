@@ -4232,7 +4232,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.4.0";
+var version = "2.5.0";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -9462,6 +9462,44 @@ function moreButton(options) {
 
   new MenuBase(sel, opts);
   return sel;
+}
+
+function tooltip(ref) {
+  if ( ref === void 0 ) ref = {};
+  var icon = ref.icon;
+  var label = ref.label;
+  var text = ref.text;
+
+  if (!text) {
+    throw new Error('tooltip: No text provided for the tooltip');
+  }
+
+  if (icon && label) {
+    throw new Error('tooltip: You can only use an icon or a label when creating a tooltip');
+  }
+
+  var tooltipParent = span(label ? 'hx-tooltip-label' : 'hx-tooltip-icon');
+  var iconElement = icon ? i(icon) : undefined;
+
+
+  tooltipParent.text(label);
+  tooltipParent.add(iconElement);
+
+  var ddText = div().text(text);
+
+  var ddClass = icon
+    ? 'hx-tooltip hx-tooltip-from-icon'
+    : 'hx-tooltip hx-tooltip-from-label';
+
+  new Dropdown(tooltipParent, ddText,
+    {
+      ddClass: ddClass,
+      align: 'up',
+      mode: 'hover',
+      matchWidth: false,
+    });
+
+  return tooltipParent;
 }
 
 var AutocompleteFeed, filterNested, sortActive$1, sortItems, trimTrailingSpaces;
@@ -24502,4 +24540,4 @@ if (!doctypeIsValid) {
 
 theme(currentTheme);
 
-export { AlertManager, Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal$1 as Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar$2 as ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, SingleSelect, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, VisualizationBar, alert, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, dropdownButton, ease, endsWith, errorPage, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, message, meter, min, minBy, modal, modalCenter, modalDialog, modalFullScreen, modalInput, modalRight, moreButton, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette$1 as palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, singleSelect, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, visualizationBar, zeroPad, zip };
+export { AlertManager, Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal$1 as Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar$2 as ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, SingleSelect, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, VisualizationBar, alert, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, dropdownButton, ease, endsWith, errorPage, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, message, meter, min, minBy, modal, modalCenter, modalDialog, modalFullScreen, modalInput, modalRight, moreButton, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette$1 as palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, singleSelect, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, tooltip, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, visualizationBar, zeroPad, zip };
