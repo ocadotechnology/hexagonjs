@@ -1,4 +1,4 @@
-import { span, i } from 'utils/selection';
+import { span, i, div } from 'utils/selection';
 import { Dropdown } from 'components/dropdown';
 
 
@@ -18,12 +18,18 @@ function tooltip({ icon, label, text } = {}) {
   tooltipParent.text(label);
   tooltipParent.add(iconElement);
 
+  const ddText = div().text(text);
 
-  new Dropdown(tooltipParent, text,
+  const ddClass = icon
+    ? 'hx-tooltip hx-tooltip-from-icon'
+    : 'hx-tooltip hx-tooltip-from-label';
+
+  new Dropdown(tooltipParent, ddText,
     {
+      ddClass,
       align: 'up',
-      ddClass: 'hx-tooltip',
       mode: 'hover',
+      matchWidth: false,
     });
 
   return tooltipParent;

@@ -19,3 +19,8 @@
     position: absolute;
     width: 0;
 }
+
+/* TODO: Fix alignment properly so the arrow is always above the middle of the label/icon */
+.hx-tooltip.hx-tooltip-from-icon {
+  margin-left: -10px;
+}
