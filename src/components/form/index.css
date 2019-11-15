@@ -72,10 +72,6 @@
   margin-top: 1em;
 }
 
-.hx-form:not(.hx-flag-form) .hx-form-error {
-  color: red;
-}
-
 .hx-form:not(.hx-flag-form) .hx-form-error > div {
   padding-top: 0 !important;
 }
