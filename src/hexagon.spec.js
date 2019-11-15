@@ -72,6 +72,7 @@ import dropdownButtonTests from 'components/dropdown-button/spec';
 import moreButtonTests from 'components/more-button/spec';
 import statusBarTests from 'components/status-bar/spec';
 import visualizationBarTests from 'components/visualization-bar/spec';
+import tooltipTests from 'components/tooltip/spec';
 
 window.hx = hx;
 
@@ -357,6 +358,7 @@ describe('HexagonJS Test Suite', () => {
         'titleBar',
         'Toggle',
         'toggle',
+        'tooltip',
         'transition',
         'transpose',
         'Tree',
@@ -453,6 +455,7 @@ describe('HexagonJS Test Suite', () => {
   dropdownButtonTests();
   moreButtonTests();
   visualizationBarTests();
+  tooltipTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //

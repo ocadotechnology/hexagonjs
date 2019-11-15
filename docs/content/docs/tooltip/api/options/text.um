@@ -1,0 +1,3 @@
+@property text [String]
+  @description
+    The text to display inside the tooltip

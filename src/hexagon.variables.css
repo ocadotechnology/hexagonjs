@@ -1114,6 +1114,21 @@
   --toggle-toggle-on-color: var(--theme-accent-color);
 
 
+  /* Tooltip */
+  --tooltip-arrow-size: 8px;
+  --tooltip-arrow-spacing: 10px;
+  --tooltip-background-color: var(--theme-contrast-hover-color);
+  --tooltip-border-radius: 3px;
+  --tooltip-font-size: 1em;
+  --tooltip-font-weight: 600;
+  --tooltip-label-text-color: var(--theme-accent-color);
+  --tooltip-label-underline-color:  var(--theme-accent-color);
+  --tooltip-padding: 10px 15px;
+  --tooltip-space: 7px;
+  --tooltip-text-color: #FFF;
+  --tooltip-max-width: 250px;
+
+
   /* Tree */
   --tree-background-color: var(--theme-container-background-color);
   --tree-icon-background-color: var(--theme-accent-color);

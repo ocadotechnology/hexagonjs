@@ -1,0 +1,22 @@
+@version nextReleaseVersion
+  @example
+    @@html
+      <div id="tooltip"></div>
+
+    @@js
+      hx.select('#tooltip')
+        .set(hx.tooltip({
+          text: 'A little bit more information',
+          label: 'Text tooltip label'
+        }));
+
+  @example
+    @@html
+      <div id="tooltip-icon"></div>
+
+    @@js
+      hx.select('#tooltip-icon')
+        .set(hx.tooltip({
+          icon: 'fas fa-info-circle',
+          text: 'A little bit more information',
+        }));

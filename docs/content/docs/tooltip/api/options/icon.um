@@ -1,0 +1,9 @@
+@property? icon [String]
+  @description
+    @optionRequiresFA5
+
+    The icon for the user to hover over to display the tooltip.
+
+    It should be a fontawesome icon.
+
+    You can only use a label or an icon, not both.
