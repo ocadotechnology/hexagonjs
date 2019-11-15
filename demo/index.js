@@ -1675,6 +1675,18 @@
         } ],
     }) ]); }
 
+  function tooltipExamples () { return [
+    hx.tooltip({ text: 'A little bit more information', label: 'Text tooltip label' }),
+    hx.tooltip({ text: 'A little bit more information', icon: 'fab fa-angellist' }),
+    hx.detached('p')
+      .add(hx.span().text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nisi purus, sagittis sit amet ipsum sed, dictum placerat massa. '))
+      .add(hx.span().text('Morbi id vulputate quam. Nulla ultricies mauris ligula, vitae luctus leo ullamcorper at. '))
+      .add(hx.tooltip({
+        text: 'Aliquam erat volutpat. Aenean ac lacus volutpat, tempus magna ac, dapibus orci. Pellentesque quis leo fermentum, sodales mi vitae, sodales purus. Ut ultricies mattis nibh ut facilisis. Fusce quis scelerisque ex. Morbi blandit efficitur nisl non lacinia. Suspendisse potenti. In consequat dictum faucibus. Donec ornare elit id ultricies ornare.',
+        label: 'Proin eu lacinia odio. ',
+      }))
+      .add(hx.span().text('Vestibulum porta nisl a justo elementum ullamcorper. Duis sagittis velit auctor fermentum ullamcorper.')) ]; }
+
   var select = hx.select;
   var selectAll = hx.selectAll;
   var div = hx.div;
@@ -1803,7 +1815,8 @@
     example('Time Picker').add(tryDemo(timePickerExamples)),
     example('Time Slider').add(tryDemo(timeSliderExamples)),
     example('Toggle').add(tryDemo(toggleExamples)),
-    example('Tree').add(tryDemo(treeExamples)) ];
+    example('Tree').add(tryDemo(treeExamples)),
+    example('Tooltip').add(tryDemo(tooltipExamples)) ];
 
   select('body')
     .add(div('sidebar')
