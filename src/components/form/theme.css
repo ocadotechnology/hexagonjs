@@ -59,6 +59,13 @@
   margin-top: var(--form-label-spacing);
 }
 
+.hx-form-message-warning {
+  font-style: var(--form-message-font-style);
+  font-weight: var(--form-message-label-font-weight);
+  color: var(--form-message-warning-text-color);
+  margin-top: var(--form-label-spacing);
+}
+
 .hx-form-group:not(:last-child) {
   margin-bottom: var(--form-input-spacing);
 }

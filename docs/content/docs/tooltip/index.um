@@ -1,0 +1,26 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Tooltip
+  @description
+    A component for showing a small panel on hover, with supporting information elaborating content on screen.
+
+
+@contentSection
+  @notice [Tooltip Alignment]
+    The alignment will be updated in a later release to be centred above the label/icon
+    (or below if there is not enough space).
+
+    The current alignment is MVP and slightly off for icons.
+
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/tooltip/changelog)[Change Log]
+
+    @inline api.um

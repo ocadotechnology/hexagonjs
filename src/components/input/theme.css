@@ -51,7 +51,9 @@
 }
 
 .hx-input-radio:invalid::after,
-.hx-input-checkbox:invalid::after {
+.hx-input-radio.hx-input-invalid::after,
+.hx-input-checkbox:invalid::after,
+.hx-input-checkbox.hx-input-invalid::after {
   color: var(--input-invalid-border-color);
 }
 
@@ -61,7 +63,9 @@
 }
 
 .hx-input:invalid,
-.hx-input-textarea:invalid {
+.hx-input.hx-input-invalid,
+.hx-input-textarea:invalid,
+.hx-input-textarea.hx-input-invalid {
   border-width: var(--input-invalid-border-width);
   border-style: var(--input-invalid-border-style);
   border-color: var(--input-invalid-border-color);
