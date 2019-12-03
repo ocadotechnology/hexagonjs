@@ -35,14 +35,9 @@ positionDropdown = ({selection, dropdown, useScroll}, {align, matchWidth}) ->
     scrollbarSize(),
   )
 
-  yPos = 'top'
   if not parentFixed
     x += window.scrollX || window.pageXOffset
     y += window.scrollY || window.pageYOffset
-
-    if direction is 'up'
-      yPos = 'bottom'
-      y = document.body.clientHeight - y - dropdownRect.height
 
   # update the styles for the dropdown
   if zIndex > 0
@@ -65,7 +60,7 @@ positionDropdown = ({selection, dropdown, useScroll}, {align, matchWidth}) ->
     .attr('data-direction', direction)
     .style('top', 'auto')
     .style('bottom', undefined)
-    .style(yPos, y + 'px')
+    .style('top', y + 'px')
     .style('left', x + 'px')
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
