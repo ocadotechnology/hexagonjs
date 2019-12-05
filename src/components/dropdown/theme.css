@@ -6,7 +6,7 @@
 }
 
 .hx-dropdown-up {
-  margin-bottom: calc(-1 * var(--dropdown-spacing));
+  margin-top: calc(-1 * var(--dropdown-spacing));
 }
 
 .hx-dropdown-down {
