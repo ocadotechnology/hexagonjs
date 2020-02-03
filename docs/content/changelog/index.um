@@ -591,3 +591,7 @@
         Added a tooltip component to provide additional information for icons or text.
 
         Resolved an issue in the form styles for error messages.
+
+    @version 2.5.3
+      @description
+        Resolved an issue with the date time localizer where values typed in the input did not work for non DD/MM/YYYY locales
