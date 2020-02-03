@@ -251,10 +251,16 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
 
     const date = new Intl.DateTimeFormat(locale, {
       timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
     });
 
     const gbDate = new Intl.DateTimeFormat('en-GB', {
       timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
     });
 
     const time = new Intl.DateTimeFormat(locale, {
