@@ -1,3 +1,8 @@
+@bugfix 2.5.3
+  @description
+    Resolve an issue with localisation where non DD/MM/YYYY locales could not have
+    a date entered via the input.
+
 @bugfix 0.14.1
   @description
     Fixed an issue where the events were firing out of order.

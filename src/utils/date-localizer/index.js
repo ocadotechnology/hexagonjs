@@ -251,10 +251,16 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
 
     const date = new Intl.DateTimeFormat(locale, {
       timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     const gbDate = new Intl.DateTimeFormat('en-GB', {
       timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     const time = new Intl.DateTimeFormat(locale, {
@@ -301,8 +307,15 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
       return result;
     }
 
-    const dateOrder = getDateOrder(date
-      .format(new Date(Date.UTC(dateOrderYear, dateOrderMonth - 1, dateOrderDay, 12))));
+    const staticDate = new Date(Date.UTC(
+      Number(dateOrderYear),
+      Number(dateOrderMonth) - 1,
+      Number(dateOrderDay),
+      12,
+    ));
+
+    const dateOrder = getDateOrder(date.format(staticDate));
+    const [, { value: dateSeparator }] = date.formatToParts(staticDate);
 
     // 2019-05-19 is a Sunday
     const weekDays = range(7).map((_, i) => weekDay
@@ -322,6 +335,7 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
       months,
       fullMonths,
       dateOrder,
+      dateSeparator,
     };
     return this;
   }
@@ -410,7 +424,7 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
       split = dateString.split('-');
     } else {
       order = this.dateOrder();
-      split = dateString.split('/');
+      split = dateString.split(this._.constants.dateSeparator);
     }
     const allValid = split.length === 3 && !split.some(e => e === '' || e === '0');
     if (allValid) {
@@ -437,7 +451,9 @@ class IntlDateTimeLocalizer extends PreferencesHandler {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return new Date(Date.UTC(year, month - 1, day));
+        const convertedDate = new Date(Date.UTC(year, month - 1, day));
+        const timezoneOffset = preferences.getTimezoneOffset(convertedDate, this.timezone());
+        return new Date(convertedDate.getTime() - (timezoneOffset * 1000 * 60 * 60));
       }
       return new Date('Invalid Date');
     }

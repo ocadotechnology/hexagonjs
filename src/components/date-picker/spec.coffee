@@ -17,6 +17,7 @@ export default () ->
     animationDelay = 301
     origAttachSelector = dropdownConfig.attachToSelector
     originalLoggerWarn = logger.warn
+    inputDebounceDelay = 501
 
     fixture = undefined
     body = select('body')
@@ -307,7 +308,6 @@ export default () ->
 
             describe 'and passing a dateValidityCallback', ->
               dateValidityCallback = undefined
-              inputDebounceDelay = 501
 
               beforeEach ->
                 input.remove()
@@ -526,7 +526,7 @@ export default () ->
               intlDp = new DatePicker(fixture.append(div()))
 
             it 'has the correct screen date', () ->
-              intlDp.getScreenDate().should.equal('5/21/2019')
+              intlDp.getScreenDate().should.equal('05/21/2019')
 
             it 'has the correct date', () ->
               intlDp.date().should.eql(new Date(2019, 4, 22))
@@ -536,7 +536,129 @@ export default () ->
                 preferences.timezone('Europe/London')
 
               it 'has the correct screen date', () ->
-                intlDp.getScreenDate().should.equal('5/22/2019')
+                intlDp.getScreenDate().should.equal('05/22/2019')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 4, 22))
+
+          describe 'when using en-CA and America/Los_Angeles', () ->
+            intlDp = undefined
+            input = undefined
+            dateValidityCallback = undefined
+            clock = undefined
+
+            beforeEach () ->
+              dateValidityCallback = chai.spy()
+              preferences.locale('en-CA')
+              preferences.timezone('America/Los_Angeles')
+              input = fixture.append('input');
+              intlDp = new DatePicker(input, {
+                v2Features: {
+                  dontModifyDateOnError: true,
+                  displayLongMonthInCalendar: true,
+                  dontSetInitialInputValue: true,
+                  updateVisibleMonthOnDateChange: true,
+                  dateValidityCallback: dateValidityCallback,
+                }
+              })
+              clock = installFakeTimers()
+
+            afterEach () ->
+              clock.restore()
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('2019-05-21')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(2019, 4, 22))
+
+            describe 'then typing a value', () ->
+              input = undefined
+
+              beforeEach ->
+                input.value('2019-03-25')
+                emit(input.node(), 'input')
+                clock.tick(inputDebounceDelay)
+
+              it 'sets the input value correctly', () ->
+                input.value().should.equal('2019-03-25')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 2, 25))
+
+              it 'calls the validate function with true', ->
+                dateValidityCallback.should.have.been.called.with(true, undefined)
+
+              it 'calls the validate function once', ->
+                dateValidityCallback.should.have.been.called.exactly(1)
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('2019-05-22')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 4, 22))
+
+          describe 'when using ja and America/Los_Angeles', () ->
+            intlDp = undefined
+            input = undefined
+            dateValidityCallback = undefined
+            clock = undefined
+
+            beforeEach () ->
+              dateValidityCallback = chai.spy()
+              preferences.locale('ja')
+              preferences.timezone('America/Los_Angeles')
+              input = fixture.append('input');
+              intlDp = new DatePicker(input, {
+                v2Features: {
+                  dontModifyDateOnError: true,
+                  displayLongMonthInCalendar: true,
+                  dontSetInitialInputValue: true,
+                  updateVisibleMonthOnDateChange: true,
+                  dateValidityCallback: dateValidityCallback,
+                }
+              })
+              clock = installFakeTimers()
+
+            afterEach () ->
+              clock.restore()
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('2019/05/21')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(2019, 4, 22))
+
+            describe 'then typing a value', () ->
+              input = undefined
+
+              beforeEach ->
+                input.value('2019/03/22')
+                emit(input.node(), 'input')
+                clock.tick(inputDebounceDelay)
+
+              it 'sets the input value correctly', () ->
+                input.value().should.equal('2019/03/22')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 2, 22))
+
+              it 'calls the validate function with true', ->
+                dateValidityCallback.should.have.been.called.with(true, undefined)
+
+              it 'calls the validate function once', ->
+                dateValidityCallback.should.have.been.called.exactly(1)
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('2019/05/22')
 
               it 'has the correct date', () ->
                 intlDp.date().should.eql(new Date(2019, 4, 22))
@@ -596,7 +718,7 @@ export default () ->
               })
 
             it 'has the correct screen date', () ->
-              intlDp.getScreenDate().should.equal('5/21/2019')
+              intlDp.getScreenDate().should.equal('05/21/2019')
 
             it 'has the correct date', () ->
               intlDp.date().should.eql(new Date(testDateMs))
@@ -606,7 +728,7 @@ export default () ->
                 preferences.timezone('Europe/London')
 
               it 'has the correct screen date', () ->
-                intlDp.getScreenDate().should.equal('5/22/2019')
+                intlDp.getScreenDate().should.equal('05/22/2019')
 
               it 'has the correct date', () ->
                 intlDp.date().should.eql(new Date(testDateMs))
