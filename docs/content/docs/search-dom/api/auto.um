@@ -12,7 +12,7 @@
   @description
     A function that allows the searching of DOM pages within openable elements such as trees or collapsibles.
 
-  @arg selector [String/HTMLElement]
+  @arg selector [String/HTMLElement/Selection]
     @description
       The selector to search within
 
@@ -57,7 +57,7 @@
   @description
     A helper function for clearing the search from a selector
 
-  @arg? selector [String/HTMLElement]
+  @arg? selector [String/HTMLElement/Selection]
     @description
       The selector to clear the search results for.
 

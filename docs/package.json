@@ -10,7 +10,8 @@
     "postinstall": "node build/build-hexagon.js",
     "start": "quantum watch",
     "build": "quantum build",
-    "clean": "rm -rf target"
+    "clean": "rm -rf target",
+    "ts": "node quantum.config.typescript.js && tslint --project tsconfig.json -c tslint.json 'typescript/hexagon.d.ts' --fix && tsfmt typescript/hexagon.d.ts --replace"
   },
   "private": true,
   "devDependencies": {

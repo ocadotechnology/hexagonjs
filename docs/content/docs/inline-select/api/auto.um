@@ -8,7 +8,7 @@
   @extends EventEmitter
   @constructor
     @removed 0.13.0
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
@@ -61,7 +61,7 @@
   @constructor
     @added 0.13.0
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
@@ -90,7 +90,7 @@
           a
           value...'
 
-      @property items [Array/Function]
+      @property items [Function/Array[Any]]
         @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
@@ -115,7 +115,7 @@
     @description
       Sets the list of items that will be shown in the select dropdown.
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The currently set items
 

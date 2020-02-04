@@ -525,7 +525,7 @@
     @description
       Creates a new axis with the options specified and adds it to the graph. Returns the new Axis instance.
 
-    @arg? options [Object]
+    @arg? options [AxisOptions]
     @returns [Axis]
 
   @method redrawOnResize
@@ -698,7 +698,7 @@
     @description
       The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-  @property xDiscreteLabels [Array]
+  @property xDiscreteLabels [Array[Any]]
     @deprecated 0.15.2
       @description
         Use @code[Axis.x.discreteLabels()] instead. @code[Axis.x.discreteLabels()] to get, @code[Axis.x.discreteLabels(value)] to set.
@@ -855,7 +855,7 @@
     @description
       The padding between discrete values on the y axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-  @property yDiscreteLabels [Array]
+  @property yDiscreteLabels [Array[Any]]
     @deprecated 0.15.2
       @description
         Use @code[Axis.y.discreteLabels()] instead. @code[Axis.y.discreteLabels()] to get, @code[Axis.y.discreteLabels(value)] to set.
@@ -1455,7 +1455,7 @@
       @description
         The type of series to add. Can be one of 'line', 'bar', 'band', 'scatter' and 'straight-line'
 
-    @arg? options [Object]
+    @arg? options [SeriesOptions]
       @description
         The options to pass to the series when constructing.
 
@@ -6226,7 +6226,7 @@
     @description
       Creates a new pie chart object.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         An HTMLElement or CSS selector which selects the graph's container.
 
@@ -7091,7 +7091,7 @@
   @description
     Provides a function for declaring graphs as an object, as alternative to the builder pattern use by the rest of the plot api.
 
-  @arg selector [String/HTMLElement]
+  @arg selector [String/HTMLElement/Selection]
     @description
       A css selector or HTMLElement that uniquely identifies the container within the page.
 
@@ -7347,7 +7347,7 @@
         @description
           The fill color to use
 
-      @property data [Array]
+      @property data [Array[Any]]
         @description
            An array of numbers - each number will be a data point in the sparkline.
 

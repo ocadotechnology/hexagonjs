@@ -67,7 +67,7 @@
     @description
       Sets up / prepares a selection for displaying data in an expandable tree.
 
-    @arg selection [String/HTMLElement]
+    @arg selection [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies your tree.
 
@@ -144,7 +144,7 @@
     @description
       Sets up / prepares a selection for displaying data in an expandable tree.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies your tree.
 

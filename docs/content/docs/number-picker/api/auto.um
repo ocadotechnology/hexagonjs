@@ -27,7 +27,7 @@
       @description
         Use hx.NumberPicker(selector, options) instead.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to build the number picker inside of
 
@@ -147,7 +147,7 @@
 
   @constructor
     @added 0.13.0
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element or CSS selector string that uniquely identifies the element to initialise the number picker into
 

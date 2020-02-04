@@ -9,7 +9,7 @@
         array = ['Bob Stevenson', 'Steve Stevenson', 'Dave Peters']
         hx.filter.fuzzy(array, 'ss') // returns ['Steve Stevenson', 'Bob Stevenson'] as the match in Steve Stevenson is stronger.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -66,11 +66,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -78,7 +78,7 @@
     @description
       A function that allows filtering of array values that match a search term exactly.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -135,11 +135,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -147,7 +147,7 @@
     @description
       A function that allows filtering of array values that start with a search term.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -204,11 +204,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -216,7 +216,7 @@
     @description
       A function that allows filtering of array values that contain a search term.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -273,11 +273,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -285,7 +285,7 @@
     @description
       A function that allows filtering of array values that are less than or equal to a search term.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -342,11 +342,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -354,7 +354,7 @@
     @description
       A function that allows filtering of array values that are greater than or equal to a search term.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -411,11 +411,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -423,7 +423,7 @@
     @description
       A function that allows filtering of array values that are don't contain a search term.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -480,11 +480,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 
@@ -492,7 +492,7 @@
     @description
       A function that allows filtering of array values using a regular expression.
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array to filter
 
@@ -552,11 +552,11 @@
           @description
             The item from the array passed into hx.filter
 
-        @returns [Array]
+        @returns [Array[Any]]
           @description
             an array of values that should be searched when filtering/sorting
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The filtered/sorted array
 

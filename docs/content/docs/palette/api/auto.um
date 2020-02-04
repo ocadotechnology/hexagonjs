@@ -139,22 +139,52 @@
       Applies the text color to a child element of any element with a background class.
 
 @object hx.theme.palette
-  @property defaultCol [String The default color used by the current theme]
-  @property positiveCol [String The positive color used by the current theme]
-  @property negativeCol [String The negative color used by the current theme]
-  @property warningCol [String The warning color used by the current theme]
-  @property infoCol [String The info color used by the current theme]
-  @property complimentCol [String The complimentary color used by the current theme]
-  @property contrastCol [String The contrasting color used by the current theme]
-  @property lightTextCol [String The light text color used by the current theme]
-  @property darkTextCol [String The dark text color used by the current theme]
+  @property defaultCol [String]
+    @description
+      The default color used by the current theme
+
+  @property positiveCol [String]
+    @description
+      The positive color used by the current theme
+
+  @property negativeCol [String]
+    @description
+      The negative color used by the current theme
+
+  @property warningCol [String]
+    @description
+      The warning color used by the current theme
+
+  @property infoCol [String]
+    @description
+      The info color used by the current theme
+
+  @property complimentCol [String]
+    @description
+      The complimentary color used by the current theme
+
+  @property contrastCol [String]
+    @description
+      The contrasting color used by the current theme
+
+  @property lightTextCol [String]
+    @description
+      The light text color used by the current theme
+
+  @property darkTextCol [String]
+    @description
+      The dark text color used by the current theme
+
   @property complimentCol [String]
     @added 1.0.0
     @removed 1.0.0
       @description
         Use hx.theme.palette.complementCol instead
 
-  @property complementCol [String The complementary color used by the current theme]
+  @property complementCol [String]
+    @description
+      The complementary color used by the current theme
+
     @added 1.0.0
 
 @class hx-border-default

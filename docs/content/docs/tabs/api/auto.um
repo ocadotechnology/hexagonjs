@@ -7,7 +7,7 @@
     @description
       Sets up a tabs layout.
 
-    @arg selection [String/HTMLElement]
+    @arg selection [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies the tabs section.
 

@@ -20,7 +20,7 @@
     @description
       Create a pivot table object.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to create the table in.
 

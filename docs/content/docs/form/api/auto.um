@@ -36,7 +36,7 @@
         // Do nothing if the form isn't valid (as the validateForm function will show a message)
       });
 
-  @arg form [String/HTMLElement]
+  @arg form [String/HTMLElement/Selection]
     @description
       A css selector that selects the form to validate, or the form element
 
@@ -93,7 +93,7 @@
         // Do nothing if the form isn't valid (as the validateForm function will show a message)
       });
 
-  @arg form [String/HTMLElement]
+  @arg form [String/HTMLElement/Selection]
     @description
       A css selector that selects the form to validate, or the form element itself to validate
 

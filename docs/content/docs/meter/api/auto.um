@@ -24,7 +24,7 @@
       hx.Meter has been deprecated and will be removed in the next major release
 
   @constructor
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies the container for the meter.
 

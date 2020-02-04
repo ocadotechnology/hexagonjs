@@ -44,7 +44,7 @@
     @description
       Creates a table with sticky headers.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector of the table or table container to use when creating the sticky headers.
 

@@ -7,7 +7,7 @@
     A map collection type.
 
   @constructor
-    @arg? array [Array]
+    @arg? array [Array[Any]]
       @description
         An array of 2-element arrays containing the values to initialise the map with
 
@@ -35,7 +35,7 @@
     @description
       Returns the items in the map as an array of 2-element arrays. The first entry in each of these arrays is the key, the second entry is the value.
 
-    @returns [Array]
+    @returns [Array[Any]]
 
   @method forEach
     @description
@@ -83,7 +83,7 @@
     @description
       Returns an array of the keys in this Map.
 
-    @returns [Array]
+    @returns [Array[Any]]
 
   @method set
     @description
@@ -103,5 +103,5 @@
     @description
       Returns an array of the values in this Map.
 
-    @returns [Array]
+    @returns [Array[Any]]
 

@@ -24,7 +24,7 @@
       @description
         Use @code[hx.Dropdown(selector, dropdownContent, options)] instead.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element the user has to click or hover over to show the dropdown
 
@@ -101,7 +101,7 @@
           // new way
           new hx.Dropdown(selector, dropdownContent, mode, align, spacing, matchWidth, ddClass)]
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
     @arg mode [String]
     @arg dropdownContent [String/Function]
     @arg? align [String]
@@ -181,7 +181,7 @@
   @constructor
     @added 0.13.0
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element the user has to click or hover over to show the dropdown
 
@@ -192,6 +192,7 @@
           ddContent = '<div>Some content</div>';
 
       @arg node [HTMLElement]
+        @removed 1.14.0
         @description
           The dropdown node to populate.
 
@@ -260,6 +261,7 @@
           ddContent = '<div>Some content</div>';
 
       @arg node [HTMLElement]
+        @removed 1.14.0
         @description
           The dropdown node to populate.
 

@@ -116,7 +116,7 @@
           @description
             The type of text field - the default is 'text'.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
@@ -198,7 +198,7 @@
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
@@ -292,7 +292,7 @@
           @description
             The maximum value the number input should allow. By default there is no maximum.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
@@ -367,7 +367,7 @@
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
@@ -441,7 +441,7 @@
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
@@ -1059,7 +1059,7 @@
           @description
             The type of text field - the default is 'textarea'.
 
-        @property attrs [Array]
+        @property attrs [Array[Any]]
           @description
             Additional attributes to give the textarea input. This should be an array of objects with type and value properties.
 
@@ -1296,7 +1296,7 @@
         @description
           The field name.
 
-      @arg values [Array/Function]
+      @arg values [Function/Array[Any]]
         @description
           An array of items or a function that supplies a list of items. See the
 

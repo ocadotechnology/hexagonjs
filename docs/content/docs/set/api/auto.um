@@ -7,7 +7,7 @@
     @description
       A set collection type.
 
-    @arg? array [Array]
+    @arg? array [Array[Any]]
       @description
         An optional array containing the values to initialise the set with
 
@@ -47,7 +47,7 @@
     @description
       Returns the items in the set as an array of 2-element arrays. The first entry in each of these arrays is the value, the second entry is also the value. This is just how the ES6 spec currently says to do things, presumably to stay consistent with the Map collection.
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         An array of all the values from the set
 
@@ -83,7 +83,7 @@
     @description
       Does the same as values()
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         An array of all the values from the set
 
@@ -91,7 +91,7 @@
     @description
       Returns an array of the items in this Set.
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         An array of all the values from the set
 

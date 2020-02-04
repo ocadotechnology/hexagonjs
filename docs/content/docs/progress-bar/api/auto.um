@@ -15,7 +15,7 @@
     @description
       Creates a progress bar
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to create the progressbar inside.
 
@@ -75,7 +75,7 @@
     @description
       A method for applying an array of segments to a progress bar.
 
-    @arg segments [Array]
+    @arg segments [Array[Any]]
       @updated 0.13.0
         @description
           Added the ability to clear the segments by passing in undefined as the segments parameter.
@@ -133,7 +133,7 @@
     @description
       A method for getting the segments in a progressbar
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The currently set segments for the progressbar
 
@@ -145,7 +145,7 @@
     @description
       Creates a progress bar
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to create the progressbar inside.
 
@@ -153,7 +153,7 @@
       @description
         The options to use when setting up the progressbar.
 
-      @property segments [Array]
+      @property segments [Array[Any]]
         @description
           The array of segments to initialise the progressbar with.
 

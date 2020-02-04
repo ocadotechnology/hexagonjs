@@ -38,10 +38,10 @@
   @constructor
     @description
       Add an auto complete suggestions dropdown to an input box
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       The selector of the input box to add an auto complete to.
 
-    @arg items [Array/Function]
+    @arg items [Function/Array[Any]]
       @inline AutoComplete/arguments/items.um
 
     @arg? options [Object]
@@ -57,7 +57,7 @@
     Creates a new AutoComplete set up on a detached element, wrapped in a
     selection
 
-  @arg items [Array/Function]
+  @arg items [Function/Array[Any]]
     @added 1.3.0
     @inline AutoComplete/arguments/items.um
 

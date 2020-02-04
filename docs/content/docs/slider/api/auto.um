@@ -26,7 +26,7 @@
     @description
       Sets up a slider.
 
-    @arg selection [String/HTMLElement]
+    @arg selection [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies your slider.
 
@@ -154,7 +154,7 @@
 
   @constructor
     @added 0.10.0
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element used to create the slider
 
@@ -218,7 +218,7 @@
         @description
           The step to use when building the slider. The slider will display with points at intervals at the step value, starting from the minimum value. The maximum step will always be less than or equal to the maximum value of the slider.
 
-      @property discreteValues [Array]
+      @property discreteValues [Array[Any]]
         @description
           An array of values to use on the slider. They will display in the order provided and will be spaced evenly along the slider.
 
@@ -366,7 +366,7 @@
       @description
         Use @code[discreteValues] instead
 
-    @arg array [Array]
+    @arg array [Array[Any]]
     @arg? render [Boolean]
       @default
         true
@@ -376,7 +376,7 @@
     @description
       Makes the slider a discrete value, using the values provided
 
-    @arg array [Array]
+    @arg array [Array[Any]]
       @description
         The array of discrete values to use
 
@@ -396,7 +396,7 @@
     @description
       Gets the descrete values set for this slider
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The array of discrete values (if set - it will be undefined if not set)
 

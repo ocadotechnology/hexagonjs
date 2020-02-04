@@ -340,7 +340,7 @@
         @description
           The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
 
-    @arg? buttons [Array]
+    @arg? buttons [Array[Any]]
       @description
         The array of buttons to show in the modal.
 
@@ -440,7 +440,7 @@
         @description
           The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
 
-    @arg? buttons [Array]
+    @arg? buttons [Array[Any]]
       @description
         The array of buttons to show in the modal.
 
@@ -506,7 +506,7 @@
       @description
         Options for configuring the dialog.
 
-      @property buttons
+      @property buttons [Array[Any]]
         @description
           The array of buttons to show in the modal.
 

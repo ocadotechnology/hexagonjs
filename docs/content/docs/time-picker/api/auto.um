@@ -37,7 +37,7 @@
     @description
       Creates a timepicker with the current time
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector of the div to turn into a timepicker.
 
@@ -514,7 +514,7 @@
     @description
       Creates a timepicker with the current time
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector of the div to turn into a time picker.
 

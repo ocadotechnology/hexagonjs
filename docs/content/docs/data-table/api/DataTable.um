@@ -80,7 +80,7 @@
   @constructor
     @description
       Creates a table object using a selector and some options.
-    @arg selector [String/HTMLElement]: A CSS selector string which uniquely identifies the element to create the table in, or the Element to create the table in.
+    @arg selector [String/HTMLElement/Selection]: A CSS selector string which uniquely identifies the element to create the table in, or the Element to create the table in.
     @arg? options [Object]: The options to use when creating the data table
 
       @property allowHeaderWrap [Boolean]: A boolean to determine whether table headers should be allowed to wrap onto multiple lines.
@@ -885,7 +885,7 @@
   @method selectedRows
     @description
       Gets the selected rows
-    @returns value [Array[String]]: The array of selected row ids
+    @returns [Array[String]]: The array of selected row ids
 
   @method selectedRows
     @description
@@ -898,7 +898,7 @@
   @method expandedRows
     @description
       Gets the expanded rows
-    @returns value [Array[String]]: The array of expanded row ids
+    @returns [Array[String]]: The array of expanded row ids
 
   @method expandedRows
     @description
@@ -1165,7 +1165,7 @@
     A data table expects data to be returned in the callback of each function with a specific value.
     If a custom feed is created, it must return the values expected by the table.
 
-  @function headers: A function to get a list of header objects
+  @property headers [Function]: A function to get a list of header objects
     @arg callback [Function]: The function to call once the data has been retrieved.
       @arg data [Array[Object]]
         @description
@@ -1179,11 +1179,11 @@
               ... // Additional headers
             ]
 
-  @function totalCount: A function to get the total number of rows in the data set.
+  @property totalCount [Function]: A function to get the total number of rows in the data set.
     @arg callback [Function]: The function to call once the data has been retrieved.
       @arg data [Number]: The total number of rows. This can be undefined if you don't know the total number of rows in the data set.
 
-  @function rows: A function to get the row data for the range object specified along with the filtered count
+  @property rows [Function]: A function to get the row data for the range object specified along with the filtered count
     @updated 1.5.0
       @description
         Updated the range parameter to include new advanced search properties
@@ -1269,7 +1269,7 @@
 
             A cell value must be provided for each column id for every row
 
-  @function rowsForIds
+  @property rowsForIds [Function]
     @description
       Gets the rows for an array of id's in the data.
       This is used when @code[DataTable::rowsForIds] is called.
@@ -1285,7 +1285,7 @@
 
     See the Using Feeds section for more information about using and creating Feeds.
 
-  @function objectFeed
+  @property objectFeed [Function]
     @bugfix 1.10.0
       @description
         Resolved an issue where the object feed was using a cached set of filtered rows incorrectly when sorting multiple times on the same column
@@ -1394,7 +1394,7 @@
     @returns Feed: A feed object. See the @code[Feed] object for more information on what a feed contains.
 
 
-  @function urlFeed
+  @property urlFeed [Function]
     @description
       Creates a url fee using the provided url. The feed will then make requests to retrieve the various chunks of data as they are required.
 
@@ -1406,7 +1406,7 @@
 
     @returns Feed: A feed object. See the @code[Feed] object for more information on what a feed contains.
 
-  @function getAdvancedSearchFilter
+  @property getAdvancedSearchFilter [Function]
     @added 1.5.0
       @description
         Added a helper for creating custom feeds using the advanced search

@@ -11,7 +11,7 @@
 
   @constructor
     @description: Creates a crumbtrail element for rendering a crumbtrail from JSON. Not required when building a HTML crumbtrail.
-    @arg selector [String/HTMLElement]: An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
+    @arg selector [String/HTMLElement/Selection]: An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
     @arg? options [Object]: The options to use when creating the crumbtrail
       @added 0.13.0
         @description
@@ -27,7 +27,7 @@
             crumbtrail.render(data, renderer);
         @arg element [HTMLElement]: The node of the crumbtrail.
         @arg data [Any]: The data related to the current crumbtrail node.
-      @property items [Array]: A nested array of objects that represent nodes in the crumbtrail.
+      @property items [Array[Any]]: A nested array of objects that represent nodes in the crumbtrail.
       @property separator [String]: A string or some html that separates each element in the crumbtrail. Defaults to '/'
 
   @method render
@@ -38,7 +38,7 @@
       Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
 
     @description: A method to set up a crumbtrail from a nested array of javascript objects.
-    @arg data [Array]: A nested array of objects that represent nodes in the crumbtrail.
+    @arg data [Array[Any]]: A nested array of objects that represent nodes in the crumbtrail.
     @arg? separator [String]: A string or some html that separates each element in the crumbtrail. Defaults to '/'
     @arg renderer [Function]
       @description
@@ -76,7 +76,7 @@
   @method items
     @added 0.13.0: Added a method for setting the items for a crumbtrail.
     @description: Sets the items for a crumbtrail.
-    @arg items [Array]: A nested array of objects that represent nodes in the crumbtrail.
+    @arg items [Array[Any]]: A nested array of objects that represent nodes in the crumbtrail.
     @returns Crumbtrail/Array: This Crumbtrail.
 
   @method items

@@ -6,7 +6,7 @@
   @extends EventEmitter
   @constructor
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
@@ -39,17 +39,20 @@
         @default
           'Choose a value...'
 
-      @property items [Array/Function]
+      @property items [Function/Array[Any]]
         @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
           This can also be set after the picker has been constructed using the @code[items] method.
 
-      @property renderer
+      @property renderer [Function]
         @description
           A function that renders the data in the dropdown and the picker button.
 
           This can also be set after the picker has been constructed using the @code[renderer] method.
+
+        @arg node [HTMLElement]
+        @arg data [Any]
 
         @default
           @@codeblock js
@@ -83,7 +86,7 @@
     @description
       Sets the list of items that will be shown in the picker dropdown.
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         The currently set items
 

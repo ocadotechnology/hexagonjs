@@ -13,18 +13,18 @@
         Use @code[hx.Sidebar(selector, options)] instead.
 
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A selector for the sidebar container element
 
-    @arg? headerSelector [String/HTMLElement]
+    @arg? headerSelector [String/HTMLElement/Selection]
       @description
         A selector for the titlebar header element
 
       @default
         '.hx-titlebar-header'
 
-    @arg? contentSelector [String/HTMLElement]
+    @arg? contentSelector [String/HTMLElement/Selection]
       @description
         A selector for the hx-content section
 
@@ -67,7 +67,7 @@
       @description
         Added new standardised constructor.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A selector for the sidebar container element
 
@@ -75,14 +75,14 @@
       @description
         The options to use when setting up the sidebar.
 
-      @property headerSelector [String/HTMLElement]
+      @property headerSelector [String/HTMLElement/Selection]
         @description
           A selector for the titlebar header element
 
         @default
           '.hx-titlebar-header'
 
-      @property contentSelector [String/HTMLElement]
+      @property contentSelector [String/HTMLElement/Selection]
         @description
           A selector for the hx-content section
 

@@ -118,7 +118,7 @@
     @description
       Clears the stored user's preferences - after calling this, the current users settings will be reset to the default values
 
-  @property supportedLocales [Array]
+  @property supportedLocales [Array[Any]]
     @description
       An array of locale codes that are supported by your application.
       The list must be a lower case list of locale codes:

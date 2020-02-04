@@ -90,7 +90,7 @@
     @description
       A method of adding multiple items from an array.
 
-    @arg items [Array]
+    @arg items [Array[Any]]
       @description
         An array of items
 
@@ -166,7 +166,7 @@
     @description
       A method of adding multiple items from an array.
 
-    @arg items [Array]
+    @arg items [Array[Any]]
       @description
         An array of items to add.
 
@@ -253,7 +253,7 @@
   @constructor
     @added 0.13.0
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element that will call the menu when clicked or hovered over
 
@@ -313,7 +313,7 @@
           @description
             The menu item to be rendered
 
-      @property dropdownOptions
+      @property dropdownOptions [DropdownOptions]
         @added 0.15.0
           @description
             Added a dropdownOptions object to the menu options to allow the setting of all the dropdown options.
@@ -388,7 +388,7 @@
     @description
       A method for getting the current items for the menu.
 
-    @returns [Array/Function]
+    @returns [Function/Array[Any]]
       @description
         The currently set items array of function for the menu.
 

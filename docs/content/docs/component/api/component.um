@@ -6,7 +6,7 @@
   @description
     Returns the component backing the element passed in.
 
-  @arg node [String/HTMLElement]
+  @arg node [String/HTMLElement/Selection]
     @description
       The element to retrieve the component from (or a css selector that uniqely
       identifies an element)
@@ -24,7 +24,7 @@
   @description
     Returns the components backing the element passed in.
 
-  @arg node [String/HTMLElement]
+  @arg node [String/HTMLElement/Selection]
     @description
       The element to retrieve the components from (or a css selector that
       uniquely identifies an element)
@@ -42,7 +42,7 @@
   @description
     Registers a component to the element passed in.
 
-  @arg node [String/HTMLElement]
+  @arg node [String/HTMLElement/Selection]
     @description
       The element to register the component for (or a css selector that uniquely
       identifies an element)
@@ -83,6 +83,6 @@
     @description
       Returns the components backing the selected elements.
 
-    @returns [Array[Object] / Array[Array[Object]]]
+    @returns [Array[Object]/Array[Array[Object]]]
       @description
         The objects backing the selected element.

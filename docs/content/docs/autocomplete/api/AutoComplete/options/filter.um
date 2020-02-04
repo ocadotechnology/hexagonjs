@@ -4,7 +4,7 @@
     when one of the @code[hx.filter] methods isn't suitable for
     filtering the data.
 
-  @arg array [Array]
+  @arg array [Array[Any]]
     @description
       The array from the AutoComplete cache or data source
 

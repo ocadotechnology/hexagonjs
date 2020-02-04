@@ -84,7 +84,7 @@
     @description:
       A method for organising the widgets in a dashboard after they have been added.
       Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
-    @arg order [Array]: An array containing the widget id's for the current dashboard in the desired order.
+    @arg order [Array[Any]]: An array containing the widget id's for the current dashboard in the desired order.
     @returns Dashboard: This dashboard
 
   @method order
