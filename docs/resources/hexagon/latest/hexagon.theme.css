@@ -1231,7 +1231,7 @@ h3.hx-flag-typography,
 }
 
 .hx-dropdown-up {
-  margin-bottom: var(--dropdown-spacing);
+  margin-top: calc(-1 * var(--dropdown-spacing));
 }
 
 .hx-dropdown-down {
