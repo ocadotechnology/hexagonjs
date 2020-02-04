@@ -4236,7 +4236,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.5.0";
+var version = "2.5.3";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -6100,7 +6100,7 @@ positionDropdown = function(ref, ref$1) {
   var useScroll = ref.useScroll;
   var align = ref$1.align;
   var matchWidth = ref$1.matchWidth;
-  var ddMaxHeight, direction, dropdownRect, parentFixed, rect, x, y, yPos, zIndex;
+  var ddMaxHeight, direction, dropdownRect, parentFixed, rect, x, y, zIndex;
   dropdown.style('display', 'block');
   // extract measurements from the dom
   rect = selection.box();
@@ -6121,14 +6121,9 @@ positionDropdown = function(ref, ref$1) {
     width: window.innerWidth,
     height: window.innerHeight
   }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y, direction = assign.direction));
-  yPos = 'top';
   if (!parentFixed) {
     x += window.scrollX || window.pageXOffset;
     y += window.scrollY || window.pageYOffset;
-    if (direction === 'up') {
-      yPos = 'bottom';
-      y = document.body.clientHeight - y - dropdownRect.height;
-    }
   }
   // update the styles for the dropdown
   if (zIndex > 0) {
@@ -6143,7 +6138,7 @@ positionDropdown = function(ref, ref$1) {
   if (useScroll && (dropdown != null)) {
     dropdown.style('overflow-y', 'auto');
   }
-  return dropdown.classed('hx-dropdown-up', direction === 'up').classed('hx-dropdown-down', direction === 'down').classed('hx-dropdown-left', direction === 'left').classed('hx-dropdown-right', direction === 'right').attr('data-direction', direction).style('top', 'auto').style('bottom', void 0).style(yPos, y + 'px').style('left', x + 'px');
+  return dropdown.classed('hx-dropdown-up', direction === 'up').classed('hx-dropdown-down', direction === 'down').classed('hx-dropdown-left', direction === 'left').classed('hx-dropdown-right', direction === 'right').attr('data-direction', direction).style('top', 'auto').style('bottom', void 0).style('top', y + 'px').style('left', x + 'px');
 };
 
 dropdownContentToSetupDropdown = function(dropdownContent) {
@@ -8938,10 +8933,16 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
 
     var date = new Intl.DateTimeFormat(locale, {
       timeZone: timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     var gbDate = new Intl.DateTimeFormat('en-GB', {
       timeZone: timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     var time = new Intl.DateTimeFormat(locale, {
@@ -8988,8 +8989,16 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       return result;
     }
 
-    var dateOrder = getDateOrder(date
-      .format(new Date(Date.UTC(dateOrderYear, dateOrderMonth - 1, dateOrderDay, 12))));
+    var staticDate = new Date(Date.UTC(
+      Number(dateOrderYear),
+      Number(dateOrderMonth) - 1,
+      Number(dateOrderDay),
+      12
+    ));
+
+    var dateOrder = getDateOrder(date.format(staticDate));
+    var ref = date.formatToParts(staticDate);
+    var dateSeparator = ref[1].value;
 
     // 2019-05-19 is a Sunday
     var weekDays = exports.range(7).map(function (_, i) { return weekDay
@@ -9009,6 +9018,7 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       months: months,
       fullMonths: fullMonths,
       dateOrder: dateOrder,
+      dateSeparator: dateSeparator,
     };
     return this;
   };
@@ -9096,7 +9106,7 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       split = dateString.split('-');
     } else {
       order = this.dateOrder();
-      split = dateString.split('/');
+      split = dateString.split(this._.constants.dateSeparator);
     }
     var allValid = split.length === 3 && !split.some(function (e) { return e === '' || e === '0'; });
     if (allValid) {
@@ -9123,7 +9133,9 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return new Date(Date.UTC(year, month - 1, day));
+        var convertedDate = new Date(Date.UTC(year, month - 1, day));
+        var timezoneOffset = preferences.getTimezoneOffset(convertedDate, this.timezone());
+        return new Date(convertedDate.getTime() - (timezoneOffset * 1000 * 60 * 60));
       }
       return new Date('Invalid Date');
     }
