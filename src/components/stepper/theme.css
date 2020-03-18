@@ -1,0 +1,41 @@
+.hx-stepper-progress-complete {
+  background-color: var(--stepper-number-selected-background-color);
+}
+
+.hx-stepper-progress-incomplete {
+  background-color: var(--stepper-number-default-background-color);
+}
+
+.hx-stepper-number {
+  width: var(--stepper-number-diameter);
+  height: var(--stepper-number-diameter);
+  line-height: var(--stepper-number-diameter);
+  background-color: var(--stepper-number-default-background-color);
+  color: var(--stepper-number-default-color);
+}
+
+.hx-stepper-number-selected {
+  background-color: var(--stepper-number-selected-background-color);
+  color: var(--stepper-number-selected-color);
+}
+
+.hx-stepper-number-complete {
+  background-color: var(--stepper-number-complete-background-color);
+  border-color: var(--stepper-number-complete-color);
+  color: var(--stepper-number-complete-color);
+}
+
+.hx-stepper-number-error {
+  background-color: var(--stepper-number-error-background-color);
+  color: var(--stepper-number-error-color);
+  border-color: transparent;
+}
+
+.hx-stepper-title {
+  color: var(--stepper-title-color);
+  padding: var(--stepper-title-padding);
+}
+
+.hx-stepper-title-error {
+  color: var(--stepper-title-error-color);
+}
