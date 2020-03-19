@@ -26,9 +26,7 @@ export default () => {
       fixture.remove();
     });
 
-    const setupStepper = (stepTitles) => {
-      return new Stepper(fixture, stepTitles);
-    };
+    const setupStepper = stepTitles => new Stepper(fixture, stepTitles);
 
     const assertStepsWithAppliedClasses = (stepTitles, expected) => {
       const stepper = setupStepper(stepTitles);
