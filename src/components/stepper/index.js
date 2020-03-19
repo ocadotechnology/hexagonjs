@@ -1,25 +1,28 @@
 import { div, i, select } from 'utils/selection';
 import logger from 'utils/logger';
-import { mergeDefined } from 'utils/utils';
 
 class Stepper {
-  constructor(selector, steps, options) {
+  constructor(selector, steps, options = {}) {
     this.selection = select(selector).classed('hx-stepper', true)
       .api('stepper', this)
       .api(this);
 
     this._ = {
       steps: [],
-      selectedStep: -1,
-      showError: false,
+      suppressed: true,
       view: undefined,
     };
 
-    this.options = mergeDefined({
-      showTitles: true,
-    }, options);
+    this.options = options;
 
     this.steps(steps);
+    this.selectedStep(options.selectedStep || 1);
+    this.showTitles(options.showTitles || true);
+    this.showError(options.showError || false);
+
+    this._.suppressed = false;
+
+    this.render();
   }
 
   steps(steps) {
@@ -28,7 +31,7 @@ class Stepper {
         throw new Error('Stepper: Expected at least two steps to display');
       }
       this._.steps = steps;
-      this._.selectedStep = 1;
+      this.options.selectedStep = 1;
       this.render();
       return this;
     }
@@ -39,15 +42,15 @@ class Stepper {
     if (arguments.length) {
       const numSteps = this.steps().length;
       if (selectedStep && selectedStep > 0 && selectedStep <= numSteps) {
-        this._.selectedStep = selectedStep;
-        this._.showError = false;
+        this.options.selectedStep = selectedStep;
+        this.options.showError = false;
         this.render();
       } else {
         logger.warn(`Stepper: Provided expected a number between 1 and ${numSteps}. You provided: ${selectedStep}`);
       }
       return this;
     }
-    return this._.selectedStep;
+    return this.options.selectedStep;
   }
 
   showTitles(showTitles) {
@@ -81,16 +84,20 @@ class Stepper {
 
   showError(showError) {
     if (arguments.length) {
-      if (this._.showError !== showError) {
-        this._.showError = showError;
+      if (this.options.showError !== showError) {
+        this.options.showError = showError;
         this.render();
       }
       return this;
     }
-    return this._.showError;
+    return this.options.showError;
   }
 
   render() {
+    if (this._.suppressed) {
+      return this;
+    }
+
     if (!this._.view) {
       this._.view = this.selection.view('.hx-stepper-step')
         .enter(function stepperEnter() {
@@ -138,6 +145,8 @@ class Stepper {
     }
 
     this._.view.apply(this.steps());
+
+    return this;
   }
 }
 
