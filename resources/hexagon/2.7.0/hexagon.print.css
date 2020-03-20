@@ -1,0 +1,130 @@
+@media not print {
+  .hx-print-only {
+    display: none;
+  }
+}
+
+@media print {
+  /* Fix layout and font size issues with root elements */
+  html,
+  body {
+    font-size: 12pt;
+    height: auto;
+    page-break-after: avoid;
+  }
+
+  /* Force body to display in print-friendly mode */
+  body {
+    background: transparent !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Hide elements that should not be shown when printing */
+  .hx-no-print,
+  .hx-spinner,
+  .hx-spinner-wide,
+  .hx-heading,
+  .hx-sidebar {
+    display: none !important;
+  }
+
+  /* Box shadows display badly when printing */
+  * {
+    box-shadow: none !important;
+  }
+
+  .hx-footnote-ref {
+    display: inline-block;
+    font-size: 0.8em;
+    font-style: italic;
+    margin-top: -0.5em;
+  }
+
+  /* Attempt prevention of page breaks inside important elements */
+  h1, h2, h3, h4, h5, h6,
+  table,
+  ul,
+  svg,
+  img,
+  form,
+  input,
+  .hx-footnote-links,
+  .hx-data-table,
+  .hx-card,
+  .hx-form,
+  .hx-table,
+  .hx-graph,
+  .hx-meter {
+    page-break-inside: avoid;
+  }
+
+  /* Attempt prevention of page breaks after heading elements */
+  h1, h2, h3, h4, h5, h6,
+  .hx-footnote-links {
+    page-break-after: avoid;
+  }
+
+  /* Reset font sizes for print (relative to 12pt) */
+  h1 {
+    font-size: 250%;
+  }
+
+  h2 {
+    font-size: 175%;
+  }
+
+  h3 {
+    font-size: 135%;
+  }
+
+  h4 {
+    font-size: 100%;
+    font-feature-settings: "c2sc";
+    font-variant: small-caps;
+  }
+
+  h5 {
+    font-size: 100%;
+  }
+
+  h6 {
+    font-size: 90%;
+    font-style: italic;
+  }
+
+  /* Prevent images flowing outside the printable area */
+  img {
+    max-width: 100% !important;
+  }
+
+  /* Remove the margin around content as this is handled by the print margin */
+  .hx-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Style links to be bold so they are visible as links */
+  a:link:not(.hx-btn),
+  a:visited:not(.hx-btn) {
+    font-weight: bolder;
+    text-decoration: underline;
+  }
+
+  /* Set the page margin */
+  @page {
+    margin: 1.5cm;
+  }
+}
+
+/* Make most browsers show background colors etc. by default when printing */
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

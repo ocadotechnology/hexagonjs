@@ -1687,6 +1687,36 @@
       }))
       .add(hx.span().text('Vestibulum porta nisl a justo elementum ullamcorper. Duis sagittis velit auctor fermentum ullamcorper.')) ]; }
 
+  function stepperExamples () {
+    var stepperDiv = hx.div();
+
+    var stepper = new hx.Stepper(stepperDiv, [
+      'First step title',
+      'Second step title',
+      'Third step: This has a title that may wrap onto multiple lines',
+      'Fourth step title' ]);
+
+    return hx.div('stepper-demo')
+      .add(hx.div()
+        .add(hx.button('hx-btn')
+          .text('Set step to 2')
+          .on('click', function () { return stepper.selectedStep(2); }))
+        .add(hx.button('hx-btn')
+          .text('Previous Step')
+          .on('click', function () { return stepper.prevStep(); }))
+        .add(hx.button('hx-btn')
+          .text('Next Step')
+          .on('click', function () { return stepper.nextStep(); }))
+        .add(hx.button('hx-btn')
+          .text('Toggle Error')
+          .on('click', function () { return stepper.showError(!stepper.showError()); }))
+        .add(hx.button('hx-btn')
+          .text('Toggle Titles')
+          .on('click', function () { return stepper.showTitles(!stepper.showTitles()); })))
+      .add('br')
+      .add(stepperDiv);
+  }
+
   var select = hx.select;
   var selectAll = hx.selectAll;
   var div = hx.div;
@@ -1816,7 +1846,8 @@
     example('Time Slider').add(tryDemo(timeSliderExamples)),
     example('Toggle').add(tryDemo(toggleExamples)),
     example('Tree').add(tryDemo(treeExamples)),
-    example('Tooltip').add(tryDemo(tooltipExamples)) ];
+    example('Tooltip').add(tryDemo(tooltipExamples)),
+    example('Stepper').add(tryDemo(stepperExamples)) ];
 
   select('body')
     .add(div('sidebar')

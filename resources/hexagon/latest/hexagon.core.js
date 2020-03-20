@@ -26,7 +26,7 @@ var logger = {
   // This set object tries to keep as close as possible to the currently planned spec for maps, which should make it
   // easy to swap out for the native implementation when it arrives and is well supported enough in browsers.
 
-  // used to avoid naming clashes when using objects as maps
+// used to avoid naming clashes when using objects as maps
 var checkPrefix, prefix, prefixChar, prefixString,
   indexOf = [].indexOf;
 
@@ -767,12 +767,12 @@ isPlainObject = function(obj) {
 
 groupBy = function(arr, f) {
   var category, l, len1, map, values, x;
-  map = new Map;
+  map = new Map();
   for (l = 0, len1 = arr.length; l < len1; l++) {
     x = arr[l];
     category = f(x);
     if (!map.has(category)) {
-      map.set(category, new List);
+      map.set(category, new List());
     }
     map.get(category).add(x);
   }
@@ -934,7 +934,7 @@ clone = function(obj) {
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (isObject(obj) && obj !== null) {
-    logger.warn(("Trying to clone " + obj + " with constructor " + ((obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0)) + ", it isn't really cloneable! Carrying on anyway."));
+    logger.warn(("Trying to clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway."));
     return {};
   } else {
     return obj;
@@ -956,7 +956,7 @@ shallowClone = function(obj) {
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (isObject(obj) && obj !== null) {
-    logger.warn(("Trying to shallow clone " + obj + " with constructor " + ((obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0)) + ", it isn't really cloneable! Carrying on anyway."));
+    logger.warn(("Trying to shallow clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway."));
     return {};
   } else {
     return obj;
@@ -1038,8 +1038,8 @@ var BasicEventEmitter;
 
 BasicEventEmitter = /*@__PURE__*/(function () {
   function BasicEventEmitter() {
-    this.callbacks = new Map;
-    this.allCallbacks = new List;
+    this.callbacks = new Map();
+    this.allCallbacks = new List();
   }
 
   // emit an object to all callbacks registered with the name given
@@ -1070,7 +1070,7 @@ BasicEventEmitter = /*@__PURE__*/(function () {
   BasicEventEmitter.prototype.on = function on (name, callback) {
     if (name) {
       if (!this.callbacks.has(name)) {
-        this.callbacks.set(name, new List);
+        this.callbacks.set(name, new List());
       }
       this.callbacks.get(name).add(callback);
     } else {
@@ -1100,10 +1100,10 @@ BasicEventEmitter = /*@__PURE__*/(function () {
       }
     } else {
       if (name) {
-        this.callbacks.set(name, new List);
+        this.callbacks.set(name, new List());
       } else {
-        this.callbacks = new Map;
-        this.allCallbacks = new List;
+        this.callbacks = new Map();
+        this.allCallbacks = new List();
       }
     }
     return this;
@@ -1140,9 +1140,9 @@ var EventEmitter = (function() {
   var addEmitter, removeEmitter;
 
   var EventEmitter = function EventEmitter() {
-    this.suppressedMap = new Map;
-    this.emitters = new List;
-    this.emittersMap = new Map;
+    this.suppressedMap = new Map();
+    this.emitters = new List();
+    this.emittersMap = new Map();
     this.global = addEmitter(this, 'default');
   };
 
@@ -1179,7 +1179,6 @@ var EventEmitter = (function() {
     var ee;
     if (namespace === 'default') {
       throw new Error('hx.EventEmitter: "default" is a reserved namespace. It can not be used as a namespace name.');
-      return this;
     }
     if (isString(namespace)) {
       ee = this.emittersMap.get(namespace);
@@ -1247,7 +1246,7 @@ var EventEmitter = (function() {
   };
   addEmitter = function(ee, namespace) {
     var be;
-    be = new BasicEventEmitter;
+    be = new BasicEventEmitter();
     ee.emittersMap.set(namespace, be);
     ee.emitters.add(be);
     return be;
@@ -1590,7 +1589,7 @@ fromString = function(str) {
     if (hsl[3] == null) {
       hsl[3] = 1;
     }
-    return (new Color).hsl(hsl);
+    return (new Color()).hsl(hsl);
   } else {
     return void 0;
   }
@@ -1602,15 +1601,15 @@ fromString = function(str) {
   })) {
     return void 0;
   }
-  return (new Color).rgb(rgb);
+  return (new Color()).rgb(rgb);
 };
 
 var color = function() {
   if (arguments.length >= 3) {
-    return (new Color).rgb([arguments[0], arguments[1], arguments[2], arguments[3]]);
+    return (new Color()).rgb([arguments[0], arguments[1], arguments[2], arguments[3]]);
   } else if (arguments.length === 1) {
     if (Array.isArray(arguments[0])) {
-      return (new Color).rgb(arguments[0]);
+      return (new Color()).rgb(arguments[0]);
     } else if (isColor(arguments[0])) {
       return arguments[0];
     } else {
@@ -1708,8 +1707,8 @@ var augmenters, bareSelect, classed, closestParent, domSelectAll, domSelectSingl
 
 var ElementSet = /*@__PURE__*/(function () {
   function ElementSet() {
-    this.elements = new List;
-    this.ids = new Set;
+    this.elements = new List();
+    this.ids = new Set();
   }
 
   ElementSet.prototype.add = function add (element) {
@@ -1846,7 +1845,7 @@ closestParent = function(selector, node) {
 
 flattenNodes = function(nodes) {
   var j, k, len, len1, node, nodearray, set;
-  set = new ElementSet;
+  set = new ElementSet();
   for (j = 0, len = nodes.length; j < len; j++) {
     nodearray = nodes[j];
     for (k = 0, len1 = nodearray.length; k < len1; k++) {
@@ -2368,12 +2367,12 @@ var Selection = (function() {
     for (j = 0, len = ref.length; j < len; j++) {
       node = ref[j];
       data = getHexagonElementDataObject(node);
-      eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new EventEmitter;
+      eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new EventEmitter();
       if (data.eventAugmenters == null) {
-        data.eventAugmenters = new Map;
+        data.eventAugmenters = new Map();
       }
       if (data.listenerNamesRegistered == null) {
-        data.listenerNamesRegistered = new Set;
+        data.listenerNamesRegistered = new Set();
       }
       if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
@@ -2462,7 +2461,7 @@ var Selection = (function() {
           node = ref[j];
           data = getHexagonElementDataObject(node);
           if (data.data == null) {
-            data.data = new Map;
+            data.data = new Map();
           }
           results.push(data.data.set(key, value));
         }
@@ -3312,7 +3311,7 @@ View = /*@__PURE__*/(function () {
       nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
       if (key) {
         // some temporary maps for keeping track of which nodes are entering, and which are exiting
-        nodeByKey = new Map;
+        nodeByKey = new Map();
         dataByKey = new Map(data.map(function(datum) {
           return [key(datum), datum];
         }));
@@ -4156,7 +4155,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.5.0";
+var version = "2.7.0";
 
 var currentTheme = {};
 var themeSet = false;
@@ -4309,7 +4308,7 @@ ClickDetector = /*@__PURE__*/(function (EventEmitter) {
     var container;
     EventEmitter.call(this);
     this.eventId = randomId();
-    this.exceptions = new List;
+    this.exceptions = new List();
     // the original element clicked
     container = void 0;
     this.downAction = function (e) {
@@ -4612,6 +4611,7 @@ filter = {
 };
 
 var filter$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   get filterExact () { return filterExact; },
   get filterStartsWith () { return filterStartsWith; },
   get filterContains () { return filterContains; },
@@ -5736,7 +5736,7 @@ var NotificationManager = /*@__PURE__*/(function () {
 }());
 
 // Inbuilt notification manager related functions
-inbuiltNotificationManager = new NotificationManager;
+inbuiltNotificationManager = new NotificationManager();
 
 wrapDeprecated$1 = function(name, method) {
   return function() {
@@ -6022,7 +6022,7 @@ positionDropdown = function(ref, ref$1) {
   var useScroll = ref.useScroll;
   var align = ref$1.align;
   var matchWidth = ref$1.matchWidth;
-  var ddMaxHeight, direction, dropdownRect, parentFixed, rect, x, y, yPos, zIndex;
+  var ddMaxHeight, direction, dropdownRect, parentFixed, rect, x, y, zIndex;
   dropdown.style('display', 'block');
   // extract measurements from the dom
   rect = selection.box();
@@ -6043,14 +6043,9 @@ positionDropdown = function(ref, ref$1) {
     width: window.innerWidth,
     height: window.innerHeight
   }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y, direction = assign.direction));
-  yPos = 'top';
   if (!parentFixed) {
     x += window.scrollX || window.pageXOffset;
     y += window.scrollY || window.pageYOffset;
-    if (direction === 'up') {
-      yPos = 'bottom';
-      y = document.body.clientHeight - y - dropdownRect.height;
-    }
   }
   // update the styles for the dropdown
   if (zIndex > 0) {
@@ -6065,7 +6060,7 @@ positionDropdown = function(ref, ref$1) {
   if (useScroll && (dropdown != null)) {
     dropdown.style('overflow-y', 'auto');
   }
-  return dropdown.classed('hx-dropdown-up', direction === 'up').classed('hx-dropdown-down', direction === 'down').classed('hx-dropdown-left', direction === 'left').classed('hx-dropdown-right', direction === 'right').attr('data-direction', direction).style('top', 'auto').style('bottom', void 0).style(yPos, y + 'px').style('left', x + 'px');
+  return dropdown.classed('hx-dropdown-up', direction === 'up').classed('hx-dropdown-down', direction === 'down').classed('hx-dropdown-left', direction === 'left').classed('hx-dropdown-right', direction === 'right').attr('data-direction', direction).style('top', 'auto').style('bottom', void 0).style('top', y + 'px').style('left', x + 'px');
 };
 
 dropdownContentToSetupDropdown = function(dropdownContent) {
@@ -6113,7 +6108,7 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
       ddClass: ''
     }, options);
     setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
-    clickDetector = new ClickDetector;
+    clickDetector = new ClickDetector();
     clickDetector.on('click', 'hx.dropdown', function () {
       return this$1.hide();
     });
@@ -8804,7 +8799,6 @@ var DateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
               year += 2000;
             }
             break;
-          default:
         }
       }
       if (daysValid && monthsValid && yearsValid) {
@@ -8860,10 +8854,16 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
 
     var date = new Intl.DateTimeFormat(locale, {
       timeZone: timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     var gbDate = new Intl.DateTimeFormat('en-GB', {
       timeZone: timeZone,
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     var time = new Intl.DateTimeFormat(locale, {
@@ -8901,7 +8901,6 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
           case dayIndex:
             result.push('DD');
             break;
-          default:
         }
       }
       if (result.length === 0) {
@@ -8910,8 +8909,16 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       return result;
     }
 
-    var dateOrder = getDateOrder(date
-      .format(new Date(Date.UTC(dateOrderYear, dateOrderMonth - 1, dateOrderDay, 12))));
+    var staticDate = new Date(Date.UTC(
+      Number(dateOrderYear),
+      Number(dateOrderMonth) - 1,
+      Number(dateOrderDay),
+      12
+    ));
+
+    var dateOrder = getDateOrder(date.format(staticDate));
+    var ref = date.formatToParts(staticDate);
+    var dateSeparator = ref[1].value;
 
     // 2019-05-19 is a Sunday
     var weekDays = range(7).map(function (_, i) { return weekDay
@@ -8931,6 +8938,7 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       months: months,
       fullMonths: fullMonths,
       dateOrder: dateOrder,
+      dateSeparator: dateSeparator,
     };
     return this;
   };
@@ -9018,7 +9026,7 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
       split = dateString.split('-');
     } else {
       order = this.dateOrder();
-      split = dateString.split('/');
+      split = dateString.split(this._.constants.dateSeparator);
     }
     var allValid = split.length === 3 && !split.some(function (e) { return e === '' || e === '0'; });
     if (allValid) {
@@ -9041,11 +9049,12 @@ var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
               year += 2000;
             }
             break;
-          default:
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return new Date(Date.UTC(year, month - 1, day));
+        var convertedDate = new Date(Date.UTC(year, month - 1, day));
+        var timezoneOffset = preferences.getTimezoneOffset(convertedDate, this.timezone());
+        return new Date(convertedDate.getTime() - (timezoneOffset * 1000 * 60 * 60));
       }
       return new Date('Invalid Date');
     }
@@ -9086,7 +9095,6 @@ var DateTimeLocalizerMoment = /*@__PURE__*/(function (PreferencesHandler) {
         case dayIndex:
           result.push('DD');
           break;
-        default:
       }
     }
     if (result.length === 0) {
@@ -9201,7 +9209,6 @@ var DateTimeLocalizerMoment = /*@__PURE__*/(function (PreferencesHandler) {
             yearsValid = part.length < 5 && part !== '';
             fmt += 'YYYY';
             break;
-          default:
         }
       }
       if (daysValid && monthsValid && yearsValid) {
@@ -9514,12 +9521,12 @@ AutocompleteFeed = /*@__PURE__*/(function () {
     }
     this._ = {
       options: resolvedOptions,
-      resultsCache: new Map
+      resultsCache: new Map()
     };
   }
 
   AutocompleteFeed.prototype.clearCache = function clearCache () {
-    this._.resultsCache = new Map;
+    this._.resultsCache = new Map();
     return this;
   };
 
@@ -13411,7 +13418,7 @@ Axis = (function() {
       }
     }, options);
     this._ = {
-      series: new List
+      series: new List()
     };
     this.x = dimension(this, merge({
       axisTickLabelPosition: 'bottom'
@@ -13467,7 +13474,7 @@ Axis = (function() {
       series.axis = this;
       return series;
     } else if (arguments.length === 0) {
-      series = new LineSeries;
+      series = new LineSeries();
       this._.series.add(series);
       series.axis = this;
       return series;
@@ -13510,12 +13517,12 @@ Axis = (function() {
     var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
     groupTypeEntries = function(data) {
       var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
-      groups = new Map;
+      groups = new Map();
       for (k = 0, len = data.length; k < len; k++) {
         series = data[k];
         group = supportsGroup(series) ? series.group() : void 0;
         if (!groups.has(group)) {
-          groups.set(group, new List);
+          groups.set(group, new List());
         }
         groups.get(group).add(series);
       }
@@ -13551,12 +13558,12 @@ Axis = (function() {
       return internalGroupId;
     };
     // collect the series by type
-    types = new Map;
+    types = new Map();
     ref = this.series();
     for (k = 0, len = ref.length; k < len; k++) {
       series = ref[k];
       if (!types.has(series._.type)) {
-        types.set(series._.type, new List);
+        types.set(series._.type, new List());
       }
       types.get(series._.type).add(series);
     }
@@ -13591,7 +13598,7 @@ Axis = (function() {
         if (this.x.discreteLabels()) {
           return this.x.discreteLabels();
         } else {
-          set = new Set;
+          set = new Set();
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -13658,7 +13665,7 @@ Axis = (function() {
       getXTicks = function (scale) {
         var k, l, len, len1, ref, ref1;
         if (self.x.ticksAll()) {
-          set = new Set;
+          set = new Set();
           ref = this$1.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -13726,7 +13733,7 @@ Axis = (function() {
         if (this.yDiscreteLabels) {
           return this.yDiscreteLabels;
         } else {
-          set = new Set;
+          set = new Set();
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -14124,7 +14131,7 @@ Graph = (function() {
           noDataText: userFacingText('plot', 'noData'),
           redrawOnResize: true
         }, options),
-        axes: new List
+        axes: new List()
       };
       //XXX: move to the underscore object
       id = randomId();
@@ -15797,7 +15804,7 @@ getRange = function(obj) {
 };
 
 makeItem = function(page, currentPage) {
-  return ("" + page + ((currentPage === page ? '~' : '')));
+  return ("" + page + (currentPage === page ? '~' : ''));
 };
 
 makeRange = function(first, last) {
@@ -18235,10 +18242,10 @@ var reshapedRequest = reshapedRequest();
   A feed should be an object with the following functions:
 
   {
-headers: (cb) ->        # returns a list of header objects ({name, id})
-totalCount: (cb) ->     # returns the total number of rows in the data set
-rows: (range, cb) ->    # returns the row data for the range object specified (range = { start, end, filter, sort }) along with the filtered count
-rowsForIds: (ids, lookupRow, cb) ->  # returns the rows for the ids supplied
+    headers: (cb) ->        # returns a list of header objects ({name, id})
+    totalCount: (cb) ->     # returns the total number of rows in the data set
+    rows: (range, cb) ->    # returns the row data for the range object specified (range = { start, end, filter, sort }) along with the filtered count
+    rowsForIds: (ids, lookupRow, cb) ->  # returns the rows for the ids supplied
   }
 
   There are predefined feeds for objects and urls.
@@ -19822,7 +19829,6 @@ getValidationMessage = function(message, type) {
       } else {
         return userFacingText('form', 'missingValue');
       }
-      break;
     case 'type mismatch':
       return userFacingText('form', 'typeMismatch');
     default:
@@ -20625,7 +20631,7 @@ var FileInput = /*@__PURE__*/(function (EventEmitter) {
         this._.fiInput.value('');
         this._.selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
         this._.selectedFiles.append(this._.noFilesTextDiv);
-        this._.fileMap = new Map;
+        this._.fileMap = new Map();
       }
       return this;
     } else {
@@ -21008,7 +21014,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       this.options.featureFlags.useUpdatedStructure = true;
     }
     this.formId = 'form-' + randomId() + '-';
-    this.properties = new Map;
+    this.properties = new Map();
     select(this.selector).classed('hx-form', true).classed('hx-flag-form hx-flag-button', this.options.featureFlags.useUpdatedStructure).classed('hx-form-vertical', this.options.featureFlags.useUpdatedStructure && this.options.featureFlags.displayVertical).api('form-builder', this).api(this).on('keypress', 'hx.form-builder', function(e) {
       var target;
       target = select(e.target || e.srcElement);
@@ -21897,7 +21903,7 @@ var Meter = /*@__PURE__*/(function (EventEmitter) {
   Meter.prototype.render = function render (cause) {
     if ( cause === void 0 ) cause = 'api';
 
-    var _, container, data, endRadians, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, startRadians, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
+    var _, container, data, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
     _ = this._;
     options = this.options;
     data = _.data;
@@ -21955,8 +21961,6 @@ var Meter = /*@__PURE__*/(function (EventEmitter) {
       }
       // marker
       if (options.useMarker) {
-        startRadians = Math.PI;
-        endRadians = Math.PI * 2;
         radius = size / 2 - textOffset;
         points = (function() {
           var j, results;
@@ -22187,8 +22191,8 @@ DrawingObject = /*@__PURE__*/(function () {
   if ( id1 === void 0 ) id1 = randomId();
 
     this.id = id1;
-    this.attr = new Map;
-    this.properties = new Map;
+    this.attr = new Map();
+    this.properties = new Map();
     this.selectable = this.addDiscreteProperty('selectable');
     this.selected = false;
   }
@@ -22764,8 +22768,8 @@ Composite = /*@__PURE__*/(function (DrawingObject) {
     };
     this.angle = this.addNumberProperty('angle');
     this.scale = this.addNumberProperty('scale', 1);
-    this.objectList = new List;
-    this.objectMap = new Map;
+    this.objectList = new List();
+    this.objectMap = new Map();
   }
 
   if ( DrawingObject ) Composite.__proto__ = DrawingObject;
@@ -22817,19 +22821,19 @@ Composite = /*@__PURE__*/(function (DrawingObject) {
     object = (function() {
       switch (objectType) {
         case 'circle':
-          return new Circle;
+          return new Circle();
         case 'rectangle':
-          return new Rectangle;
+          return new Rectangle();
         case 'line':
-          return new Line;
+          return new Line();
         case 'grid':
-          return new Grid;
+          return new Grid();
         case 'text':
-          return new Text;
+          return new Text();
         case 'shape':
-          return new Shape;
+          return new Shape();
         case 'composite':
-          return new Composite;
+          return new Composite();
       }
     })();
     if (object) {
@@ -23258,9 +23262,9 @@ Camera = (function() {
       var mouseControlState, mouseUpHandler, namespace, touchUpHandler;
       EventEmitter.call(this);
       this.drawing = drawing1;
-      this.position = new Point;
+      this.position = new Point();
       this.zoom = 1;
-      this.actualPosition = new Point;
+      this.actualPosition = new Point();
       this.actualZoom = 1;
       this.smoothPosition = false;
       this.positionSmoothingFactor = 0.15;
@@ -23288,8 +23292,8 @@ Camera = (function() {
       this.selectionEnabled = false;
       mouseControlState = {
         selection: select(this.drawing.canvasNode),
-        positionLast: new Point,
-        touchStart: new Point,
+        positionLast: new Point(),
+        touchStart: new Point(),
         mouseDown: false,
         moveThreshold: 5 * this.drawing.dpr,
         longPressTime: 1000, // in milliseconds
@@ -23744,7 +23748,7 @@ Drawing = (function() {
       this.camera.pipe(this);
       this.globalAlpha = 1;
       this.stats = null;
-      this.selectedObjects = new List;
+      this.selectedObjects = new List();
       // start the loop
       this.frame = 0;
       if (autoStart) {
@@ -24389,6 +24393,157 @@ var inlinePicker = function(options) {
   return selection;
 };
 
+var Stepper = function Stepper(selector, steps, options) {
+  if ( options === void 0 ) options = {};
+
+  this.selection = select(selector).classed('hx-stepper', true)
+    .api('stepper', this)
+    .api(this);
+
+  this._ = {
+    steps: [],
+    suppressed: true,
+    view: undefined,
+  };
+
+  this.options = options;
+
+  this.steps(steps);
+  this.selectedStep(options.selectedStep || 1);
+  this.showTitles(options.showTitles || true);
+  this.showError(options.showError || false);
+
+  this._.suppressed = false;
+
+  this.render();
+};
+
+Stepper.prototype.steps = function steps (steps$1) {
+  if (arguments.length) {
+    if (steps$1.length < 2) {
+      throw new Error('Stepper: Expected at least two steps to display');
+    }
+    this._.steps = steps$1;
+    this.options.selectedStep = 1;
+    this.render();
+    return this;
+  }
+  return this._.steps;
+};
+
+Stepper.prototype.selectedStep = function selectedStep (selectedStep$1) {
+  if (arguments.length) {
+    var numSteps = this.steps().length;
+    if (selectedStep$1 && selectedStep$1 > 0 && selectedStep$1 <= numSteps) {
+      this.options.selectedStep = selectedStep$1;
+      this.options.showError = false;
+      this.render();
+    } else {
+      logger.warn(("Stepper: Provided expected a number between 1 and " + numSteps + ". You provided: " + selectedStep$1));
+    }
+    return this;
+  }
+  return this.options.selectedStep;
+};
+
+Stepper.prototype.showTitles = function showTitles (showTitles$1) {
+  if (arguments.length) {
+    if (showTitles$1 !== this.showTitles()) {
+      this.options.showTitles = showTitles$1;
+      this.render();
+    }
+    return this;
+  }
+  return this.options.showTitles;
+};
+
+Stepper.prototype.prevStep = function prevStep () {
+  if (this.selectedStep() > 1) {
+    this.selectedStep(this.selectedStep() - 1);
+  } else {
+    logger.warn('Stepper: There is no previous step');
+  }
+  return this;
+};
+
+Stepper.prototype.nextStep = function nextStep () {
+  if (this.selectedStep() < this.steps().length) {
+    this.selectedStep(this.selectedStep() + 1);
+  } else {
+    logger.warn('Stepper: There is no next step');
+  }
+  return this;
+};
+
+Stepper.prototype.showError = function showError (showError$1) {
+  if (arguments.length) {
+    if (this.options.showError !== showError$1) {
+      this.options.showError = showError$1;
+      this.render();
+    }
+    return this;
+  }
+  return this.options.showError;
+};
+
+Stepper.prototype.render = function render () {
+    var this$1 = this;
+
+  if (this._.suppressed) {
+    return this;
+  }
+
+  if (!this._.view) {
+    this._.view = this.selection.view('.hx-stepper-step')
+      .enter(function stepperEnter() {
+        var enterSel = this;
+        var stepNode = div('hx-stepper-step')
+          .add(div('hx-stepper-progress-row')
+            .add(div('hx-stepper-progress-before'))
+            .add(div('hx-stepper-number'))
+            .add(div('hx-stepper-progress-after')))
+          .add(div('hx-stepper-title'));
+        return enterSel.append(stepNode).node();
+      })
+      .update(function (step, node, nodeIndex) {
+        var stepNumber = nodeIndex + 1;
+        var stepNode = select(node);
+        var numSteps = this$1.steps().length;
+        var selectedStep = this$1.selectedStep();
+        var showError = this$1.showError();
+        var showTitles = this$1.showTitles();
+
+        var stepperNumber = stepNode.select('.hx-stepper-number')
+          .classed('hx-stepper-number-selected', stepNumber === selectedStep && !showError)
+          .classed('hx-stepper-number-error', stepNumber === selectedStep && showError)
+          .classed('hx-stepper-number-complete', stepNumber < selectedStep);
+
+        if (stepNumber < selectedStep) {
+          stepperNumber.set([i('hx-icon hx-icon-check')]);
+        } else {
+          stepperNumber.text(stepNumber);
+        }
+
+        stepNode.select('.hx-stepper-progress-before')
+          .classed('hx-stepper-progress-incomplete', stepNumber > 1 && stepNumber > selectedStep)
+          .classed('hx-stepper-progress-complete', stepNumber > 1 && stepNumber <= selectedStep);
+
+        stepNode.select('.hx-stepper-progress-after')
+          .classed('hx-stepper-progress-incomplete', stepNumber < numSteps && stepNumber >= selectedStep)
+          .classed('hx-stepper-progress-complete', stepNumber < numSteps && stepNumber < selectedStep);
+
+        stepNode.select('.hx-stepper-title')
+          .classed('hx-stepper-title-hidden', !showTitles)
+          .classed('hx-stepper-title-error', stepNumber === selectedStep && showTitles && showError)
+          .text(step);
+      });
+  }
+
+  this._.view.apply(this.steps());
+
+  return this;
+};
+
 var validTypes = ['primary', 'secondary'];
 
 function makeAction(btn) {
@@ -24462,4 +24617,4 @@ if (!doctypeIsValid) {
   logger.warn('Missing <!DOCTYPE html> tag - you may have CSS problems without this tag. To fix this add <!DOCTYPE html> to the top of your html file. Detected doctype:', document.doctype);
 }
 
-export { AlertManager, Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal$1 as Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar$2 as ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, SingleSelect, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, VisualizationBar, alert, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, dropdownButton, ease, endsWith, errorPage, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, message, meter, min, minBy, modal, modalCenter, modalDialog, modalFullScreen, modalInput, modalRight, moreButton, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, singleSelect, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, tooltip, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, visualizationBar, zeroPad, zip };
+export { AlertManager, Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal$1 as Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar$2 as ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, SingleSelect, Slider, Sparkline, Stepper, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, VisualizationBar, alert, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, dropdownButton, ease, endsWith, errorPage, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, message, meter, min, minBy, modal, modalCenter, modalDialog, modalFullScreen, modalInput, modalRight, moreButton, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, singleSelect, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, tooltip, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, visualizationBar, zeroPad, zip };
