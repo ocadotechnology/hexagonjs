@@ -595,3 +595,7 @@
     @version 2.5.3
       @description
         Resolved an issue with the date time localizer where values typed in the input did not work for non DD/MM/YYYY locales
+
+    @version 2.7.0
+      @description
+        Added the stepper component

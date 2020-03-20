@@ -1,0 +1,30 @@
+.hx-stepper {
+  display: flex;
+}
+
+.hx-stepper-step {
+  width: 100%;
+  text-align: center;
+}
+
+.hx-stepper-progress-row {
+  display: flex;
+  align-items: center;
+}
+
+.hx-stepper-progress-before,
+.hx-stepper-progress-after {
+  display: inline-block;
+  flex: 1 1 auto;
+  height: 1px;
+}
+
+.hx-stepper-number {
+  display: inline-block;
+  border: solid 1px;
+  border-radius: 50%;
+}
+
+.hx-stepper-title-hidden {
+  display: none;
+}

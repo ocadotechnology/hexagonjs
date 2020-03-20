@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Stepper
+  @description
+    Provides the @code[Stepper] component for managing a user workflow with multiple steps.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/stepper/changelog)[Change Log]
+
+    @inline api.um

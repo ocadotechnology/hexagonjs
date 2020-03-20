@@ -1,0 +1,141 @@
+@prototype hx.Stepper
+  @added 2.7.0
+
+  @description
+    A component for managing a user workflow with multiple steps.
+
+  @constructor
+    @description
+      Creates a Stepper
+
+    @arg selector [String/HTMLElement/Selection]
+      The selector to create the stepper inside. This should be an empty element.
+
+    @arg steps [Array[String]]
+      @description
+        The array of steps to show. These are the titles to display in the stepper.
+
+        In cases where your stepper always has 'showTitles' as false, you can pass an array
+        of any truthy value, although it's generally best to use a unique ID for each step.
+
+    @arg options [Object]
+      @property showTitles [Boolean]
+        @description
+          Whether the titles should be shown
+
+      @property selectedStep [Number]
+        @description
+          The currently selected step. This value is one based (i.e. the first value is 1 as opposed to 0)
+
+      @property showError [Boolean]
+        @description
+          Whether the currently selected step has an error
+
+  @method showTitles
+    @description
+      Gets the current value for whether the titles should be shown
+
+    @returns [Boolean]
+      @description
+        Whether the titles are shown
+
+  @method showTitles
+    @description
+      Sets the current value for whether the titles should be shown
+
+    @arg show [Boolean]
+      @description
+        Whether the titles should be shown
+
+    @returns [Stepper]
+      @description
+        This stepper for chaining
+
+
+  @method showError
+    @description
+      Gets the current value for whether the current step has an error
+
+    @returns [Boolean]
+      @description
+        Whether the current step has an error
+
+  @method showError
+    @description
+      Sets the current value for whether the current step has an error
+
+    @arg show [Boolean]
+      @description
+        whether the current step has an error
+
+    @returns [Stepper]
+      @description
+        This stepper for chaining
+
+
+  @method steps
+    @description
+      Gets the current steps
+
+    @returns [Array[String]]
+      @description
+        The currently set steps
+
+  @method steps
+    @description
+      Sets the current steps
+
+    @arg steps [Array[String]]
+      @description
+        The steps to set
+
+    @returns [Stepper]
+      @description
+        This stepper for chaining
+
+
+  @method selectedStep
+    @description
+      Gets the selected step index
+
+    @returns Number
+      @description
+        The selected step (one based)
+
+  @method selectedStep
+    @description
+      Sets the selected step index
+
+    @arg step [Number]
+      @description
+        The step to select (one based)
+
+    @returns Stepper
+      @description
+        This stepper for chaining
+
+
+  @method prevStep
+    @description
+      Increments the selected step.
+
+      Analagous to:
+      @@codeblock js
+        stepper.selectedStep(stepper.selectedStep() + 1)
+
+    @returns Stepper
+      @description
+        This stepper for chaining
+
+
+  @method nextStep
+    @description
+      Decrements the selected step.
+
+      Analagous to:
+      @@codeblock js
+        stepper.selectedStep(stepper.selectedStep() - 1)
+
+    @returns Stepper
+      @description
+        This stepper for chaining
