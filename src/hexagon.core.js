@@ -257,6 +257,8 @@ export {
   singleSelect,
 } from 'components/single-select';
 
+export { Stepper } from 'components/stepper';
+
 export {
   logger,
 };
