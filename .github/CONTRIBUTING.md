@@ -55,8 +55,8 @@ running this script and should not be pushed to the repository.
 Once you see a line like `[TIMESTAMP] waiting for changes...`, hexagon has
 finished building and you can navigate to the following URLs in your browser:
 
-- `http://localhost:10011/demo/` - The built version of `src/demo`
-- `http://localhost:10011/test/` - The tests, built from `src/hexagon.spec.js`
+- `http://localhost:10001/demo/` - The built version of `src/demo`
+- `http://localhost:10001/test/` - The tests, built from `src/hexagon.spec.js`
 - `http://localhost:10001/coverage/` - Code coverage (only available after running the tests at least once)
 
 
