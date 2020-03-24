@@ -105,7 +105,7 @@ var dx = (function (exports) {
     // This set object tries to keep as close as possible to the currently planned spec for maps, which should make it
     // easy to swap out for the native implementation when it arrives and is well supported enough in browsers.
 
-    // used to avoid naming clashes when using objects as maps
+  // used to avoid naming clashes when using objects as maps
   var checkPrefix, prefix, prefixChar, prefixString,
     indexOf = [].indexOf;
 
@@ -846,12 +846,12 @@ var dx = (function (exports) {
 
   exports.groupBy = function(arr, f) {
     var category, l, len1, map, values, x;
-    map = new Map;
+    map = new Map();
     for (l = 0, len1 = arr.length; l < len1; l++) {
       x = arr[l];
       category = f(x);
       if (!map.has(category)) {
-        map.set(category, new List);
+        map.set(category, new List());
       }
       map.get(category).add(x);
     }
@@ -1013,7 +1013,7 @@ var dx = (function (exports) {
     } else if (obj instanceof Date) {
       return new Date(obj.getTime());
     } else if (exports.isObject(obj) && obj !== null) {
-      logger.warn(("Trying to clone " + obj + " with constructor " + ((obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0)) + ", it isn't really cloneable! Carrying on anyway."));
+      logger.warn(("Trying to clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway."));
       return {};
     } else {
       return obj;
@@ -1035,7 +1035,7 @@ var dx = (function (exports) {
     } else if (obj instanceof Date) {
       return new Date(obj.getTime());
     } else if (exports.isObject(obj) && obj !== null) {
-      logger.warn(("Trying to shallow clone " + obj + " with constructor " + ((obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0)) + ", it isn't really cloneable! Carrying on anyway."));
+      logger.warn(("Trying to shallow clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway."));
       return {};
     } else {
       return obj;
@@ -1117,8 +1117,8 @@ var dx = (function (exports) {
 
   BasicEventEmitter = /*@__PURE__*/(function () {
     function BasicEventEmitter() {
-      this.callbacks = new Map;
-      this.allCallbacks = new List;
+      this.callbacks = new Map();
+      this.allCallbacks = new List();
     }
 
     // emit an object to all callbacks registered with the name given
@@ -1149,7 +1149,7 @@ var dx = (function (exports) {
     BasicEventEmitter.prototype.on = function on (name, callback) {
       if (name) {
         if (!this.callbacks.has(name)) {
-          this.callbacks.set(name, new List);
+          this.callbacks.set(name, new List());
         }
         this.callbacks.get(name).add(callback);
       } else {
@@ -1179,10 +1179,10 @@ var dx = (function (exports) {
         }
       } else {
         if (name) {
-          this.callbacks.set(name, new List);
+          this.callbacks.set(name, new List());
         } else {
-          this.callbacks = new Map;
-          this.allCallbacks = new List;
+          this.callbacks = new Map();
+          this.allCallbacks = new List();
         }
       }
       return this;
@@ -1219,9 +1219,9 @@ var dx = (function (exports) {
     var addEmitter, removeEmitter;
 
     var EventEmitter = function EventEmitter() {
-      this.suppressedMap = new Map;
-      this.emitters = new List;
-      this.emittersMap = new Map;
+      this.suppressedMap = new Map();
+      this.emitters = new List();
+      this.emittersMap = new Map();
       this.global = addEmitter(this, 'default');
     };
 
@@ -1258,7 +1258,6 @@ var dx = (function (exports) {
       var ee;
       if (namespace === 'default') {
         throw new Error('hx.EventEmitter: "default" is a reserved namespace. It can not be used as a namespace name.');
-        return this;
       }
       if (exports.isString(namespace)) {
         ee = this.emittersMap.get(namespace);
@@ -1326,7 +1325,7 @@ var dx = (function (exports) {
     };
     addEmitter = function(ee, namespace) {
       var be;
-      be = new BasicEventEmitter;
+      be = new BasicEventEmitter();
       ee.emittersMap.set(namespace, be);
       ee.emitters.add(be);
       return be;
@@ -1669,7 +1668,7 @@ var dx = (function (exports) {
       if (hsl[3] == null) {
         hsl[3] = 1;
       }
-      return (new Color).hsl(hsl);
+      return (new Color()).hsl(hsl);
     } else {
       return void 0;
     }
@@ -1681,15 +1680,15 @@ var dx = (function (exports) {
     })) {
       return void 0;
     }
-    return (new Color).rgb(rgb);
+    return (new Color()).rgb(rgb);
   };
 
   var color = function() {
     if (arguments.length >= 3) {
-      return (new Color).rgb([arguments[0], arguments[1], arguments[2], arguments[3]]);
+      return (new Color()).rgb([arguments[0], arguments[1], arguments[2], arguments[3]]);
     } else if (arguments.length === 1) {
       if (Array.isArray(arguments[0])) {
-        return (new Color).rgb(arguments[0]);
+        return (new Color()).rgb(arguments[0]);
       } else if (isColor(arguments[0])) {
         return arguments[0];
       } else {
@@ -1787,8 +1786,8 @@ var dx = (function (exports) {
 
   var ElementSet = /*@__PURE__*/(function () {
     function ElementSet() {
-      this.elements = new List;
-      this.ids = new Set;
+      this.elements = new List();
+      this.ids = new Set();
     }
 
     ElementSet.prototype.add = function add (element) {
@@ -1925,7 +1924,7 @@ var dx = (function (exports) {
 
   flattenNodes = function(nodes) {
     var j, k, len, len1, node, nodearray, set;
-    set = new ElementSet;
+    set = new ElementSet();
     for (j = 0, len = nodes.length; j < len; j++) {
       nodearray = nodes[j];
       for (k = 0, len1 = nodearray.length; k < len1; k++) {
@@ -2447,12 +2446,12 @@ var dx = (function (exports) {
       for (j = 0, len = ref.length; j < len; j++) {
         node = ref[j];
         data = getHexagonElementDataObject(node);
-        eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new EventEmitter;
+        eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new EventEmitter();
         if (data.eventAugmenters == null) {
-          data.eventAugmenters = new Map;
+          data.eventAugmenters = new Map();
         }
         if (data.listenerNamesRegistered == null) {
-          data.listenerNamesRegistered = new Set;
+          data.listenerNamesRegistered = new Set();
         }
         if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
           handler = function(e) {
@@ -2541,7 +2540,7 @@ var dx = (function (exports) {
             node = ref[j];
             data = getHexagonElementDataObject(node);
             if (data.data == null) {
-              data.data = new Map;
+              data.data = new Map();
             }
             results.push(data.data.set(key, value));
           }
@@ -3391,7 +3390,7 @@ var dx = (function (exports) {
         nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
         if (key) {
           // some temporary maps for keeping track of which nodes are entering, and which are exiting
-          nodeByKey = new Map;
+          nodeByKey = new Map();
           dataByKey = new Map(data.map(function(datum) {
             return [key(datum), datum];
           }));
@@ -4235,7 +4234,7 @@ var dx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.5.3";
+  var version = "2.7.1";
 
   var currentTheme$1 = {};
   var themeSet = false;
@@ -4386,7 +4385,7 @@ var dx = (function (exports) {
       var container;
       EventEmitter.call(this);
       this.eventId = exports.randomId();
-      this.exceptions = new List;
+      this.exceptions = new List();
       // the original element clicked
       container = void 0;
       this.downAction = function (e) {
@@ -4689,6 +4688,7 @@ var dx = (function (exports) {
   };
 
   var filter = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     get filterExact () { return exports.filterExact; },
     get filterStartsWith () { return exports.filterStartsWith; },
     get filterContains () { return exports.filterContains; },
@@ -5813,7 +5813,7 @@ var dx = (function (exports) {
   }());
 
   // Inbuilt notification manager related functions
-  inbuiltNotificationManager = new NotificationManager;
+  inbuiltNotificationManager = new NotificationManager();
 
   wrapDeprecated$1 = function(name, method) {
     return function() {
@@ -6185,7 +6185,7 @@ var dx = (function (exports) {
         ddClass: ''
       }, options);
       setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
-      clickDetector = new exports.ClickDetector;
+      clickDetector = new exports.ClickDetector();
       clickDetector.on('click', 'hx.dropdown', function () {
         return this$1.hide();
       });
@@ -8876,7 +8876,6 @@ var dx = (function (exports) {
                 year += 2000;
               }
               break;
-            default:
           }
         }
         if (daysValid && monthsValid && yearsValid) {
@@ -8979,7 +8978,6 @@ var dx = (function (exports) {
             case dayIndex:
               result.push('DD');
               break;
-            default:
           }
         }
         if (result.length === 0) {
@@ -9128,7 +9126,6 @@ var dx = (function (exports) {
                 year += 2000;
               }
               break;
-            default:
           }
         }
         if (daysValid && monthsValid && yearsValid) {
@@ -9175,7 +9172,6 @@ var dx = (function (exports) {
           case dayIndex:
             result.push('DD');
             break;
-          default:
         }
       }
       if (result.length === 0) {
@@ -9290,7 +9286,6 @@ var dx = (function (exports) {
               yearsValid = part.length < 5 && part !== '';
               fmt += 'YYYY';
               break;
-            default:
           }
         }
         if (daysValid && monthsValid && yearsValid) {
@@ -9601,12 +9596,12 @@ var dx = (function (exports) {
       }
       this._ = {
         options: resolvedOptions,
-        resultsCache: new Map
+        resultsCache: new Map()
       };
     }
 
     AutocompleteFeed.prototype.clearCache = function clearCache () {
-      this._.resultsCache = new Map;
+      this._.resultsCache = new Map();
       return this;
     };
 
@@ -13482,7 +13477,7 @@ var dx = (function (exports) {
         }
       }, options);
       this._ = {
-        series: new List
+        series: new List()
       };
       this.x = dimension(this, exports.merge({
         axisTickLabelPosition: 'bottom'
@@ -13538,7 +13533,7 @@ var dx = (function (exports) {
         series.axis = this;
         return series;
       } else if (arguments.length === 0) {
-        series = new exports.LineSeries;
+        series = new exports.LineSeries();
         this._.series.add(series);
         series.axis = this;
         return series;
@@ -13581,12 +13576,12 @@ var dx = (function (exports) {
       var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
       groupTypeEntries = function(data) {
         var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
-        groups = new Map;
+        groups = new Map();
         for (k = 0, len = data.length; k < len; k++) {
           series = data[k];
           group = supportsGroup(series) ? series.group() : void 0;
           if (!groups.has(group)) {
-            groups.set(group, new List);
+            groups.set(group, new List());
           }
           groups.get(group).add(series);
         }
@@ -13622,12 +13617,12 @@ var dx = (function (exports) {
         return internalGroupId;
       };
       // collect the series by type
-      types = new Map;
+      types = new Map();
       ref = this.series();
       for (k = 0, len = ref.length; k < len; k++) {
         series = ref[k];
         if (!types.has(series._.type)) {
-          types.set(series._.type, new List);
+          types.set(series._.type, new List());
         }
         types.get(series._.type).add(series);
       }
@@ -13662,7 +13657,7 @@ var dx = (function (exports) {
           if (this.x.discreteLabels()) {
             return this.x.discreteLabels();
           } else {
-            set = new Set;
+            set = new Set();
             ref = this.series();
             for (k = 0, len = ref.length; k < len; k++) {
               series = ref[k];
@@ -13729,7 +13724,7 @@ var dx = (function (exports) {
         getXTicks = function (scale) {
           var k, l, len, len1, ref, ref1;
           if (self.x.ticksAll()) {
-            set = new Set;
+            set = new Set();
             ref = this$1.series();
             for (k = 0, len = ref.length; k < len; k++) {
               series = ref[k];
@@ -13797,7 +13792,7 @@ var dx = (function (exports) {
           if (this.yDiscreteLabels) {
             return this.yDiscreteLabels;
           } else {
-            set = new Set;
+            set = new Set();
             ref = this.series();
             for (k = 0, len = ref.length; k < len; k++) {
               series = ref[k];
@@ -14193,7 +14188,7 @@ var dx = (function (exports) {
             noDataText: exports.userFacingText('plot', 'noData'),
             redrawOnResize: true
           }, options),
-          axes: new List
+          axes: new List()
         };
         //XXX: move to the underscore object
         id = exports.randomId();
@@ -15858,7 +15853,7 @@ var dx = (function (exports) {
   };
 
   makeItem = function(page, currentPage) {
-    return ("" + page + ((currentPage === page ? '~' : '')));
+    return ("" + page + (currentPage === page ? '~' : ''));
   };
 
   makeRange = function(first, last) {
@@ -18294,10 +18289,10 @@ var dx = (function (exports) {
     A feed should be an object with the following functions:
 
     {
-  headers: (cb) ->        # returns a list of header objects ({name, id})
-  totalCount: (cb) ->     # returns the total number of rows in the data set
-  rows: (range, cb) ->    # returns the row data for the range object specified (range = { start, end, filter, sort }) along with the filtered count
-  rowsForIds: (ids, lookupRow, cb) ->  # returns the rows for the ids supplied
+      headers: (cb) ->        # returns a list of header objects ({name, id})
+      totalCount: (cb) ->     # returns the total number of rows in the data set
+      rows: (range, cb) ->    # returns the row data for the range object specified (range = { start, end, filter, sort }) along with the filtered count
+      rowsForIds: (ids, lookupRow, cb) ->  # returns the rows for the ids supplied
     }
 
     There are predefined feeds for objects and urls.
@@ -19881,7 +19876,6 @@ var dx = (function (exports) {
         } else {
           return exports.userFacingText('form', 'missingValue');
         }
-        break;
       case 'type mismatch':
         return exports.userFacingText('form', 'typeMismatch');
       default:
@@ -20684,7 +20678,7 @@ var dx = (function (exports) {
           this._.fiInput.value('');
           this._.selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
           this._.selectedFiles.append(this._.noFilesTextDiv);
-          this._.fileMap = new Map;
+          this._.fileMap = new Map();
         }
         return this;
       } else {
@@ -21067,7 +21061,7 @@ var dx = (function (exports) {
         this.options.featureFlags.useUpdatedStructure = true;
       }
       this.formId = 'form-' + exports.randomId() + '-';
-      this.properties = new Map;
+      this.properties = new Map();
       select(this.selector).classed('hx-form', true).classed('hx-flag-form hx-flag-button', this.options.featureFlags.useUpdatedStructure).classed('hx-form-vertical', this.options.featureFlags.useUpdatedStructure && this.options.featureFlags.displayVertical).api('form-builder', this).api(this).on('keypress', 'hx.form-builder', function(e) {
         var target;
         target = select(e.target || e.srcElement);
@@ -21956,7 +21950,7 @@ var dx = (function (exports) {
     Meter.prototype.render = function render (cause) {
       if ( cause === void 0 ) cause = 'api';
 
-      var _, container, data, endRadians, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, startRadians, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
+      var _, container, data, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
       _ = this._;
       options = this.options;
       data = _.data;
@@ -22014,8 +22008,6 @@ var dx = (function (exports) {
         }
         // marker
         if (options.useMarker) {
-          startRadians = Math.PI;
-          endRadians = Math.PI * 2;
           radius = size / 2 - textOffset;
           points = (function() {
             var j, results;
@@ -22246,8 +22238,8 @@ var dx = (function (exports) {
     if ( id1 === void 0 ) id1 = exports.randomId();
 
       this.id = id1;
-      this.attr = new Map;
-      this.properties = new Map;
+      this.attr = new Map();
+      this.properties = new Map();
       this.selectable = this.addDiscreteProperty('selectable');
       this.selected = false;
     }
@@ -22823,8 +22815,8 @@ var dx = (function (exports) {
       };
       this.angle = this.addNumberProperty('angle');
       this.scale = this.addNumberProperty('scale', 1);
-      this.objectList = new List;
-      this.objectMap = new Map;
+      this.objectList = new List();
+      this.objectMap = new Map();
     }
 
     if ( DrawingObject ) Composite.__proto__ = DrawingObject;
@@ -22876,19 +22868,19 @@ var dx = (function (exports) {
       object = (function() {
         switch (objectType) {
           case 'circle':
-            return new Circle;
+            return new Circle();
           case 'rectangle':
-            return new Rectangle;
+            return new Rectangle();
           case 'line':
-            return new Line;
+            return new Line();
           case 'grid':
-            return new Grid;
+            return new Grid();
           case 'text':
-            return new Text;
+            return new Text();
           case 'shape':
-            return new Shape;
+            return new Shape();
           case 'composite':
-            return new Composite;
+            return new Composite();
         }
       })();
       if (object) {
@@ -23317,9 +23309,9 @@ var dx = (function (exports) {
         var mouseControlState, mouseUpHandler, namespace, touchUpHandler;
         EventEmitter.call(this);
         this.drawing = drawing1;
-        this.position = new Point;
+        this.position = new Point();
         this.zoom = 1;
-        this.actualPosition = new Point;
+        this.actualPosition = new Point();
         this.actualZoom = 1;
         this.smoothPosition = false;
         this.positionSmoothingFactor = 0.15;
@@ -23347,8 +23339,8 @@ var dx = (function (exports) {
         this.selectionEnabled = false;
         mouseControlState = {
           selection: select(this.drawing.canvasNode),
-          positionLast: new Point,
-          touchStart: new Point,
+          positionLast: new Point(),
+          touchStart: new Point(),
           mouseDown: false,
           moveThreshold: 5 * this.drawing.dpr,
           longPressTime: 1000, // in milliseconds
@@ -23803,7 +23795,7 @@ var dx = (function (exports) {
         this.camera.pipe(this);
         this.globalAlpha = 1;
         this.stats = null;
-        this.selectedObjects = new List;
+        this.selectedObjects = new List();
         // start the loop
         this.frame = 0;
         if (autoStart) {
@@ -24448,6 +24440,157 @@ var dx = (function (exports) {
     return selection;
   };
 
+  var Stepper = function Stepper(selector, steps, options) {
+    if ( options === void 0 ) options = {};
+
+    this.selection = select(selector).classed('hx-stepper', true)
+      .api('stepper', this)
+      .api(this);
+
+    this._ = {
+      steps: [],
+      suppressed: true,
+      view: undefined,
+    };
+
+    this.options = options;
+
+    this.steps(steps);
+    this.selectedStep(options.selectedStep || 1);
+    this.showTitles(options.showTitles || true);
+    this.showError(options.showError || false);
+
+    this._.suppressed = false;
+
+    this.render();
+  };
+
+  Stepper.prototype.steps = function steps (steps$1) {
+    if (arguments.length) {
+      if (steps$1.length < 2) {
+        throw new Error('Stepper: Expected at least two steps to display');
+      }
+      this._.steps = steps$1;
+      this.options.selectedStep = 1;
+      this.render();
+      return this;
+    }
+    return this._.steps;
+  };
+
+  Stepper.prototype.selectedStep = function selectedStep (selectedStep$1) {
+    if (arguments.length) {
+      var numSteps = this.steps().length;
+      if (selectedStep$1 && selectedStep$1 > 0 && selectedStep$1 <= numSteps) {
+        this.options.selectedStep = selectedStep$1;
+        this.options.showError = false;
+        this.render();
+      } else {
+        logger.warn(("Stepper: Provided expected a number between 1 and " + numSteps + ". You provided: " + selectedStep$1));
+      }
+      return this;
+    }
+    return this.options.selectedStep;
+  };
+
+  Stepper.prototype.showTitles = function showTitles (showTitles$1) {
+    if (arguments.length) {
+      if (showTitles$1 !== this.showTitles()) {
+        this.options.showTitles = showTitles$1;
+        this.render();
+      }
+      return this;
+    }
+    return this.options.showTitles;
+  };
+
+  Stepper.prototype.prevStep = function prevStep () {
+    if (this.selectedStep() > 1) {
+      this.selectedStep(this.selectedStep() - 1);
+    } else {
+      logger.warn('Stepper: There is no previous step');
+    }
+    return this;
+  };
+
+  Stepper.prototype.nextStep = function nextStep () {
+    if (this.selectedStep() < this.steps().length) {
+      this.selectedStep(this.selectedStep() + 1);
+    } else {
+      logger.warn('Stepper: There is no next step');
+    }
+    return this;
+  };
+
+  Stepper.prototype.showError = function showError (showError$1) {
+    if (arguments.length) {
+      if (this.options.showError !== showError$1) {
+        this.options.showError = showError$1;
+        this.render();
+      }
+      return this;
+    }
+    return this.options.showError;
+  };
+
+  Stepper.prototype.render = function render () {
+      var this$1 = this;
+
+    if (this._.suppressed) {
+      return this;
+    }
+
+    if (!this._.view) {
+      this._.view = this.selection.view('.hx-stepper-step')
+        .enter(function stepperEnter() {
+          var enterSel = this;
+          var stepNode = div('hx-stepper-step')
+            .add(div('hx-stepper-progress-row')
+              .add(div('hx-stepper-progress-before'))
+              .add(div('hx-stepper-number'))
+              .add(div('hx-stepper-progress-after')))
+            .add(div('hx-stepper-title'));
+          return enterSel.append(stepNode).node();
+        })
+        .update(function (step, node, nodeIndex) {
+          var stepNumber = nodeIndex + 1;
+          var stepNode = select(node);
+          var numSteps = this$1.steps().length;
+          var selectedStep = this$1.selectedStep();
+          var showError = this$1.showError();
+          var showTitles = this$1.showTitles();
+
+          var stepperNumber = stepNode.select('.hx-stepper-number')
+            .classed('hx-stepper-number-selected', stepNumber === selectedStep && !showError)
+            .classed('hx-stepper-number-error', stepNumber === selectedStep && showError)
+            .classed('hx-stepper-number-complete', stepNumber < selectedStep);
+
+          if (stepNumber < selectedStep) {
+            stepperNumber.set([i('hx-icon hx-icon-check')]);
+          } else {
+            stepperNumber.text(stepNumber);
+          }
+
+          stepNode.select('.hx-stepper-progress-before')
+            .classed('hx-stepper-progress-incomplete', stepNumber > 1 && stepNumber > selectedStep)
+            .classed('hx-stepper-progress-complete', stepNumber > 1 && stepNumber <= selectedStep);
+
+          stepNode.select('.hx-stepper-progress-after')
+            .classed('hx-stepper-progress-incomplete', stepNumber < numSteps && stepNumber >= selectedStep)
+            .classed('hx-stepper-progress-complete', stepNumber < numSteps && stepNumber < selectedStep);
+
+          stepNode.select('.hx-stepper-title')
+            .classed('hx-stepper-title-hidden', !showTitles)
+            .classed('hx-stepper-title-error', stepNumber === selectedStep && showTitles && showError)
+            .text(step);
+        });
+    }
+
+    this._.view.apply(this.steps());
+
+    return this;
+  };
+
   var validTypes = ['primary', 'secondary'];
 
   function makeAction(btn) {
@@ -24545,6 +24688,7 @@ var dx = (function (exports) {
   exports.Set = Set;
   exports.Sidebar = Sidebar;
   exports.SingleSelect = SingleSelect;
+  exports.Stepper = Stepper;
   exports.TitleBar = TitleBar;
   exports.VisualizationBar = VisualizationBar;
   exports.alert = alert;

@@ -4342,6 +4342,37 @@ a.hx-menu-item:hover {
   margin-left: -10px;
 }
 
+.hx-stepper {
+  display: flex;
+}
+
+.hx-stepper-step {
+  width: 100%;
+  text-align: center;
+}
+
+.hx-stepper-progress-row {
+  display: flex;
+  align-items: center;
+}
+
+.hx-stepper-progress-before,
+.hx-stepper-progress-after {
+  display: inline-block;
+  flex: 1 1 auto;
+  height: 1px;
+}
+
+.hx-stepper-number {
+  display: inline-block;
+  border: solid 1px;
+  border-radius: 50%;
+}
+
+.hx-stepper-title-hidden {
+  display: none;
+}
+
 :root {
   /* theme colours - private variables just to reduce duplication in this theme */
   --theme-text-alternate-color: #F3F3F3;
@@ -5315,6 +5346,21 @@ a.hx-menu-item:hover {
   --status-bar-done-text-color: white;
   --status-bar-progress-background-color: var(--theme-accent-hover-color);
   --status-bar-progress-text-color: white;
+
+
+  /* Stepper */
+  --stepper-number-complete-background-color: var(--theme-accent-text-color);
+  --stepper-number-complete-color: var(--theme-accent-color);
+  --stepper-number-default-background-color: var(--theme-contrast-color);
+  --stepper-number-default-color: var(--theme-default-color);
+  --stepper-number-diameter: 24px;
+  --stepper-number-error-background-color: var(--theme-error-background-color);
+  --stepper-number-error-color: var(--theme-error-text-color);
+  --stepper-number-selected-background-color: var(--theme-accent-color);
+  --stepper-number-selected-color: var(--theme-accent-text-color);
+  --stepper-title-color: var(--theme-text-color);
+  --stepper-title-error-color: var(--theme-error-outline-color);
+  --stepper-title-padding: 5px 10px;
 
 
   /* Sticky Table Headers */
@@ -9628,8 +9674,6 @@ img.hx-logo:before {
 }
 
 .hx-tooltip {
-    margin-bottom: 7px;
-    margin-bottom: var(--tooltip-space);
     background-color: #636868;
     background-color: var(--tooltip-background-color);
     font-size: 1em;
@@ -9647,9 +9691,13 @@ img.hx-logo:before {
 }
 
 .hx-tooltip.hx-dropdown-down {
-  margin-bottom: 0;
-  margin-top: 7px;
-  margin-top: var(--tooltip-space);
+    margin-top: 7px;
+    margin-top: var(--tooltip-space);
+}
+
+.hx-dropdown.hx-dropdown-up{
+    margin-top: calc(-1 * 7px);
+    margin-top: calc(-1 * var(--tooltip-space));
 }
 
 .hx-tooltip-label  {
@@ -9701,6 +9749,65 @@ img.hx-logo:before {
     border-top: 8px solid #686868;
     transform: translate(-50%, calc(100% + 10px));
 }*/
+
+.hx-stepper-progress-complete {
+  background-color: #00ADA8;
+  background-color: var(--stepper-number-selected-background-color);
+}
+
+.hx-stepper-progress-incomplete {
+  background-color: #4A4E4E;
+  background-color: var(--stepper-number-default-background-color);
+}
+
+.hx-stepper-number {
+  width: 24px;
+  width: var(--stepper-number-diameter);
+  height: 24px;
+  height: var(--stepper-number-diameter);
+  line-height: 24px;
+  line-height: var(--stepper-number-diameter);
+  background-color: #4A4E4E;
+  background-color: var(--stepper-number-default-background-color);
+  color: #FFFFFF;
+  color: var(--stepper-number-default-color);
+}
+
+.hx-stepper-number-selected {
+  background-color: #00ADA8;
+  background-color: var(--stepper-number-selected-background-color);
+  color: white;
+  color: var(--stepper-number-selected-color);
+}
+
+.hx-stepper-number-complete {
+  background-color: white;
+  background-color: var(--stepper-number-complete-background-color);
+  border-color: #00ADA8;
+  border-color: var(--stepper-number-complete-color);
+  color: #00ADA8;
+  color: var(--stepper-number-complete-color);
+}
+
+.hx-stepper-number-error {
+  background-color: #F1C0CB;
+  background-color: var(--stepper-number-error-background-color);
+  color: white;
+  color: var(--stepper-number-error-color);
+  border-color: transparent;
+}
+
+.hx-stepper-title {
+  color: #3D3D3D;
+  color: var(--stepper-title-color);
+  padding: 5px 10px;
+  padding: var(--stepper-title-padding);
+}
+
+.hx-stepper-title-error {
+  color: #EC3A65;
+  color: var(--stepper-title-error-color);
+}
 
 @font-face {
   font-family: 'Open Sans';
