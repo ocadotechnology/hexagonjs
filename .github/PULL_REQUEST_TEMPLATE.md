@@ -21,6 +21,6 @@
 - [ ] I have added a tag to this pull request that indicates the impact of the change (patch, minor or major)
 - [ ] My code follows the code style of this project.
 - [ ] I have updated the documentation accordingly. (This includes updating the changelog).
-- [ ] I have read the **CONTRIBUTING** document. (Last updated 16 Aug 2019)
+- [ ] I have read the **CONTRIBUTING** document. (Last updated 24 March 2020)
 - [ ] All my changes are covered by tests.
 - [ ] This request is ready to review and merge
