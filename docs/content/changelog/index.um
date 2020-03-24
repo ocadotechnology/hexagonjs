@@ -599,3 +599,7 @@
     @version 2.7.0
       @description
         Added the stepper component
+
+    @version 2.7.1
+      @description
+        Resolved a bug with the tooltip styles
