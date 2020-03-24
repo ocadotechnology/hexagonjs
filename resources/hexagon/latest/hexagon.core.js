@@ -4155,7 +4155,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.7.0";
+var version = "2.7.1";
 
 var currentTheme = {};
 var themeSet = false;

@@ -4234,7 +4234,7 @@ var hx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.7.0";
+  var version = "2.7.1";
 
   var currentTheme$1 = {};
   var themeSet = false;
