@@ -1,5 +1,9 @@
 @function hx.tooltip
   @collapsed false
+  @bugfix 2.7.1
+    @description
+      Resolved an issue with the tooltip styles that was causing the tooltip to flicker when hovering.
+
   @added 2.5.0
   @description
     Creates a small panel on hover, with supporting information elaborating content on screen.
