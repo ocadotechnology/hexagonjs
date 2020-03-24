@@ -14,6 +14,10 @@
   margin-top: var(--tooltip-space);
 }
 
+.hx-dropdown.hx-dropdown-up{
+    margin-top: calc(-1 * var(--tooltip-space));
+}
+
 .hx-tooltip-label  {
     border-bottom-color: var(--tooltip-label-underline-color);
     color: var(--tooltip-label-text-color);
