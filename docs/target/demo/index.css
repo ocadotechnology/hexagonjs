@@ -1,0 +1,150 @@
+.demo-dropdown-content {
+  padding: 8px;
+}
+.demo-collapsible-content {
+  padding: 8px;
+}
+.demo-palette-example-text {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+}
+.demo-palette-example-background {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+}
+.demo-palette-example-border {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+.layout-demo .hx-section {
+  background: #d6d6d6;
+  min-width: 150px;
+  min-height: 100px;
+}
+.demo-error-page-container {
+  position: relative;
+  height: 300px;
+}
+.sidebar-example {
+  position: relative;
+  height: 400px;
+}
+.sidebar-example .hx-sidebar {
+  position: absolute;
+}
+.sidebar-example .hx-content {
+  height: 354px;
+  overflow: auto;
+}
+.big-ol-error {
+  padding: 1em;
+  background: #FFE6F1;
+  border: 1px solid #f91076;
+  color: #f91076;
+}
+.toc {
+  list-style-type: none;
+  padding: 0 1em;
+}
+.toc li:before {
+  content: '-';
+  margin-right: 1em;
+}
+hr {
+  clear: right;
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid #EEE;
+}
+.example-section{
+  margin: 0;
+  padding: 0.5rem 2rem 2rem;
+  box-shadow: 0 5px 5px -5px #000;
+}
+.example-section > h2 {
+  padding-top: 1.5rem;
+}
+.example-header {
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+vr {
+  flex: 0;
+  border-left: 1px solid #EEE;
+  margin: 0 2em;
+  display: inline-block;
+}
+note {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: #ff0059;
+  font-weight: bold;
+}
+.back-to-top {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  float: right;
+  text-transform: uppercase;
+}
+.back-to-top::before {
+  content: '➜';
+  display: inline-block;
+  transform: rotate(-90deg);
+  margin-right: 5px;
+}
+.do:before {
+  display: block;
+  content: '✔ Do';
+  color: green;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 1em;
+}
+.dont:before {
+  display: block;
+  content: '✘ Don\'t';
+  color: red;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 1em;
+}
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  box-sizing: border-box;
+  background: white;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+.intro,
+.examples {
+  margin-left: 250px;
+}
+.intro {
+  margin-top: 0;
+  padding: 1em;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 1em;
+  margin: 0;
+  overflow: auto;
+  border-top: 1px dashed #DDD;
+}
+.sidebar input {
+  display: block;
+  margin: 1em 0.5em;
+}

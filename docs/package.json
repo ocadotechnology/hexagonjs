@@ -9,6 +9,7 @@
   "scripts": {
     "postinstall": "node ./postinstall.js",
     "start": "quantum watch",
+    "prebuild": "npm run clean",
     "build": "quantum build",
     "clean": "rm -rf target"
   },

@@ -1,0 +1,223 @@
+.qm-api-javascript-type {
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+
+.qm-api-javascript-type-link {}
+
+.qm-api-javascript-type-link:not(:last-child):after {
+  margin: 0 0.1em;
+}
+
+/* Types */
+.qm-api-javascript-prototype {
+  border-color: #AB7BC1;
+}
+
+.qm-api-javascript-prototype > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #AB7BC1;
+}
+
+.qm-api-javascript-object {
+  border-color: #98b313;
+}
+
+.qm-api-javascript-object > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #98b313;
+}
+
+.qm-api-javascript-method {
+  border-color: #98b313;
+}
+
+.qm-api-javascript-method > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #98b313;
+}
+
+.qm-api-javascript-function {
+  border-color: #98b313;
+}
+
+.qm-api-javascript-function > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #98b313;
+}
+
+.qm-api-javascript-constructor {
+  border-color: #98b313;
+}
+
+.qm-api-javascript-constructor > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #98b313;
+}
+
+.qm-api-javascript-property {
+  border-color: #EEAD2B;
+}
+
+.qm-api-javascript-property > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #EEAD2B;
+}
+
+.qm-api-javascript-arg {}
+
+.qm-api-javascript-event {
+  border-color: #EC3A65;
+}
+
+.qm-api-javascript-event > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #EC3A65;
+}
+
+.qm-api-javascript-returns {
+  border-color: #757575;
+}
+
+.qm-api-javascript-returns > .qm-api-collapsible-heading > .qm-api-collapsible-toggle {
+  background-color: #757575;
+}
+
+.qm-api-javascript-header-property-name,
+.qm-api-javascript-header-function-name,
+.qm-api-javascript-header-type-name {
+  font-weight: bold;
+}
+
+.qm-api-javascript-header-function-name {}
+
+.qm-api-javascript-header-function-args {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+}
+
+.qm-api-javascript-header-function-args:before {
+  content: "(";
+}
+
+.qm-api-javascript-header-function-args:after {
+  content: ")";
+}
+
+.qm-api-javascript-header-function-arg {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.qm-api-javascript-header-function-arg:after {
+  content: ",";
+  margin-right: 4px;
+}
+
+.qm-api-javascript-header-function-arg:last-child:after {
+  content: none;
+  margin-right: 0;
+}
+
+.qm-api-javascript-header-function-arg.qm-api-optional:after {
+  content: "],";
+  margin-right: 4px;
+}
+
+.qm-api-javascript-header-function-arg.qm-api-optional:last-child:after {
+  content: "]";
+  margin-right: 0;
+}
+
+.qm-api-javascript-header-function-arg-name {}
+.qm-api-javascript-header-function-arg-type {}
+
+.qm-api-javascript-header-function-returns {}
+
+.qm-api-javascript-header-function-returns:not(:empty):before {
+  content: ":";
+  margin-right: 4px;
+}
+
+.qm-api-javascript-prototype-name {
+  font-weight: bold;
+}
+
+.qm-api-javascript-prototype-extends {
+  font-style: italic;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.qm-api-javascript-property-name {}
+
+.qm-api-javascript-header-property-type {}
+
+.qm-api-javascript-header-function-arg-type:before,
+.qm-api-javascript-header-property-type:before {
+  content: ":";
+  margin-right: 4px;
+}
+
+.qm-api-javascript-header-property-type:empty:before {
+  content: none;
+  margin-right: 0;
+}
+
+
+.qm-api-javascript-header-object-name,
+.qm-api-javascript-header-property-name,
+.qm-api-javascript-header-function-name,
+.qm-api-javascript-header-constructor-name,
+.qm-api-javascript-header-type-name,
+.qm-api-javascript-header-entity-name {
+  font-weight: bold;
+}
+
+.qm-api-javascript-header-property-type,
+.qm-api-javascript-header-function-type,
+.qm-api-javascript-header-function-arg-type,
+.qm-api-javascript-header-type-type {
+  color: #8C8C8C;
+}
+
+.qm-api-javascript-header-constructor-name:before {
+  content: 'new';
+  font-weight: normal;
+  margin-right: 0.4em;
+}
+
+/* Changelog */
+.qm-changelog-javascript-function + .qm-changelog-javascript-arg:before,
+.qm-changelog-javascript-constructor + .qm-changelog-javascript-arg:before,
+.qm-changelog-javascript-method + .qm-changelog-javascript-arg:before,
+.qm-changelog-javascript-arg + .qm-changelog-javascript-property:before,
+.qm-changelog-javascript-prototype + .qm-changelog-javascript-constructor:before,
+.qm-changelog-javascript-prototype + .qm-changelog-javascript-property:before,
+.qm-changelog-javascript-property + .qm-changelog-javascript-property:before,
+.qm-changelog-javascript-object + .qm-changelog-javascript-property:before,
+.qm-changelog-javascript-object + .qm-changelog-javascript-function:before,
+.qm-changelog-javascript-object + .qm-changelog-javascript-prototype:before {
+  content: '.';
+}
+
+.qm-changelog-javascript-prototype + .qm-changelog-javascript-method:before {
+  content: '::';
+}
+
+.qm-changelog-javascript-prototype + .qm-changelog-javascript-event:before {
+  font-family: monospace !important;
+  /* Should probably be an actual icon to prevent fonts breaking it? */
+  content: '\21d2';
+  margin: 0 0.4em;
+}

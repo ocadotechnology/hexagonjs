@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/resources/quantum-code-highlight.css"></link><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div id="tree"></div>data = [
+  {
+    "name": "parent 1",
+    "children": [
+      {
+        "name": "parent 2",
+        "children": [
+          {
+            "name": "item 1",
+            "color": "action"
+          },
+          {
+            "name": "item 2",
+            "color": "positive"
+          }
+        ]
+      },
+      {
+        "name": "parent 3",
+        "children": [
+          {
+            "name": "item 3",
+            "color": "warning"
+          },
+          {
+            "name": "item 4",
+            "color": "negative"
+          }
+        ]
+      },
+      {
+        "name": "parent 4",
+        "children": [
+          {
+            "name": "item 5",
+            "color": "info"
+          },
+          {
+            "name": "item 6",
+            "color": "action"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "item 7"
+  }
+]
+
+
+tree = new hx.Tree('#tree', {
+  renderer:(element, datum) ->
+    hx.palette.textContext(hx.select(element).text(datum.name).node(), datum.color)
+  items: data
+})</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tree"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">data = [
+  {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"parent 1"</span>,
+    <span class="hljs-string">"children"</span>: [
+      {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"parent 2"</span>,
+        <span class="hljs-string">"children"</span>: [
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 1"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"action"</span>
+          },
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 2"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"positive"</span>
+          }
+        ]
+      },
+      {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"parent 3"</span>,
+        <span class="hljs-string">"children"</span>: [
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 3"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"warning"</span>
+          },
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 4"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"negative"</span>
+          }
+        ]
+      },
+      {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"parent 4"</span>,
+        <span class="hljs-string">"children"</span>: [
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 5"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"info"</span>
+          },
+          {
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 6"</span>,
+            <span class="hljs-string">"color"</span>: <span class="hljs-string">"action"</span>
+          }
+        ]
+      }
+    ]
+  },
+  {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"item 7"</span>
+  }
+]
+
+
+tree = <span class="hljs-keyword">new</span> hx.Tree(<span class="hljs-string">'#tree'</span>, {
+  renderer:<span class="hljs-function"><span class="hljs-params">(element, datum)</span> -&gt;</span>
+    hx.palette.textContext(hx.select(element).text(datum.name).node(), datum.color)
+  items: data
+})</code></pre></div></div></div></div></body></html>

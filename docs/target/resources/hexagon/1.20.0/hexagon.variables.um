@@ -1,0 +1,547 @@
+@theme
+  @modules
+    @spinner
+      @spinner-col: #00ADA8
+    @form
+      @error-text-col: #F7F7F9
+      @error-background-col: #4A4E4E
+    @modal
+      @shade-col: rgba(0,0,0,0.5)
+      @background-col: #FFFFFF
+      @title-background-col: #FFFFFF
+      @title-text-col: #3D3D3D
+      @title-font-size: 1.17em
+      @shadow-col: rgba(0, 0, 0, 0.5)
+      @border-radius: 3px
+      @border-color: #D0D0D0
+      @box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+    @notify
+      @background-col: #FFFFFF
+      @text-col: #3D3D3D
+      @border-col: #D0D0D0
+      @close-col: #939393
+      @close-hover-col: #3D3D3D
+      @pinned-col: #00ADA8
+      @pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%)
+      @unpinned-col: #939393
+      @unpinned-hover-col: #3D3D3D
+      @default-col: #FFFFFF
+      @info-col: #B36ABB
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @loading-col: #00ADA8
+      @container-background-col: rgb(247, 247, 249)
+      @container-border-col: transparent
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @base
+      @default-font-family: 'Open Sans', sans-serif
+      @heading-font-family: 'Open Sans', sans-serif
+      @body-background-col: rgb(247, 247, 249)
+      @default-text-col: #3D3D3D
+      @heading-text-col: #3D3D3D
+      @input-background-col: white
+      @input-border-col: #DADADA
+      @input-text-col: #3D3D3D
+      @input-focus-border-col: #00ADA8
+      @input-invalid-border-col: #DE1A4A
+      @input-border-radius: 2px
+      @select-background-col: #FAFAFA
+      @select-border-col: #D8D8D8
+      @select-text-col: #3D3D3D
+      @select-focus-border-col: #B5B5B5
+      @text-select-col: #B4B1B5
+      @link-col: #00ADA8
+      @divider-col: #D0D0D0
+      @divider-style: solid
+      @default-font-size: 14px
+    @button
+      @default-col: #FFFFFF
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @disabled-col: #FAFAFA
+      @disabled-text-col: #939393
+      @invert-col: #FDFDFD
+      @invert-text-col: gray
+      @invert-hover-col: #F2F2F2
+      @invisible-text-col: #575757
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @default-border-col: darken($default-col, 10%)
+      @action-border-col: darken($action-col, 10%)
+      @positive-border-col: darken($positive-col, 10%)
+      @warning-border-col: darken($warning-col, 10%)
+      @negative-border-col: darken($negative-col, 10%)
+      @info-border-col: darken($info-col, 10%)
+      @complement-border-col: darken($complement-col, 10%)
+      @contrast-border-col: darken($contrast-col, 10%)
+      @invert-border-col: darken(#FDFDFD, 10%)
+      @normal-font-size: 1em
+      @normal-height: 40px
+      @normal-line-height: 38px
+      @normal-padding: 0 20px
+      @small-font-size: 0.9em
+      @small-height: 30px
+      @small-line-height: 28px
+      @small-padding: 0 20px
+      @micro-font-size: 0.9em
+      @micro-height: 20px
+      @micro-line-height: 18px
+      @micro-padding: 0 20px
+      @font-weight: normal
+      @border-radius: 0.15em
+      @default-font-weight: bold
+      @default-text-color: #3D3D3D
+      @default-text-hover-color: #3D3D3D
+      @default-background-color: #FFFFFF
+      @default-background-hover-color: darken($default-col, 10%)
+      @default-border-color: #3D3D3D
+      @default-border-hover-color: #3D3D3D
+      @primary-font-weight: bold
+      @primary-text-color: #F3F3F3
+      @primary-text-hover-color: #F3F3F3
+      @primary-background-color: #00ADA8
+      @primary-background-hover-color: darken($action-col, 10%)
+      @primary-border-color: #00ADA8
+      @primary-border-hover-color: darken($action-col, 10%)
+      @secondary-font-weight: bold
+      @secondary-text-color: #F3F3F3
+      @secondary-text-hover-color: #F3F3F3
+      @secondary-background-color: #3D3D3D
+      @secondary-background-hover-color: darken($dark-text-col, 10%)
+      @secondary-border-color: #3D3D3D
+      @secondary-border-hover-color: darken($dark-text-col, 10%)
+      @success-font-weight: bold
+      @success-text-color: #F3F3F3
+      @success-text-hover-color: #F3F3F3
+      @success-background-color: #92BF17
+      @success-background-hover-color: darken($positive-col, 10%)
+      @success-border-color: #92BF17
+      @success-border-hover-color: darken($positive-col, 10%)
+      @danger-font-weight: bold
+      @danger-text-color: #F3F3F3
+      @danger-text-hover-color: #F3F3F3
+      @danger-background-color: #EC3A65
+      @danger-background-hover-color: darken($negative-col, 10%)
+      @danger-border-color: #EC3A65
+      @danger-border-hover-color: darken($negative-col, 10%)
+      @link-font-weight: normal
+      @link-text-color: #00ADA8
+      @link-text-hover-color: #00ADA8
+      @disabled-font-weight: bold
+      @disabled-text-color: #939393
+      @disabled-background-color: #FAFAFA
+      @disabled-border-color: #FAFAFA
+      @disabled-border-hover-color: #FAFAFA
+      @link-background-color: transparent
+      @link-background-hover-color: transparent
+      @link-border-color: transparent
+      @link-border-hover-color: transparent
+    @dropdown
+      @spacing: 0
+      @background-col: #FFFFFF
+      @shadow-col: rgba(0, 0, 0, 0.05)
+      @border-col: #E7E7E7
+    @collapsible
+      @heading-background-col: #FAFAFA
+      @heading-text-col: #3D3D3D
+      @toggle-background-col: #FFFFFF
+      @toggle-text-col: #3D3D3D
+      @toggle-hover-background-col: #00ADA8
+      @toggle-hover-text-col: white
+      @content-border-col: ''
+      @content-background-col: #FFFFFF
+      @content-text-col: #3D3D3D
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @palette
+      @default-col: #FFFFFF
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @disabled-col: #FAFAFA
+      @disabled-text-col: #939393
+    @input-group
+      @input-background-col: white
+      @input-border-col: #DADADA
+      @input-invalid-outline-col: #DE1A4A
+      @input-focus-border-col: #00ADA8
+      @div-background-col: #FDFDFD
+      @div-border-col: #DADADA
+      @icon-background-col: #F9F9F9
+      @icon-border-col: #DADADA
+    @menu
+      @default-col: #FFFFFF
+      @default-hover-col: #F9F9F9
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @disabled-col: #FAFAFA
+      @disabled-text-col: #939393
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @default-text-col: #3D3D3D
+      @collapsible-background-col: #FDFDFD
+      @collapsible-text-col: #3D3D3D
+      @default-hover-border-col: transparent
+      @default-border-col: transparent
+      @border-width: 2px
+    @date-picker
+      @today-background-col: #FFFFFF
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @day-hover-background-col: #00ADA8
+      @range-background-col: #F9F9F9
+      @selected-background-col: #00ADA8
+      @error-background-col: #FCBFBF
+      @error-outline-col: #DE1A4A
+      @divider-col: #D0D0D0
+      @header-text-col: #3D3D3D
+      @navigation-icon-col: #939393
+      @navigation-icon-hover-col: #3D3D3D
+      @input-background-col: white
+      @day-border-radius: 2px
+      @out-of-range-col: #939393
+      @border-col: #DADADA
+      @icon-col: white
+      @icon-background-col: #00ADA8
+    @time-picker
+      @error-background-col: #FCBFBF
+      @error-outline-col: #DE1A4A
+      @input-background-col: white
+      @border-col: #DADADA
+      @icon-col: white
+      @icon-background-col: #00ADA8
+    @drag-container
+      @drag-placeholder-border-col: #D0D0D0
+    @layout
+      @content-max-width: 1200px
+      @content-breakpoint: 1300px, 900px
+      @content-padding: 1em
+      @margin: 0.3em
+      @spacing: 0.3em
+      @named-class-min-width: 250px
+      @border-col: #D0D0D0
+      @content-background-col: transparent
+    @progress-bar
+      @border-col: none
+      @border-width: 0
+      @default-col: #FFFFFF
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @background-col: rgba(227,227,227,0.3)
+    @plot
+      @colors
+        rgb(177,119,190)
+        rgb(90,155,212)
+        rgb(241,90,113)
+        rgb(151,195,102)
+        rgb(250,169,91)
+        rgb(226,212,64)
+      @warm-col: rgb(250,169,91)
+      @ambient-col: rgb(226,212,64)
+      @cold-col: rgb(90,155,212)
+      @positive-col: rgb(151,195,102)
+      @warning-col: rgb(226,212,64)
+      @negative-col: rgb(241,90,113)
+      @label-background-col: #FDFDFD
+      @label-text-col: #3D3D3D
+      @tick-text-col: #3D3D3D
+      @tick-text-size: 10px
+      @tick-line-col: #D0D0D0
+      @axis-line-col: #D0D0D0
+      @axis-title-text-col: #3D3D3D
+      @label-key-text-col: #3D3D3D
+      @label-border-col: #E7E7E7
+      @grid-line-col: #E7E7E7
+      @pie-segment-text-col: rgba(255, 255, 255, 0.8)
+      @label-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
+      @label-header-background-col: #FFFFFF
+      @label-header-border-col: #D0D0D0
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+    @sticky-table-headers
+      @scroll-indicator-shadow-color: rgba(0,0,0,0.5)
+    @table
+      @header-background-col: #FFFFFF
+      @header-text-col: #3D3D3D
+      @row-background-col: rgb(247, 247, 249)
+      @row-hover-background-col: #E4E4E4
+      @row-alt-background-col: #F3F3F3
+      @row-text-col: #3D3D3D
+      @row-alt-text-col: #3D3D3D
+      @border-col: #E2E1E1
+    @toggle
+      @background-off-col: #D5D5D5;
+      @background-on-col: #D5D5D5;
+      @toggle-off-col: #ABABAB
+      @toggle-on-col: #B2BA32
+    @date-time-picker
+      @border-col: #DADADA
+    @tag-input
+      @default-col: #FFFFFF
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @tag-container-background-col: #FDFDFD
+      @disabled-col: #FAFAFA
+      @disabled-text-col: #939393
+      @border-col: #DADADA
+      @tag-container-border-col: #E7E7E7
+    @titlebar
+      @default-background-col: #F8F8F8
+      @action-background-col: #00ADA8
+      @positive-background-col: #92BF17
+      @warning-background-col: #D69B24
+      @negative-background-col: #EC3A65
+      @info-background-col: #B36ABB
+      @title-font-family: 'Open Sans', sans-serif
+      @heading-shadow-col: rgba(0, 0, 0, 0.05)
+      @heading-border-bottom-col: #D0D0D0
+      @heading-border-bottom-width: 0
+      @titlebar-text-col: #3D3D3D
+      @titlebar-icon-col: rgba(0, 0, 0, 0.3)
+      @titlebar-icon-hover-col: rgba(0, 0, 0, 0.6)
+      @linkbar-background-col: #FFFFFF
+      @link-text-col: #3D3D3D
+      @link-text-hover-col: #00ADA8
+      @link-border-hover-col: #00ADA8
+      @link-border-selected-col: #D0DDEE
+      @mobile-view-icons-background-col: lighten($default-background-col, 5%)
+      @mobile-view-icons-text-col: #3D3D3D
+      @mobile-view-icons-text-hover-col: #3D3D3D
+      @title-font-size: 1.7em
+      @titlebar-height: 46px
+      @linkbar-height: 40px
+      @titlebar-menu-context-text-col: white
+      @icon-tooltip-background-col: #4A4E4E
+      @icon-tooltip-text-col: #F7F7F9
+      @font-weight: 100
+      @icon-vertical-offset: 12px
+      @icon-background-col: transparent
+      @context-text-col: #F3F3F3
+      @context-icon-background: #FFFFFF
+      @titlebar-menu-context-border-col: transparent
+      @title-text-col: #00ADA8
+      @titlebar-context-icon-col: rgba(255, 255, 255, 0.5)
+      @titlebar-context-icon-hover-col: rgba(255, 255, 255, 0.85)
+      @complement-background-col: #F7F7F9
+      @contrast-background-col: #4A4E4E
+    @slider
+      @background-col: #FDFDFD
+      @slider-background-col: #DADADA
+      @range-background-col: #00ADA8
+      @inner-border-radius: 20px
+      @slider-border-radius: 20px
+      @slider-left-border-radius: 20px 0 0 20px
+      @slider-right-border-radius: 0 20px 20px 0
+      @range-border-radius: 20px
+      @marker-border-radius: 20px
+      @text-col: #F7F7F9
+      @range-height: 50%
+      @value-background-col: #4A4E4E
+      @value-border-radius: 5px
+      @disabled-background-col: #BBBBBB
+      @slider-marker-col: #E2E2E2
+      @border-radius: 2px
+      @disabled-col: #FAFAFA
+      @shadow-col: transparent
+    @badge
+      @default-color: #4A4E4E
+      @success-color: #92BF17
+      @warning-color: #D69B24
+      @danger-color: #EC3A65
+      @default-text-color: #F3F3F3
+      @success-text-color: #F3F3F3
+      @warning-text-color: #F3F3F3
+      @danger-text-color: #F3F3F3
+      @inverse-text-color: #3D3D3D
+      @inverse-background-color: #F3F3F3
+      @height: 18px
+      @font-size: 12px
+      @font-weight: 600
+      @border-radius: 10px
+      @border-width: 1px
+      @border-style: solid
+      @padding: 0 0.5em
+    @card
+      @background-col: #FFFFFF
+      @border-col: #E7E7E7
+      @shadow-col: rgba(0, 0, 0, 0.05)
+      @header-text-col: #3D3D3D
+      @header-background-col: #FAFAFA
+      @section-border-col: #E7E7E7
+      @text-col: #3D3D3D
+      @icon-col: #3D3D3D
+      @action-hover-background-col: #F3F3F3
+      @normal-padding: 14px
+      @small-padding: 7px
+      @context-text-col: white
+    @data-table
+      @disabled-row-background-col: #FAFAFA
+      @disabled-row-text-col: #939393
+      @no-data-row-background-col: transparent
+      @no-data-row-text-col: #3D3D3D
+      @selected-row-background-col: rgb(149, 216, 243)
+      @status-bar-background-col: #00ADA8
+      @status-bar-text-col: white
+      @row-collapsible-background-col: #FFFFFF
+      @row-collapsible-text-col: #3D3D3D
+      @compact-row-shadow-col: rgba(0, 0, 0, 0.05)
+      @footer-shadow-col: rgba(0, 0, 0, 0.05)
+      @compact-row-background-col: #FFFFFF
+      @compact-row-text-col: #3D3D3D
+      @compact-row-hover-background-col: #FAFAFA
+      @compact-row-hover-text-col: #3D3D3D
+      @loading-background-col: rgba(255, 255, 255, 0.4)
+      @footer-background-col: #FFFFFF
+    @drawing
+      @sidebar-border-col: #E7E7E7
+      @sidebar-title-background-col: #F9F9F9
+      @sidebar-title-text-col: #3D3D3D
+      @sidebar-background-col: transparent
+      @sidebar-text-col: #3D3D3D
+    @error-pages
+      @background-col: #FFFFFF
+      @padding: 32px
+      @box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.05)
+      @border-radius: 2px
+      @heading-text-col: #3D3D3D
+      @heading-font-size: 2em
+      @heading-font-weight: bold
+      @heading-margin: 1em
+      @body-font-size: 1em
+      @body-margin: 1em
+    @label
+      @default-col: #FFFFFF
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @invert-col: #FDFDFD
+      @disabled-col: #FAFAFA
+      @disabled-text-col: #939393
+    @notice
+      @default-col: #FAFAFA
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @default-body-col: #FFFFFF
+      @action-body-col: #0BBDB8
+      @positive-body-col: #9ECA26
+      @warning-body-col: #E4AE41
+      @negative-body-col: #EC426C
+      @info-body-col: #B674BD
+      @complement-body-col: #FFFFFF
+      @contrast-body-col: #3E4444
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @paginator
+      @arrow-button: n-a
+      @default-button: hx-complement
+      @selected-button: hx-action
+      @button-border-color: #DADADA
+      @button-background-color: #FFFFFF
+      @button-text-color: #3D3D3D
+      @button-hover-background-color: #D0DDEE
+      @button-hover-text-color: #3D3D3D
+      @ellipsis-background-color:  transparent;
+      @ellipsis-border-color:  transparent;
+      @ellipsis-text-color: #3D3D3D
+      @selected-background-color: #00ADA8
+      @selected-text-color: #F3F3F3
+      @button-font-weight: normal
+    @side-collapsible
+      @heading-background-col: #FAFAFA
+      @heading-text-col: #3D3D3D
+      @toggle-background-col: #FFFFFF
+      @toggle-text-col: #3D3D3D
+      @toggle-hover-background-col: #00ADA8
+      @toggle-hover-text-col: white
+      @content-border-col: ''
+      @content-background-col: #FFFFFF
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @sidebar
+      @animation-duration: 0.15s
+      @background-col: #FFFFFF
+      @selected-background-col: #00ADA8
+      @selected-text-col: #F3F3F3
+      @title-font: 'Open Sans', sans-serif
+      @title-background-col: #FAFAFA
+      @title-text-col: #3D3D3D
+      @titlebar-icon-background-col: #F8F8F8
+      @section-text-col: #3D3D3D
+      @section-hover-background-col: #1DBFBB
+      @section-hover-text-col: #F3F3F3
+      @collapsible-border-col: transparent
+      @titlebar-button-background-col: #F8F8F8
+      @titlebar-button-text-col: rgba(0, 0, 0, 0.3)
+      @titlebar-button-hover-text-col: rgba(0, 0, 0, 0.6)
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @tabs
+      @background-col: #FDFDFD
+      @border-col: #D8D8D8
+      @tab-background-col: #FDFDFD
+      @text-col: #3D3D3D
+      @tab-text-col: #3D3D3D
+      @tab-inactive-opacity: 0.25
+      @tab-active-opacity: 1
+      @default-col: #9F9F9F
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #F7F7F9
+      @contrast-col: #4A4E4E
+      @shadow-col: rgba(0, 0, 0, 0.05)
+      @disabled-col: #FAFAFA
+      @light-text-col: #F3F3F3
+      @dark-text-col: #3D3D3D
+      @disabled-text-col: #939393
+    @tree
+      @icon-background-col: #00ADA8
+      @icon-background-hover-col: #1DBFBB
+      @icon-text-col: white
+      @icon-text-hover-col: white
+      @item-border-left-col: #00ADA8
+      @icon-disabled-background-col: #FAFAFA
+      @icon-disabled-text-col: #F0F0F0
+      @background-col: #FFFFFF
+      @shadow-col: rgba(128, 128, 128, 0.17)
+      @icon-disabled-col: #FAFAFA

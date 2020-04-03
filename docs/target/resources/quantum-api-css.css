@@ -1,0 +1,37 @@
+.qm-api-css-class {}
+
+.qm-api-css-child-class {
+  border-color: #D8942A;
+}
+
+.qm-api-css-child-class > .qm-api-collapsible-heading .qm-api-collapsible-toggle {
+  background-color: #D8942A;
+}
+
+.qm-api-css-extra-class {
+  border-color: #98b313;
+}
+
+.qm-api-css-extra-class > .qm-api-collapsible-heading .qm-api-collapsible-toggle {
+  background-color: #98b313;
+}
+
+.qm-api-css-child-class {}
+
+
+.qm-api-css-header {
+  font-weight: bold;
+}
+
+.qm-api-item-header-class > .qm-api-css-header-name:before {
+  content: ' .';
+}
+
+.qm-api-item-header-extra-class > .qm-api-css-header-name:before {
+  content: '.';
+}
+
+/* Changelog */
+.qm-changelog-css-class + .qm-changelog-css-class {
+  margin-left: 0.4em;
+}
