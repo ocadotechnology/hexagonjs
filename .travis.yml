@@ -36,7 +36,7 @@ jobs:
     - stage: publish pages
       env:
         - GITHUB_PAGES=true
-      script: cd docs && npm install && npm run clean && npm run build
+      script: cd docs && npm install
       deploy:
         provider: pages
         local-dir: docs/target

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hexagon Starter Page</title>
+
+  <!-- Make the page responsive to the device window size -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <!-- Add Font Awesome (for icons) https://fontawesome.com/get-started -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <!-- Add the hexagon stylesheet -->
+  <link rel="stylesheet" href="/resources/hexagon/latest/hexagon.css">
+</head>
+<body>
+  <div class="hx-heading example-heading">
+    <div class="hx-titlebar">
+      <div class="hx-titlebar-container">
+        <div class="hx-titlebar-header">
+          <a class="hx-titlebar-icon" href="#">
+            <img class="hx-logo"></img>
+          </a>
+          <div class="hx-titlebar-title">Title</div>
+          <div class="hx-titlebar-subtitle">Subtitle</div>
+          <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-bars"></i></div>
+        </div>
+        <div class="hx-titlebar-menu-icons">
+          <div class="hx-titlebar-menu-icons-container">
+            <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+            <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+            <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+            <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hx-titlebar-linkbar">
+      <div class="hx-titlebar-contents">
+        <a class="hx-titlebar-link">Link 1</a>
+        <a class="hx-titlebar-link">Link 2</a>
+        <a class="hx-titlebar-link">Link 3</a>
+        <a class="hx-titlebar-link">Link 4</a>
+        <a class="hx-titlebar-link">Link 5</a>
+      </div>
+    </div>
+  </div>
+  <div class="hx-content">
+    <div id="card-container"></div>
+  </div>
+
+  <!-- Include the hexagon script at the end of the body -->
+  <script src="/resources/hexagon/latest/hexagon.js"></script>
+
+
+  <!-- Add your own scripts -->
+  <script>
+    function titleText (title, text) {
+      return hx.card.section()
+        .add(hx.detached('div')
+          .add(hx.card.title({text: title})))
+        .add(hx.detached('div')
+        .add(hx.card.text({text: text})))
+    }
+
+    function sparkline (options) {
+      return hx.card.group()
+        .add(hx.card.fixed.section().add(hx.card.text({text: options.text})))
+        .add(hx.card.section().add(hx.sparkline({strokeColor: options.sparklineColor, data: options.sparklineData})))
+    }
+
+    function random (i) {
+      return {
+        x: i,
+        y: Math.random()
+      }
+    }
+
+    function statusCard (name, context) {
+      return hx.card()
+        .add(hx.card.header.section({ context: context})
+          .add(hx.card.title({text: name})))
+        .add(hx.card.header.group()
+          .add(titleText('Status', 'Normal'))
+          .add(titleText('Uptime', '5 days'))
+          .add(titleText('Memory Usage', '482 MB'))
+          .add(titleText('Thread Count', '19'))
+          .add(titleText('Page Hits', '2236 / s')))
+        .add(hx.card.aligned()
+          .add(sparkline({text: 'Memory Use', sparklineColor: hx.theme().plot.colors[0], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Thread Count', sparklineColor: hx.theme().plot.colors[1], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme().plot.colors[2], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme().plot.colors[3], sparklineData: hx.range(60).map(random)})))
+    }
+
+    hx.select('#card-container').classed('hx-group hx-horizontal', true)
+      .add(hx.section()
+        .add(statusCard('Instance 1', undefined)))
+      .add(hx.section()
+        .add(statusCard('Instance 2', 'positive')))
+      .add(hx.section()
+        .add(statusCard('Instance 3', 'negative')))
+  </script>
+</body>
+</html>

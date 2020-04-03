@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/resources/quantum-code-highlight.css"></link><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><button id="button-1" class="hx-btn hx-positive">view.apply([1, 2, 3])</button>
+<button id="button-2" class="hx-btn hx-warning">view.apply([1, ..., 8])</button>
+<button id="button-3" class="hx-btn hx-negative">view.apply([5, 6, 7, 8])</button>
+<div id="container"></div>
+
+view = hx.select('#container').view('.thing').update((d) -> @text(d))
+
+view.apply([1, 2, 3, 4, 5])
+
+hx.select('#button-1').on 'click', -> view.apply([1, 2, 3])
+hx.select('#button-2').on 'click', -> view.apply([1, 2, 3, 4, 5, 6, 7, 8])
+hx.select('#button-3').on 'click', -> view.apply([5, 6, 7, 8])
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"button-1"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive"</span>&gt;</span>view.apply([1, 2, 3])<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"button-2"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-warning"</span>&gt;</span>view.apply([1, ..., 8])<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"button-3"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-negative"</span>&gt;</span>view.apply([5, 6, 7, 8])<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+
+view = hx.select(<span class="hljs-string">'#container'</span>).view(<span class="hljs-string">'.thing'</span>).update(<span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> @text(d))
+
+view.apply([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+
+hx.select(<span class="hljs-string">'#button-1'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> view.apply([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+hx.select(<span class="hljs-string">'#button-2'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> view.apply([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>])
+hx.select(<span class="hljs-string">'#button-3'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> view.apply([<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>])
+</code></pre></div></div></div></div></body></html>

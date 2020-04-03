@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/resources/quantum-code-highlight.css"></link><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div id="container" style="overflow:hidden; height:0; opacity: 0;"></div>
+<button id="btn-1" class="hx-btn hx-positive">Open</button>
+<button id="btn-2" class="hx-btn hx-positive">Close</button>
+makeContent = (selector) ->
+  hx.select(selector)
+    .add(hx.card()
+      .add(hx.card.header.section().text('Header'))
+      .add(hx.card.section().text('Content')))
+
+selection = hx.select('#container')
+
+makeContent(selection.node())
+
+node = selection.node()
+
+# these animations are intentionally slow, so you can see what is happening
+morph = undefined
+
+animateSpeed = 500
+
+hx.select('#btn-1').on 'click', ->
+  if morph isnt undefined then morph.cancel()
+  morph = hx.morph(node)
+    .with('expand', animateSpeed)
+    .then('fadein', animateSpeed)
+    .then => morph = undefined
+    .go()
+
+hx.select('#btn-2').on 'click', ->
+  if morph isnt undefined then morph.cancel()
+  morph = hx.morph(node)
+    .with('fadeout', animateSpeed)
+    .then('collapse', animateSpeed)
+    .then => morph = undefined
+    .go()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"overflow:hidden; height:0; opacity: 0;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"btn-1"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive"</span>&gt;</span>Open<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"btn-2"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive"</span>&gt;</span>Close<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">makeContent</span> = <span class="hljs-params">(selector)</span> -&gt;</span>
+  hx.select(selector)
+    .add(hx.card()
+      .add(hx.card.header.section().text(<span class="hljs-string">'Header'</span>))
+      .add(hx.card.section().text(<span class="hljs-string">'Content'</span>)))
+
+selection = hx.select(<span class="hljs-string">'#container'</span>)
+
+makeContent(selection.node())
+
+node = selection.node()
+
+<span class="hljs-comment"># these animations are intentionally slow, so you can see what is happening</span>
+morph = <span class="hljs-literal">undefined</span>
+
+animateSpeed = <span class="hljs-number">500</span>
+
+hx.select(<span class="hljs-string">'#btn-1'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span>
+  <span class="hljs-keyword">if</span> morph <span class="hljs-keyword">isnt</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">then</span> morph.cancel()
+  morph = hx.morph(node)
+    .with(<span class="hljs-string">'expand'</span>, animateSpeed)
+    .<span class="hljs-keyword">then</span>(<span class="hljs-string">'fadein'</span>, animateSpeed)
+    .<span class="hljs-keyword">then</span> =&gt; morph = <span class="hljs-literal">undefined</span>
+    .go()
+
+hx.select(<span class="hljs-string">'#btn-2'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span>
+  <span class="hljs-keyword">if</span> morph <span class="hljs-keyword">isnt</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">then</span> morph.cancel()
+  morph = hx.morph(node)
+    .with(<span class="hljs-string">'fadeout'</span>, animateSpeed)
+    .<span class="hljs-keyword">then</span>(<span class="hljs-string">'collapse'</span>, animateSpeed)
+    .<span class="hljs-keyword">then</span> =&gt; morph = <span class="hljs-literal">undefined</span>
+    .go()</code></pre></div></div></div></div></body></html>

@@ -16,5 +16,5 @@ docs/resources/hexagon/nextReleaseVersion
 # Genererated Folders
 /demo
 /dist
-target
+/target
 coverage

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/resources/quantum-code-highlight.css"></link><style>.graph {
+  width: 500px;
+  height: 250px;
+  margin: 1em;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div class="hx-input-group">
+  <button id="btn-1" class="hx-btn hx-positive">Click</button>
+  <button id="btn-2" class="hx-btn hx-positive"><i class="fa fa-caret-down"></i></button>
+</div>
+#define the data
+data = [
+  {
+    "text":"Menu Item 1",
+    "url":"#menu-1"
+  },
+  {
+    "text":"Menu Item 2",
+    "url":"#menu-2"
+  },
+  {
+    "text":"Menu Item 3",
+    "url":"#menu-3"
+  }
+]
+
+#create the menu
+menu = new hx.Menu("#btn-2", 'rtrb')
+
+#redefine the renderer for this menu
+menu.renderer (element, item) ->
+  hx.select(element)
+    .html(item.text)
+    .on('click', -> document.location = item.url)
+
+#render the data
+menu.items(data)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-input-group"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"btn-1"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive"</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"btn-2"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-caret-down"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+<span class="hljs-comment">#define the data</span>
+data = [
+  {
+    <span class="hljs-string">"text"</span>:<span class="hljs-string">"Menu Item 1"</span>,
+    <span class="hljs-string">"url"</span>:<span class="hljs-string">"#menu-1"</span>
+  },
+  {
+    <span class="hljs-string">"text"</span>:<span class="hljs-string">"Menu Item 2"</span>,
+    <span class="hljs-string">"url"</span>:<span class="hljs-string">"#menu-2"</span>
+  },
+  {
+    <span class="hljs-string">"text"</span>:<span class="hljs-string">"Menu Item 3"</span>,
+    <span class="hljs-string">"url"</span>:<span class="hljs-string">"#menu-3"</span>
+  }
+]
+
+<span class="hljs-comment">#create the menu</span>
+menu = <span class="hljs-keyword">new</span> hx.Menu(<span class="hljs-string">"#btn-2"</span>, <span class="hljs-string">'rtrb'</span>)
+
+<span class="hljs-comment">#redefine the renderer for this menu</span>
+menu.renderer (element, item) -&gt;
+  hx.select(element)
+    .html(item.text)
+    .<span class="hljs-literal">on</span>(<span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> <span class="hljs-built_in">document</span>.location = item.url)
+
+<span class="hljs-comment">#render the data</span>
+menu.items(data)</code></pre></div></div><div class="example-code-section"><h3>CSS</h3><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.graph</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">500px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">250px</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">1em</span>;
+}</code></pre></div></div></div></div></body></html>
