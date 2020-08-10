@@ -216,7 +216,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
@@ -298,7 +298,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
@@ -385,7 +385,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
@@ -459,7 +459,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
@@ -541,7 +541,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
@@ -1160,7 +1160,7 @@
             @@codeblock js
               var validator = function(e){
                 if(e.target.value.length < 5){
-                  "Please enter text longer than 5 characters"
+                  return "Please enter text longer than 5 characters"
                 }
               }
 
