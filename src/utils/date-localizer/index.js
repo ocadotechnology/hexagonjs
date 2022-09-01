@@ -499,8 +499,7 @@ class DateTimeLocalizerMoment extends PreferencesHandler {
   }
 
   weekDays() {
-    const dayDate = moment().weekday(0);
-    dayDate.locale(this.locale());
+    const dayDate = moment().locale(this.locale()).weekday(0);
     const dayNames = [dayDate.format('dd')];
     for (let i = 0; i < 6; i += 1) {
       dayNames.push(dayDate.add(1, 'd').format('dd'));
